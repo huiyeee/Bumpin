@@ -3,7 +3,9 @@ import logo from "./logo.svg";
 import "./App.css";
 
 const App = () => {
-  [matched, setMatched] = useState(false);
+  const [matched, setMatched] = useState(false);
+  const matchNumber = 1;
+
   return (
     <div className="App">
       <header className="App-header">
@@ -16,7 +18,8 @@ const App = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            You've bumped into someone! Click to join via Zoom
+            You've bumped into someone! Click to join via Zoom [debug number:
+            {matchNumber}]
           </a>
         ) : (
           <p>The hallway is empty... we'll let you know if someone comes in</p>
