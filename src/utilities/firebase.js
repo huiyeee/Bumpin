@@ -1,7 +1,18 @@
+import { useState, useEffect } from "react";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
+import { getDatabase, onValue, ref, set } from "firebase/database";
+
+import {
+  getAuth,
+  GoogleAuthProvider,
+  onIdTokenChanged,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
 // https://firebase.google.com/docs/web/setup#available-libraries
+import { wait } from "@testing-library/user-event/dist/utils";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -14,8 +25,45 @@ const firebaseConfig = {
   appId: "1:197232644599:web:769da6c0673efc09e11ef2",
 };
 
+// auth
+export const signInWithGoogle = () => {
+  signInWithPopup(getAuth(firebase), new GoogleAuthProvider());
+};
+
+const firebaseSignOut = () => signOut(getAuth(firebase));
+
+export { firebaseSignOut as signOut };
+
+export const useUserState = () => {
+  const [users, loading, error] = useData("/users");
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    onIdTokenChanged(getAuth(firebase), (user) => {
+      wait(100).then((r) => {
+        storeUserInfo(user, users);
+        setUser(user);
+      });
+    });
+  }, [users]);
+
+  return [user];
+};
+
+const storeUserInfo = (user, users) => {
+  if (user && users && !users[user.uid]) {
+    const userInfo = {
+      group_id: "unassigned",
+      email: user.email,
+      display_name: user.displayName,
+      photo_url: user.photoURL,
+    };
+    setData(`users/${user.uid}`, userInfo);
+  }
+};
+
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const firebase = initializeApp(firebaseConfig);
 
 export const database = getDatabase(firebase);
 
