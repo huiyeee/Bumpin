@@ -24,7 +24,8 @@ const App = () => {
   };
 
   if (error) return <h1>{error}</h1>;
-  if (loading) return <h1>Entering the hallway...</h1>;
+  if (loading) return <h1>Loading Bumpin...</h1>;
+
   if (user)
     return (
       <div className="App">
