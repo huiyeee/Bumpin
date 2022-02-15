@@ -16,12 +16,12 @@ const App = () => {
   const matchNumber = 1;
 
   if (error) return <h1>{error}</h1>;
-  if (loading) return <h1>Loading the grocery list...</h1>;
+  if (loading) return <h1>Loading Bumpin...</h1>;
   if (user)
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          {/* <img src={logo} className="App-logo" alt="logo" /> */}
           <p>{user.displayName}, welcome to Bumpin! You're in the hallway</p>
           {matched ? (
             <a
