@@ -24,12 +24,15 @@ const App = () => {
     setMatched(!matched);
   };
 
+  useEffect(() => {
+    if (user && meetingId) {
+      setData(`/users/${user.uid}/group_id`, meetingId);
+    }
+  }, []);
   if (error) return <h1>{error}</h1>;
   if (loading) return <h1>Loading Bumpin...</h1>;
 
   if (user) {
-    //problematic code: set data whenever this rerenders. need to useEffect
-    setData(`/users/${user.uid}/group_id`, meetingId);
     return (
       <div className="App">
         <header className="App-header">
