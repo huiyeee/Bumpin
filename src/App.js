@@ -28,7 +28,8 @@ const App = () => {
     if (user && meetingId) {
       setData(`/users/${user.uid}/group_id`, meetingId);
     }
-  }, []);
+  }, [user]);
+
   if (error) return <h1>{error}</h1>;
   if (loading) return <h1>Loading Bumpin...</h1>;
 
