@@ -10,7 +10,7 @@ const LogOn = () => {
       <header className="App-header">
         <Typography variant="h4">
           Welcome to Bumpin! Ready to get started? Your meeting id is
-          {meetingId}.
+          {" " + meetingId}.
         </Typography>
         <br />
         <Button variant="contained" onClick={() => signInWithGoogle()}>
