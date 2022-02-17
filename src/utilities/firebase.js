@@ -53,7 +53,6 @@ export const useUserState = () => {
 const storeUserInfo = (user, users) => {
   if (user && users && !users[user.uid]) {
     const userInfo = {
-      group_id: "unassigned",
       email: user.email,
       display_name: user.displayName,
       photo_url: user.photoURL,
