@@ -1,0 +1,20 @@
+{
+  "v1": {
+    "user": {
+      "7DUvQqtxPkdY2FlB2NcPyv8uVA42" : {
+        "uid": "7DUvQqtxPkdY2FlB2NcPyv8uVA42",
+        "display_name" : "Hui Ye",
+        "email" : "huiye2023@u.northwestern.edu",
+        "photo_url" : "https://lh3.googleusercontent.com/a/AATXAJwHYJqNadtJsmkm6PzkbvhauurQMIhEADCtqJx-=s96-c",
+        "zoom_link" : "https://northwestern.zoom.us/j/96638506912"
+      }
+    },
+    "hallway": {
+      "7DUvQqtxPkdY2FlB2NcPyv8uVA42": {
+        "uid": "7DUvQqtxPkdY2FlB2NcPyv8uVA42",
+        "enter_timestamp" : 231232932,
+        "meeting_id": "12C12AB"
+      }
+    }
+  }
+}
