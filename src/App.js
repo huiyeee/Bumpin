@@ -43,11 +43,11 @@ const App = () => {
           <img src={logo} className="App-logo" alt="logo" />
           <p>{user.displayName}, welcome to Bumpin!</p>
           <p>Your previous meeting ID was {meetingId}</p>
-          //todo encapsulate the params
-          <MatchedPanel userStatusInHallway = {userStatusInHallway} setUserStatusInHallway={setUserStatusInHallway} display={userStatusInHallway === Matched}/>
-          <MatchingPanel userStatusInHallway = {userStatusInHallway} setUserStatusInHallway={setUserStatusInHallway} display={userStatusInHallway === Matching}/>
-          <WaitingPanel userStatusInHallway = {userStatusInHallway} setUserStatusInHallway={setUserStatusInHallway} display={userStatusInHallway === WaitForConfirmation}/>
-          <LobbyPanel userStatusInHallway={userStatusInHallway} uid={user.uid} setUserStatusInHallway={setUserStatusInHallway} display={userStatusInHallway === Initial}/>
+          {/* todo encapsulate the common params to make the code cleaner*/}
+          <MatchedPanel uid={user.uid} userStatusInHallway = {userStatusInHallway} setUserStatusInHallway={setUserStatusInHallway}/>
+          <MatchingPanel uid={user.uid} userStatusInHallway = {userStatusInHallway} setUserStatusInHallway={setUserStatusInHallway}/>
+          <WaitingPanel userStatusInHallway = {userStatusInHallway} setUserStatusInHallway={setUserStatusInHallway}/>
+          <LobbyPanel uid={user.uid} userStatusInHallway={userStatusInHallway} setUserStatusInHallway={setUserStatusInHallway}/>
           
         </header>
       </div>
