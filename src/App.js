@@ -14,11 +14,17 @@ import LogOn from "./components/LogOn";
 import Lobby from "./components/Lobby";
 import Matched from "./components/Matched";
 
+// const Initial = 0;  // not in the hallway
+// const Matching = 1; // enter the hallway then getin matching process
+// const Matched = 2;  // matched successfully
+// const WaitForConfirmation = 3; // wait for the confirmation from others
+
 const App = () => {
   const [database, loading, error] = useData("/");
   const { meetingId } = useParams();
   const [user] = useUserState();
   const [matched, setMatched] = useState(false);
+  // const [userStatusInHallway, setUserStatusInHallway] =  useState(Initial);
 
   const toggleMatched = () => {
     setMatched(!matched);
@@ -43,8 +49,9 @@ const App = () => {
           {matched ? (
             <Matched toggleMatched={toggleMatched} />
           ) : (
-            <Lobby toggleMatched={toggleMatched} />
+            <Lobby uid={user.uid} toggleMatched={toggleMatched} />
           )}
+          
         </header>
       </div>
     );
