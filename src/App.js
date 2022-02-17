@@ -43,7 +43,7 @@ const App = () => {
   if (loading) return <h1>Loading Bumpin...</h1>;
 
   if (user) {
-    if (users[user.uid].zoom_link != "unassigned")
+    if (users[user.uid].zoom_link)
       return (
         <div className="App">
           <header className="App-header">

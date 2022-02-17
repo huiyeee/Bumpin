@@ -56,7 +56,6 @@ const storeUserInfo = (user, users) => {
       email: user.email,
       display_name: user.displayName,
       photo_url: user.photoURL,
-      zoom_link: "unassigned",
     };
     setData(`users/${user.uid}`, userInfo);
   }
