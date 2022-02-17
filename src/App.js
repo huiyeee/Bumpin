@@ -35,7 +35,7 @@ const App = () => {
 
   useEffect(() => {
     if (user && meetingId) {
-      setData(`/users/${user.uid}/group_id`, meetingId);
+      setData(`/users/${user.uid}/previous_meeting_id`, meetingId);
     }
   }, [user]);
 
@@ -53,11 +53,13 @@ const App = () => {
             {/* todo encapsulate the common params to make the code cleaner*/}
             <MatchedPanel
               uid={user.uid}
+              zoom_link={users[user.uid].zoom_link}
               userStatusInHallway={userStatusInHallway}
               setUserStatusInHallway={setUserStatusInHallway}
             />
             <MatchingPanel
               uid={user.uid}
+              users={users}
               userStatusInHallway={userStatusInHallway}
               setUserStatusInHallway={setUserStatusInHallway}
             />
