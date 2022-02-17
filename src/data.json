@@ -13,7 +13,8 @@
       "7DUvQqtxPkdY2FlB2NcPyv8uVA42": {
         "uid": "7DUvQqtxPkdY2FlB2NcPyv8uVA42",
         "enter_timestamp" : 231232932,
-        "meeting_id": "12C12AB"
+        "meeting_id": "12C12AB",
+        "confirmed": false
       }
     }
   }
