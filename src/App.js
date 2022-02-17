@@ -11,20 +11,17 @@ import { useParams } from "react-router-dom";
 import { Typography } from "@mui/material";
 
 import LogOn from "./components/LogOn";
-import Lobby from "./components/Lobby";
-import Matched from "./components/Matched";
-
-// const Initial = 0;  // not in the hallway
-// const Matching = 1; // enter the hallway then getin matching process
-// const Matched = 2;  // matched successfully
-// const WaitForConfirmation = 3; // wait for the confirmation from others
+import LobbyPanel from "./components/Lobby";
+import MatchedPanel from "./components/MatchedPanel";
+import {Matched, Initial, Matching, WaitForConfirmation} from "./utilities/constant";
+import MatchingPanel from "./components/MatchingPanel";
+import WaitingPanel from "./components/WaitingPanel";
 
 const App = () => {
   const [database, loading, error] = useData("/");
   const { meetingId } = useParams();
   const [user] = useUserState();
-  const [matched, setMatched] = useState(false);
-  // const [userStatusInHallway, setUserStatusInHallway] =  useState(Initial);
+  const [userStatusInHallway, setUserStatusInHallway] =  useState(Initial);
 
   const toggleMatched = () => {
     setMatched(!matched);
@@ -46,11 +43,11 @@ const App = () => {
           <img src={logo} className="App-logo" alt="logo" />
           <p>{user.displayName}, welcome to Bumpin!</p>
           <p>Your previous meeting ID was {meetingId}</p>
-          {matched ? (
-            <Matched toggleMatched={toggleMatched} />
-          ) : (
-            <Lobby uid={user.uid} toggleMatched={toggleMatched} />
-          )}
+          //todo encapsulate the params
+          <MatchedPanel userStatusInHallway = {userStatusInHallway} setUserStatusInHallway={setUserStatusInHallway} display={userStatusInHallway === Matched}/>
+          <MatchingPanel userStatusInHallway = {userStatusInHallway} setUserStatusInHallway={setUserStatusInHallway} display={userStatusInHallway === Matching}/>
+          <WaitingPanel userStatusInHallway = {userStatusInHallway} setUserStatusInHallway={setUserStatusInHallway} display={userStatusInHallway === WaitForConfirmation}/>
+          <LobbyPanel userStatusInHallway={userStatusInHallway} uid={user.uid} setUserStatusInHallway={setUserStatusInHallway} display={userStatusInHallway === Initial}/>
           
         </header>
       </div>

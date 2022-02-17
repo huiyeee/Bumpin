@@ -1,9 +1,10 @@
 import React from "react";
 import { Button } from "@mui/material";
+import {Initial} from "../utilities/constant";
 
-const Matched = ({ toggleMatched }) => {
+const MatchedPanel = ({ setUserStatusInHallway, display }) => {
   return (
-    <div>
+    <div style={display ? {} : {display: 'none'}}>
       <a
         className="App-link"
         href="https://northwestern.zoom.us/my/yvanchu"
@@ -14,11 +15,11 @@ const Matched = ({ toggleMatched }) => {
       </a>
       <br />
       <br />
-      <Button variant="contained" onClick={toggleMatched}>
+      <Button variant="contained" onClick={()=>{setUserStatusInHallway(Initial)}}>
         Leave the hallway
       </Button>
     </div>
   );
 };
 
-export default Matched;
+export default MatchedPanel;
