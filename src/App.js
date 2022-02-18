@@ -71,6 +71,7 @@ const App = () => {
       if (users[user.uid].zoom_link) {
         return (
           <>
+            Welcome, {user.displayName}
             {RenderUserStatusPanel()} {EditZoomLinkButton()} {LogOutButton()}
           </>
         );
@@ -84,10 +85,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <header className="App-header">
-        Welcome, {user.displayName}
-        {RenderPage()}
-      </header>
+      <header className="App-header">{RenderPage()}</header>
     </div>
   );
 };
