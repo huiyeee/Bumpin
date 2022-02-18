@@ -14,8 +14,8 @@ import {
   WaitForConfirmation,
 } from "./utilities/constant";
 import MatchingPanel from "./components/MatchingPanel";
-import { Button } from "@mui/material";
 import { signOut } from "./utilities/firebase";
+import { Button } from "@mui/material";
 
 const App = () => {
   const [users, loading, error] = useData("/users");
@@ -49,18 +49,11 @@ const App = () => {
   };
 
   const LogOutButton = () => {
-    return (
-      <Button variant="contained" onClick={() => signOut()}>
-        Sign Out
-      </Button>
-    );
+    return <Button onClick={() => signOut()}>Sign Out</Button>;
   };
   const EditZoomLinkButton = () => {
     return (
-      <Button
-        variant="contained"
-        onClick={() => setData(`/users/${user.uid}/zoom_link`, null)}
-      >
+      <Button onClick={() => setData(`/users/${user.uid}/zoom_link`, null)}>
         Change My Zoom Link
       </Button>
     );
@@ -71,7 +64,6 @@ const App = () => {
       if (users[user.uid].zoom_link) {
         return (
           <>
-            Welcome, {user.displayName}
             {RenderUserStatusPanel()} {EditZoomLinkButton()} {LogOutButton()}
           </>
         );

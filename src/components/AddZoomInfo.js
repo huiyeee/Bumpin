@@ -1,12 +1,7 @@
 import React from "react";
 import logo from "../logo.svg";
-import {
-  useData,
-  setData,
-  signInWithGoogle,
-  useUserState,
-} from "../utilities/firebase";
-import { Button, Typography, TextField } from "@mui/material";
+import { setData } from "../utilities/firebase";
+import { Button, TextField } from "@mui/material";
 
 const AddZoomInfoPanel = ({ uid }) => {
   const [zoomLink, setZoomLink] = React.useState("");
@@ -26,9 +21,7 @@ const AddZoomInfoPanel = ({ uid }) => {
           value={zoomLink}
           placeholder="https://zoom.us/my/..."
         />
-        <Button type="submit" variant="contained">
-          Add
-        </Button>
+        <Button type="submit">Add</Button>
       </form>
     </div>
   );

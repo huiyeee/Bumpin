@@ -1,26 +1,16 @@
 import React from "react";
 import { Button } from "@mui/material";
-import { Initial, Matched } from "../utilities/constant";
+import { Initial } from "../utilities/constant";
 import { setData } from "../utilities/firebase";
 
-const MatchedPanel = ({
-  uid,
-  shared_zoom_link
-}) => {
+const MatchedPanel = ({ uid, shared_zoom_link }) => {
   return (
     <div>
-      <a
-        className="App-link"
-        target="_blank"
-        href={shared_zoom_link}
-        rel="noopener noreferrer"
-      >
-        You've bumped into someone! Click to join via Zoom
-      </a>
-      <br />
-      <br />
+      <div>
+        <p>You've bumped into someone!</p>
+        <a href={shared_zoom_link}>Click to join via Zoom</a>
+      </div>
       <Button
-        variant="contained"
         onClick={() => {
           setData(`/users/${uid}/status`, Initial);
         }}

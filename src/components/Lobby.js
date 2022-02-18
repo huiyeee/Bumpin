@@ -11,7 +11,6 @@ const LobbyPanel = ({ uid }) => {
         in
       </p>
       <Button
-        variant="contained"
         onClick={() => {
           setData(`/users/${uid}/status`, Matching);
         }}
