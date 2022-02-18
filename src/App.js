@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import { useData, setData, useUserState } from "./utilities/firebase";
 import { useParams } from "react-router-dom";
