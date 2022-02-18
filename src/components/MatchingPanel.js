@@ -5,30 +5,22 @@ import { Initial, Matched, Matching } from "../utilities/constant";
 
 const MatchingPanel = ({ uid, users }) => {
   useEffect(() => {
-    var filtered_items = Object.keys(users).filter(
+    var matches = Object.keys(users).filter(
       (key) =>
         users[key].status === Matching &&
         users[key].previous_meeting_id !== users[uid].previous_meeting_id
     );
-    if (filtered_items.length !== 0) {
-      console.log("can not be here");
-      // set zoom to the first person render with match panel first person zoom id
+    if (matches.length !== 0) {
       setData(`/users/${uid}/shared_zoom_link`, users[uid].zoom_link);
-      setData(
-        `/users/${filtered_items[0]}/shared_zoom_link`,
-        users[uid].zoom_link
-      );
-
-      // set status to Matched
+      setData(`/users/${matches[0]}/shared_zoom_link`, users[uid].zoom_link);
       setData(`/users/${uid}/status`, Matched);
-      setData(`/users/${filtered_items[0]}/status`, Matched);
+      setData(`/users/${matches[0]}/status`, Matched);
     }
   });
   return (
     <div>
-      <p>Matching</p>
+      <p>Matching, please wait...</p>
       <Button
-        variant="contained"
         onClick={() => {
           setData(`/users/${uid}/status`, Initial);
         }}
@@ -38,4 +30,5 @@ const MatchingPanel = ({ uid, users }) => {
     </div>
   );
 };
+
 export default MatchingPanel;
