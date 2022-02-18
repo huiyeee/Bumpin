@@ -11,8 +11,10 @@ const LobbyPanel = ({uid, setUserStatusInHallway, userStatusInHallway}) => {
                 in
             </p>
             <Button variant="contained" onClick={() => {
-                addUserToHallway(uid);
+                // addUserToHallway(uid);
                 setUserStatusInHallway(Matching);
+                setData(`/users/${uid}/status`, Matching);
+                
             }}>
                 Enter the hallway
             </Button>
@@ -20,15 +22,15 @@ const LobbyPanel = ({uid, setUserStatusInHallway, userStatusInHallway}) => {
     );
 };
 
-const addUserToHallway = (uid) => {
-    const userInfo = {
-        uid: uid,
-        enter_timestamp: Date.now(),
-        meeting_id: 1111,  // TODO: add meetingID
-        confirmed: false
-    };
+// const addUserToHallway = (uid) => {
+//     const userInfo = {
+//         uid: uid,
+//         enter_timestamp: Date.now(),
+//         meeting_id: 1111,  // TODO: add meetingID
+//         confirmed: false
+//     };
 
-    setData(`hallway/${uid}`, userInfo);
-}
+//     setData(`hallway/${uid}`, userInfo);
+// }
 
 export default LobbyPanel;
