@@ -53,12 +53,9 @@ const App = () => {
 
   const LogOutButton = () => {
     return (
-      <>
-        <br />
-        <Button variant="contained" onClick={() => signOut()}>
-          Sign Out
-        </Button>
-      </>
+      <Button variant="contained" onClick={() => signOut()}>
+        Sign Out
+      </Button>
     );
   };
 
