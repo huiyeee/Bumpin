@@ -4,17 +4,15 @@ import { Initial, Matched } from "../utilities/constant";
 import { setData } from "../utilities/firebase";
 
 const MatchedPanel = ({
-  userStatusInHallway,
-  setUserStatusInHallway,
   uid,
-  zoom_link,
+  shared_zoom_link
 }) => {
   return (
-    <div style={userStatusInHallway === Matched ? {} : { display: "none" }}>
+    <div>
       <a
         className="App-link"
-        href={zoom_link}
         target="_blank"
+        href={shared_zoom_link}
         rel="noopener noreferrer"
       >
         You've bumped into someone! Click to join via Zoom
@@ -24,18 +22,13 @@ const MatchedPanel = ({
       <Button
         variant="contained"
         onClick={() => {
-          removeUserFromHallway(uid);
-          setUserStatusInHallway(Initial);
+          setData(`/users/${uid}/status`, Initial);
         }}
       >
         Leave the hallway
       </Button>
     </div>
   );
-};
-
-const removeUserFromHallway = (uid) => {
-  setData(`hallway/${uid}`, null);
 };
 
 export default MatchedPanel;

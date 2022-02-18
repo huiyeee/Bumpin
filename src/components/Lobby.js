@@ -3,18 +3,15 @@ import {Button} from "@mui/material";
 import {setData} from "../utilities/firebase";
 import {Matched, Initial, Matching, WaitForConfirmation} from "../utilities/constant";
 
-const LobbyPanel = ({uid, setUserStatusInHallway, userStatusInHallway}) => {
+const LobbyPanel = ({uid}) => {
     return (
-        <div style={ userStatusInHallway === Initial? {} : {display: 'none'}}>
+        <div>
             <p>
                 Would you like to enter the hallway? we'll let you know if someone comes
                 in
             </p>
             <Button variant="contained" onClick={() => {
-                // addUserToHallway(uid);
-                setUserStatusInHallway(Matching);
                 setData(`/users/${uid}/status`, Matching);
-                
             }}>
                 Enter the hallway
             </Button>
