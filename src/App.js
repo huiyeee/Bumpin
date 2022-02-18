@@ -84,7 +84,10 @@ const App = () => {
 
   return (
     <div className="App">
-      <header className="App-header">{RenderPage()}</header>
+      <header className="App-header">
+        Welcome, {user.displayName}
+        {RenderPage()}
+      </header>
     </div>
   );
 };
