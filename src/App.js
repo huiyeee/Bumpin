@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { useData, setData, useUserState } from "./utilities/firebase";
 import { useParams } from "react-router-dom";
@@ -7,7 +6,7 @@ import { useParams } from "react-router-dom";
 import LogOnPanel from "./components/LogOn";
 import LobbyPanel from "./components/Lobby";
 import MatchedPanel from "./components/MatchedPanel";
-import AddZoomInfoPanel from "./components/AddZoomInfo";
+import EditZoomLinKPanel from "./components/AddZoomInfo";
 import {
   Matched,
   Initial,
@@ -15,7 +14,7 @@ import {
   WaitForConfirmation,
 } from "./utilities/constant";
 import MatchingPanel from "./components/MatchingPanel";
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import { signOut } from "./utilities/firebase";
 
 const App = () => {
@@ -34,10 +33,8 @@ const App = () => {
   if (loading || (user && users && !users[user.uid]))
     return <h1>Loading Bumpin...</h1>;
 
-  const GetPanel = () => {
-    if (!users[user.uid].zoom_link) {
-      return <AddZoomInfoPanel uid={user.uid} />;
-    } else if (users[user.uid].status === Initial) {
+  const RenderUserStatusPanel = () => {
+    if (users[user.uid].status === Initial) {
       return <LobbyPanel uid={user.uid} />;
     } else if (users[user.uid].status === Matching) {
       return <MatchingPanel uid={user.uid} users={users} />;
@@ -58,19 +55,36 @@ const App = () => {
       </Button>
     );
   };
+  const EditZoomLinkButton = () => {
+    return (
+      <Button
+        variant="contained"
+        onClick={() => setData(`/users/${user.uid}/zoom_link`, null)}
+      >
+        Change My Zoom Link
+      </Button>
+    );
+  };
+
+  const RenderPage = () => {
+    if (user) {
+      if (users[user.uid].zoom_link) {
+        return (
+          <>
+            {RenderUserStatusPanel()} {EditZoomLinkButton()} {LogOutButton()}
+          </>
+        );
+      } else {
+        return <EditZoomLinKPanel uid={user.uid} />;
+      }
+    } else {
+      return <LogOnPanel />;
+    }
+  };
 
   return (
     <div className="App">
-      <header className="App-header">
-        {user ? (
-          <>
-            {GetPanel()}
-            {LogOutButton()}
-          </>
-        ) : (
-          <LogOnPanel></LogOnPanel>
-        )}
-      </header>
+      <header className="App-header">{RenderPage()}</header>
     </div>
   );
 };
