@@ -18,27 +18,19 @@ const AddZoomInfoPanel = ({ uid }) => {
     setData(`users/${uid}/zoom_link`, zoomLink);
   };
   return (
-    <form
-      className="new-item"
-      onSubmit={handleSubmit}
-      style={{
-        display: "flex",
-        justifyContent: "space-around",
-        padding: "10px",
-        height: "50%",
-      }}
-    >
-      <div style={{ width: "60%" }}>
+    <div>
+      <p>It seems you need to add your meeting link. Please enter below:</p>
+      <form onSubmit={handleSubmit}>
         <TextField
           onInput={(e) => setZoomLink(e.target.value)}
           value={zoomLink}
           placeholder="https://zoom.us/my/..."
         />
-      </div>
-      <Button type="submit" variant="contained">
-        Add
-      </Button>
-    </form>
+        <Button type="submit" variant="contained">
+          Add
+        </Button>
+      </form>
+    </div>
   );
 };
 
