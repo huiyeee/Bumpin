@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import LogOnPanel from "./components/LogOn";
 import LobbyPanel from "./components/Lobby";
 import MatchedPanel from "./components/MatchedPanel";
-import EditZoomLinKPanel from "./components/AddZoomInfo";
+import SignUpPanel from "./components/SignUp";
 import {
   Matched,
   Initial,
@@ -51,7 +51,7 @@ const App = () => {
   const LogOutButton = () => {
     return <Button onClick={() => signOut()}>Sign Out</Button>;
   };
-  const EditZoomLinkButton = () => {
+  const SignUpButton = () => {
     return (
       <Button onClick={() => setData(`/users/${user.uid}/zoom_link`, null)}>
         Change My Zoom Link
@@ -64,11 +64,11 @@ const App = () => {
       if (users[user.uid].zoom_link) {
         return (
           <>
-            {RenderUserStatusPanel()} {EditZoomLinkButton()} {LogOutButton()}
+            {RenderUserStatusPanel()} {SignUpButton()} {LogOutButton()}
           </>
         );
       } else {
-        return <EditZoomLinKPanel uid={user.uid} />;
+        return <SignUpPanel uid={user.uid} />;
       }
     } else {
       return <LogOnPanel />;

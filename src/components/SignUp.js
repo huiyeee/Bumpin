@@ -3,7 +3,7 @@ import logo from "../logo.svg";
 import { setData } from "../utilities/firebase";
 import { Button, TextField } from "@mui/material";
 
-const AddZoomInfoPanel = ({ uid }) => {
+const SignUpPanel = ({ uid }) => {
   const [zoomLink, setZoomLink] = React.useState("");
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -27,4 +27,4 @@ const AddZoomInfoPanel = ({ uid }) => {
   );
 };
 
-export default AddZoomInfoPanel;
+export default SignUpPanel;
