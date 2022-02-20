@@ -3,7 +3,7 @@ import logo from "../logo.svg";
 import { setData } from "../utilities/firebase";
 import { Button, TextField, FormControl, MenuItem, InputLabel, Select } from "@mui/material";
 
-const SignUpPanel = ({ uid }) => {
+const SignUpPanel = ({ uid, email, displayName, photoURL}) => {
   const [zoomLink, setZoomLink] = React.useState("");
 
   const [team, setTeam] = React.useState('');
@@ -17,6 +17,9 @@ const SignUpPanel = ({ uid }) => {
   };
 
   const setProfile = () => {
+    setData(`users/${uid}/email`, email);
+    setData(`users/${uid}/displayName`, displayName);
+    setData(`users/${uid}/photoURL`, photoURL);
     setData(`users/${uid}/zoom_link`, zoomLink);
     setData(`users/${uid}/team`, team)
   };

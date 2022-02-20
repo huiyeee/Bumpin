@@ -24,6 +24,7 @@ const App = () => {
 
   useEffect(() => {
     if (user && meetingId) {
+      console.log(user);
       setData(`/users/${user.uid}/previous_meeting_id`, meetingId);
       setData(`/users/${user.uid}/status`, Initial);
     }
@@ -68,7 +69,7 @@ const App = () => {
           </>
         );
       } else {
-        return <SignUpPanel uid={user.uid} />;
+        return <SignUpPanel uid={user.uid} email={user.email} displayName={user.displayName} photoURL={user.photoURL}/>;
       }
     } else {
       return <LogOnPanel />;
