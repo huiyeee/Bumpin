@@ -55,7 +55,7 @@ const App = () => {
   const SignUpButton = () => {
     return (
       <Button onClick={() => setData(`/users/${user.uid}/zoom_link`, null)}>
-        Change My Zoom Link
+        Change My Profile
       </Button>
     );
   };
