@@ -5,27 +5,34 @@ import { Initial, Matched, Matching } from "../utilities/constant";
 import MatchableCard from "./MatchableCard";
 
 const MatchingPanel = ({ uid, users }) => {
-    var matches = []
+  var matches = [];
   useEffect(() => {
     matches = Object.keys(users).filter(
       (key) =>
-        // users[key].status === Matching &&
-        // users[key].previous_meeting_id !== users[uid].previous_meeting_id
-        key === "ADxqFgIe0jZvjx6WvngsAKIBoyr1"
+        users[key].status === Matching &&
+        users[key].previous_meeting_id !== users[uid].previous_meeting_id
     );
-    console.log(users[matches[0]])
-    if (matches.length !== 0) {
-      // setData(`/users/${uid}/shared_zoom_link`, users[uid].zoom_link);
-      // setData(`/users/${matches[0]}/shared_zoom_link`, users[uid].zoom_link);
-      // setData(`/users/${uid}/status`, Matched);
-      // setData(`/users/${matches[0]}/status`, Matched);
-    }
+    console.log(users[matches[0]]);
   });
+
+  const showMatches = () => {
+    if (matches.length == 0) {
+      return <></>;
+    } else if (matches.length == 1) {
+      return <MatchableCard myself={users[uid]} other={users[matches[0]]} />;
+    } else {
+      return (
+        <>
+          <MatchableCard myself={users[uid]} other={users[matches[0]]} />
+          <MatchableCard myself={users[uid]} other={users[matches[1]]} />
+        </>
+      );
+    }
+  };
   return (
     <div>
       <p>Matching, please wait...</p>
-
-            <MatchableCard user = {users[matches[0]]}/>
+      {showMatches()}
       <Button
         onClick={() => {
           setData(`/users/${uid}/status`, Initial);

@@ -1,12 +1,19 @@
 import React from "react";
 import logo from "../logo.svg";
 import { setData } from "../utilities/firebase";
-import { Button, TextField, FormControl, MenuItem, InputLabel, Select } from "@mui/material";
+import {
+  Button,
+  TextField,
+  FormControl,
+  MenuItem,
+  InputLabel,
+  Select,
+} from "@mui/material";
 
-const SignUpPanel = ({ uid, email, displayName, photoURL}) => {
+const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
   const [zoomLink, setZoomLink] = React.useState("");
 
-  const [team, setTeam] = React.useState('');
+  const [team, setTeam] = React.useState("");
   const handleTeamChange = (event) => {
     setTeam(event.target.value);
   };
@@ -17,11 +24,12 @@ const SignUpPanel = ({ uid, email, displayName, photoURL}) => {
   };
 
   const setProfile = () => {
+    setData(`users/${uid}/uid`, uid);
     setData(`users/${uid}/email`, email);
     setData(`users/${uid}/displayName`, displayName);
     setData(`users/${uid}/photoURL`, photoURL);
     setData(`users/${uid}/zoom_link`, zoomLink);
-    setData(`users/${uid}/team`, team)
+    setData(`users/${uid}/team`, team);
   };
 
   return (
@@ -34,23 +42,22 @@ const SignUpPanel = ({ uid, email, displayName, photoURL}) => {
           placeholder="https://zoom.us/my/..."
         />
         <FormControl fullWidth>
-
-        <InputLabel id="team-name-input">Team</InputLabel>
-        <Select
-          id="select-team-name"
-          value={team}
-          label="Team"
-          onChange={handleTeamChange}
-        >
-          <MenuItem value={"Red"}>Red</MenuItem>
-          <MenuItem value={"Purple"}>Purple</MenuItem>
-          <MenuItem value={"Aqua"}>Aqua</MenuItem>
-          <MenuItem value={"Green"}>Green</MenuItem>
-          <MenuItem value={"Blue"}>Blue</MenuItem>
-          <MenuItem value={"Orange"}>Orange</MenuItem>
-          <MenuItem value={"Yellow"}>Yellow</MenuItem>
-        </Select>
-      </FormControl>
+          <InputLabel id="team-name-input">Team</InputLabel>
+          <Select
+            id="select-team-name"
+            value={team}
+            label="Team"
+            onChange={handleTeamChange}
+          >
+            <MenuItem value={"Red"}>Red</MenuItem>
+            <MenuItem value={"Purple"}>Purple</MenuItem>
+            <MenuItem value={"Aqua"}>Aqua</MenuItem>
+            <MenuItem value={"Green"}>Green</MenuItem>
+            <MenuItem value={"Blue"}>Blue</MenuItem>
+            <MenuItem value={"Orange"}>Orange</MenuItem>
+            <MenuItem value={"Yellow"}>Yellow</MenuItem>
+          </Select>
+        </FormControl>
 
         <Button type="submit">Submit</Button>
       </form>
