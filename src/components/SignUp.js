@@ -1,17 +1,26 @@
 import React from "react";
 import logo from "../logo.svg";
 import { setData } from "../utilities/firebase";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, FormControl, MenuItem, InputLabel, Select } from "@mui/material";
 
 const SignUpPanel = ({ uid }) => {
   const [zoomLink, setZoomLink] = React.useState("");
+
+  const [team, setTeam] = React.useState('');
+  const handleTeamChange = (event) => {
+    setTeam(event.target.value);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    addZoom();
+    setProfile();
   };
-  const addZoom = () => {
+
+  const setProfile = () => {
     setData(`users/${uid}/zoom_link`, zoomLink);
+    setData(`users/${uid}/team`, team)
   };
+
   return (
     <div>
       <p>It seems you need to add your meeting link. Please enter below:</p>
@@ -21,7 +30,26 @@ const SignUpPanel = ({ uid }) => {
           value={zoomLink}
           placeholder="https://zoom.us/my/..."
         />
-        <Button type="submit">Add</Button>
+        <FormControl fullWidth>
+
+        <InputLabel id="team-name-input">Team</InputLabel>
+        <Select
+          id="select-team-name"
+          value={team}
+          label="Team"
+          onChange={handleTeamChange}
+        >
+          <MenuItem value={"Red"}>Red</MenuItem>
+          <MenuItem value={"Purple"}>Purple</MenuItem>
+          <MenuItem value={"Aqua"}>Aqua</MenuItem>
+          <MenuItem value={"Green"}>Green</MenuItem>
+          <MenuItem value={"Blue"}>Blue</MenuItem>
+          <MenuItem value={"Orange"}>Orange</MenuItem>
+          <MenuItem value={"Yellow"}>Yellow</MenuItem>
+        </Select>
+      </FormControl>
+
+        <Button type="submit">Submit</Button>
       </form>
     </div>
   );
