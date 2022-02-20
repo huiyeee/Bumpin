@@ -5,17 +5,12 @@ import { Initial, Matched, Matching } from "../utilities/constant";
 import MatchableCard from "./MatchableCard";
 
 const MatchingPanel = ({ uid, users }) => {
-  var matches = [];
-  useEffect(() => {
-    matches = Object.keys(users).filter(
+  const showMatches = () => {
+    var matches = Object.keys(users).filter(
       (key) =>
         users[key].status === Matching &&
         users[key].previous_meeting_id !== users[uid].previous_meeting_id
     );
-    console.log(users[matches[0]]);
-  });
-
-  const showMatches = () => {
     if (matches.length == 0) {
       return <></>;
     } else if (matches.length == 1) {
