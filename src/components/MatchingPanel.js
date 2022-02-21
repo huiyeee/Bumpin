@@ -28,6 +28,7 @@ const MatchingPanel = ({ uid, users }) => {
     <div>
       <p>Matching, please wait...</p>
       {showMatches()}
+      
       <Button
         onClick={() => {
           setData(`/users/${uid}/status`, Initial);
