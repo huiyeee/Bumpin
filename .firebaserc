@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "bumpin-7d62f"
+  },
+  "targets": {
+    "bumpin-7d62f": {
+      "hosting": {
+        "prod": [
+          "bumpin-7d62f"
+        ],
+        "dev": [
+          "bumpin-dev"
+        ]
+      }
+    }
   }
 }

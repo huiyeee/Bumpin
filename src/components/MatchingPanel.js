@@ -31,7 +31,7 @@ const MatchingPanel = ({ uid, users }) => {
       
       <Button
         onClick={() => {
-          setData(`/users/${uid}/status`, Initial);
+          setData(`${process.env.NODE_ENV}/users/${uid}/status`, Initial);
         }}
       >
         Leave the hallway
