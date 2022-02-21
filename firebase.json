@@ -1,6 +1,5 @@
 {
   "hosting": {
-    "site": "bumpin-dev",
     "public": "build",
     "ignore": [
       "firebase.json",
