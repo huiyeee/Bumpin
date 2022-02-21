@@ -17,10 +17,16 @@ import {
 
 const MatchableCard = ({ myself, other }) => {
   const match = () => {
-    setData(`/users/${myself.uid}/shared_zoom_link`, myself.zoom_link);
-    setData(`/users/${other.uid}/shared_zoom_link`, myself.zoom_link);
-    setData(`/users/${myself.uid}/status`, Matched);
-    setData(`/users/${other.uid}/status`, Matched);
+    setData(
+      `${process.env.NODE_ENV}/users/${myself.uid}/shared_zoom_link`,
+      myself.zoom_link
+    );
+    setData(
+      `${process.env.NODE_ENV}/users/${other.uid}/shared_zoom_link`,
+      myself.zoom_link
+    );
+    setData(`${process.env.NODE_ENV}/users/${myself.uid}/status`, Matched);
+    setData(`${process.env.NODE_ENV}/users/${other.uid}/status`, Matched);
   };
 
   return (
