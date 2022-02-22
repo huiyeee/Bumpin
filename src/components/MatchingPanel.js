@@ -6,15 +6,15 @@ import MatchableCard from "./MatchableCard";
 
 const MatchingPanel = ({ uid, users }) => {
   const [matchIndex, setMatchIndex] = useState(0);
+  const matches = Object.keys(users).filter(
+    (key) =>
+      users[key].status === Matching &&
+      users[key].previous_meeting_id !== users[uid].previous_meeting_id
+  );
+  console.log(users[matches[matchIndex]])
+  console.log(matches[matchIndex])
+  console.log(matches)
   const showMatches = () => {
-    const matches = Object.keys(users).filter(
-      (key) =>
-        users[key].status === Matching &&
-        users[key].previous_meeting_id !== users[uid].previous_meeting_id
-    );
-    console.log(users[matches[matchIndex]])
-    console.log(matches[matchIndex])
-    console.log(matches)
     if (matches.length == matchIndex) {
       return <></>;
     } else if (matches.length == matchIndex + 1) {
@@ -27,16 +27,16 @@ const MatchingPanel = ({ uid, users }) => {
           <MatchableCard myself={users[uid]} other={users[matches[matchIndex + 1]]} />
         </>
       );
-
     }
   };
+
   return (
     <div>
       <p>Matching, please wait...</p>
       {showMatches()}
       <Button onClick={() => {
         console.log("Previous match index: " + matchIndex)
-        setMatchIndex((matchIndex + 2))
+        setMatchIndex(matchIndex + 2 >= matches.length ? 0 : matchIndex + 2)
       }}
       >
         Next
