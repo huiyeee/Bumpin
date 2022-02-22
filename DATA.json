@@ -1,0 +1,82 @@
+{
+  "development": {
+    "users": {
+      "5OLTm9hrDwUcd8niGwJiADLkNxE3": {
+        "displayName": "Yvan Chu",
+        "email": "yvanchu2023@u.northwestern.edu",
+        "photoURL": "https://lh3.googleusercontent.com/a-/AOh14GiOjtJcTMIgKvyaV9FisMX649vuJmd4xlt1t9D7=s96-c",
+        "previous_meeting_id": "agile",
+        "status": 0,
+        "team": "Red",
+        "uid": "5OLTm9hrDwUcd8niGwJiADLkNxE3",
+        "zoom_link": "https://northwestern.zoom.us/my/yvanchu"
+      },
+      "VreFhVNRgHSp14NmW3BdiUTObph1": {
+        "displayName": "Kevin Su",
+        "email": "kevinsu2024@u.northwestern.edu",
+        "photoURL": "https://lh3.googleusercontent.com/a/AATXAJwF5X1l18-MXrndCURXq2L3JLyUrSVHtKkayfYZ=s96-c",
+        "previous_meeting_id": "dfj",
+        "status": 1,
+        "team": "Purple",
+        "uid": "VreFhVNRgHSp14NmW3BdiUTObph1",
+        "zoom_link": "https://northwestern.zoom.us/j/92050262931"
+      },
+      "D4UrlZftA6VSgaxnjm9YPfpCyPC3": {
+        "displayName": "Bob Johnson",
+        "email": "bobjohnson12424@gmail.com",
+        "photoURL": "https://lh3.googleusercontent.com/a/AATXAJyxN7x2r2vhUBpr23my8pSd9bc8J-A2jEn3pBmw=s96-c",
+        "previous_meeting_id": "add",
+        "status": 1,
+        "team": "Aqua",
+        "uid": "D4UrlZftA6VSgaxnjm9YPfpCyPC3",
+        "zoom_link": "https://northwestern.zoom.us/j/92050262931"
+      },
+      "Zl76NnMc7DZzT8n8AaWLDMhPRF32": {
+        "displayName": "Maki Nishikino",
+        "email": "museofjfkhs@gmail.com",
+        "photoURL": "https://lh3.googleusercontent.com/a-/AOh14Ggzvpc_XLvQURWicBkhhr1iZXu_5xXEYg7lAI4U=s96-c",
+        "previous_meeting_id": "agile2",
+        "status": 1,
+        "team": "Aqua",
+        "uid": "Zl76NnMc7DZzT8n8AaWLDMhPRF32",
+        "zoom_link": "https://lovelive-sif-global.bushimo.jp"
+      },
+      "v2dmiOPsSKRxgdkRPAT6sChpxvo1": {
+        "displayName": "Charles Donovan",
+        "email": "dc9685520@gmail.com",
+        "photoURL": "https://lh3.googleusercontent.com/a/AATXAJyvZ-3mTtcV6TdFJ6Qws1pCXre-FuO0qcIuH9zV=s96-c",
+        "previous_meeting_id": "adf",
+        "status": 1,
+        "team": "Purple",
+        "uid": "v2dmiOPsSKRxgdkRPAT6sChpxvo1",
+        "zoom_link": "https://bumpin-7d62f--pr7-ui-94tyyn32.web.app/"
+      },
+      "wLHb5cWjsbf8uHmfmHcqQlPmCQH3": {
+        "displayName": "Kevin Su",
+        "email": "su.kevin8@gmail.com",
+        "photoURL": "https://lh3.googleusercontent.com/a/AATXAJyptCFDJDkGJeLUy99mHzu5OBIQ6STTOhBwrgh7Rw=s96-c",
+        "previous_meeting_id": "add",
+        "shared_zoom_link": "https://northwestern.zoom.us/j/92050262931",
+        "status": 1,
+        "team": "Aqua",
+        "uid": "wLHb5cWjsbf8uHmfmHcqQlPmCQH3",
+        "zoom_link": "https://northwestern.zoom.us/j/92050262931"
+      }
+    }
+  },
+  "production": {
+    "users": {
+      "5OLTm9hrDwUcd8niGwJiADLkNxE3": {
+        "displayName": "Yvan Chu",
+        "email": "yvanchu2023@u.northwestern.edu",
+        "photoURL": "https://lh3.googleusercontent.com/a-/AOh14GiOjtJcTMIgKvyaV9FisMX649vuJmd4xlt1t9D7=s96-c",
+        "previous_meeting_id": "agile1",
+        "shared_zoom_link": "https://northwestern.zoom.us/j/92050262931",
+        "status": 0,
+        "team": "Red",
+        "uid": "5OLTm9hrDwUcd8niGwJiADLkNxE3",
+        "zoom_link": "https://northwestern.zoom.us/my/yvanchu"
+      }
+    }
+  }
+}
