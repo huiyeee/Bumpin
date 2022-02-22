@@ -12,7 +12,7 @@ const LobbyPanel = ({ uid }) => {
       </p>
       <Button
         onClick={() => {
-          setData(`/users/${uid}/status`, Matching);
+          setData(`${process.env.NODE_ENV}/users/${uid}/status`, Matching);
         }}
       >
         Enter the hallway
