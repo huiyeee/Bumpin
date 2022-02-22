@@ -12,7 +12,7 @@ const MatchedPanel = ({ uid, shared_zoom_link }) => {
       </div>
       <Button
         onClick={() => {
-          setData(`${process.env.NODE_ENV}/users/${uid}/status`, Initial);
+          setData(`/users/${uid}/status`, Initial);
         }}
       >
         Leave the hallway
