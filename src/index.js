@@ -5,13 +5,22 @@ import App from "./App";
 import LogOn from "./components/LogOn";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Meeting from "./components/Meeting/Meeting";
+
+const CustomRouter = () => {
+  // read
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/:meetingId" element={<App />}></Route>
+        <Route path="/:meetingId/meeting" element={<Meeting />}></Route>
+      </Routes>
+    </BrowserRouter>
+  )
+}
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/:meetingId" element={<App />}></Route>
-    </Routes>
-  </BrowserRouter>,
+  <CustomRouter />,
   document.getElementById("root")
 );
 

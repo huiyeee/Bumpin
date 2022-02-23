@@ -10,6 +10,7 @@ import { getToken } from "./api";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { JoiningScreen } from "./components/JoiningScreen";
+import { useLocation } from "react-router-dom";
 
 const primary = "#3E84F6";
 
@@ -904,6 +905,7 @@ function MeetingView({ onNewMeetingIdToken, onMeetingLeave }) {
 }
 
 const Meeting = () => {
+  const location = useLocation();
   const [token, setToken] = useState("");
   const [meetingId, setMeetingId] = useState("");
   const [participantName, setParticipantName] = useState("");
@@ -941,7 +943,6 @@ const Meeting = () => {
     <JoiningScreen
       participantName={participantName}
       setParticipantName={setParticipantName}
-      meetinId={meetingId}
       setMeetingId={setMeetingId}
       setToken={setToken}
       setMicOn={setMicOn}
@@ -952,6 +953,7 @@ const Meeting = () => {
         setMeetingStarted(true);
       }}
       startMeeting={isMeetingStarted}
+      location={location}
     />
   );
 };

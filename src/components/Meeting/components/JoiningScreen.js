@@ -23,6 +23,8 @@ import useResponsiveSize from "../utils/useResponsiveSize";
 import { red } from "@material-ui/core/colors";
 import { MeetingDetailsScreen } from "./MeetingDetailsScreen";
 import { createMeeting, getToken, validateMeeting } from "../api";
+import { setData } from "../../../utilities/firebase";
+import { Matched } from "../../../utilities/constant";
 
 const useStyles = makeStyles((theme) => ({
   video: {
@@ -53,7 +55,6 @@ const useStyles = makeStyles((theme) => ({
 export function JoiningScreen({
   participantName,
   setParticipantName,
-  meetingId,
   setMeetingId,
   setToken,
   setWebcamOn,
@@ -61,6 +62,7 @@ export function JoiningScreen({
   micOn,
   webcamOn,
   onClickStartMeeting,
+  location
 }) {
   const [readyToJoin, setReadyToJoin] = useState(false);
   const videoPlayerRef = useRef();
@@ -68,6 +70,27 @@ export function JoiningScreen({
   const styles = useStyles(theme);
 
   const [videoTrack, setVideoTrack] = useState(null);
+
+  useEffect(async () => {
+    const token = await getToken();
+    const data = location.state;
+    if (!data.shared_zoom_link) {
+      const _meetingId = await createMeeting({ token });
+      setMeetingId(_meetingId);
+
+      // set data 
+      setData(`/users/${data.myuid}/shared_zoom_link`, _meetingId);
+      setData(`/users/${data.otheruid}/shared_zoom_link`, _meetingId);
+      setData(`/users/${data.myuid}/status`, Matched);
+      setData(`/users/${data.otheruid}/status`, Matched);
+    } else {
+      setMeetingId(data.shared_zoom_link);
+    }
+    setToken(token);
+    setReadyToJoin(true);
+    setWebcamOn(true);
+    setMicOn(true);
+  }, []);
 
   const padding = useResponsiveSize({
     xl: 6,
@@ -121,6 +144,7 @@ export function JoiningScreen({
     }
   }, [webcamOn]);
 
+  
   return (
     <Box
       style={{
@@ -298,28 +322,29 @@ export function JoiningScreen({
             />
           </Box>
         ) : (
-          <MeetingDetailsScreen
-            onClickJoin={async (id) => {
-              const token = await getToken();
-              const valid = await validateMeeting({ meetingId: id, token });
-              if (valid) {
-                setReadyToJoin(true);
-                setToken(token);
-                setMeetingId(id);
-                setWebcamOn(true);
-                setMicOn(true);
-              } else alert("Invalid Meeting Id");
-            }}
-            onClickCreateMeeting={async () => {
-              const token = await getToken();
-              const _meetingId = await createMeeting({ token });
-              setToken(token);
-              setMeetingId(_meetingId);
-              setReadyToJoin(true);
-              setWebcamOn(true);
-              setMicOn(true);
-            }}
-          />
+          // <MeetingDetailsScreen
+          //   onClickJoin={async (id) => {
+          //     const token = await getToken();
+          //     const valid = await validateMeeting({ meetingId: id, token });
+          //     if (valid) {
+          //       setReadyToJoin(true);
+          //       setToken(token);
+          //       setMeetingId(id);
+          //       setWebcamOn(true);
+          //       setMicOn(true);
+          //     } else alert("Invalid Meeting Id");
+          //   }}
+          //   onClickCreateMeeting={async () => {
+          //     const token = await getToken();
+          //     const _meetingId = await createMeeting({ token });
+          //     setToken(token);
+          //     setMeetingId(_meetingId);
+          //     setReadyToJoin(true);
+          //     setWebcamOn(true);
+          //     setMicOn(true);
+          //   }}
+          // />
+          <div>Loading...</div> 
         )}
       </Grid>
     </Box>
