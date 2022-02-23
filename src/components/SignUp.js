@@ -24,6 +24,7 @@ const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
   };
 
   const setProfile = () => {
+    console.log(email)
     setData(`users/${uid}/uid`, uid);
     setData(`users/${uid}/email`, email);
     setData(`users/${uid}/displayName`, displayName);
