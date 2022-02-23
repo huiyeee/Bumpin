@@ -16,8 +16,11 @@ import {
 import MatchingPanel from "./components/MatchingPanel";
 import { signOut } from "./utilities/firebase";
 import { Button } from "@mui/material";
+import Meeting from "./components/Meeting/Meeting";
 
 const App = () => {
+  return <Meeting></Meeting>;
+
   const [users, loading, error] = useData("/users");
   const { meetingId } = useParams();
   const [user] = useUserState();
