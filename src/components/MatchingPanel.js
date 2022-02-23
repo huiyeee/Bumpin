@@ -11,9 +11,6 @@ const MatchingPanel = ({ uid, users }) => {
       users[key].status === Matching &&
       users[key].previous_meeting_id !== users[uid].previous_meeting_id
   );
-  console.log(users[matches[matchIndex]])
-  console.log(matches[matchIndex])
-  console.log(matches)
   const showMatches = () => {
     if (matches.length == matchIndex) {
       return <></>;
