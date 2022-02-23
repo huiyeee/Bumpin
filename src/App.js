@@ -16,20 +16,18 @@ import {
 import MatchingPanel from "./components/MatchingPanel";
 import { signOut } from "./utilities/firebase";
 import { Button } from "@mui/material";
+import Meeting from "./components/Meeting/Meeting";
 
 const App = () => {
-  const [users, loading, error] = useData(`${process.env.NODE_ENV}/users`);
+  const [users, loading, error] = useData("/users");
   const { meetingId } = useParams();
   const [user] = useUserState();
 
   useEffect(() => {
     if (user && meetingId) {
       console.log(user);
-      setData(
-        `${process.env.NODE_ENV}/users/${user.uid}/previous_meeting_id`,
-        meetingId
-      );
-      setData(`${process.env.NODE_ENV}/users/${user.uid}/status`, Initial);
+      setData(`/users/${user.uid}/previous_meeting_id`, meetingId);
+      setData(`/users/${user.uid}/status`, Initial);
     }
   }, [user]);
 
@@ -57,11 +55,7 @@ const App = () => {
   };
   const SignUpButton = () => {
     return (
-      <Button
-        onClick={() =>
-          setData(`${process.env.NODE_ENV}/users/${user.uid}/zoom_link`, null)
-        }
-      >
+      <Button onClick={() => setData(`/users/${user.uid}/zoom_link`, null)}>
         Change My Profile
       </Button>
     );
@@ -76,14 +70,7 @@ const App = () => {
           </>
         );
       } else {
-        return (
-          <SignUpPanel
-            uid={user.uid}
-            email={user.email}
-            displayName={user.displayName}
-            photoURL={user.photoURL}
-          />
-        );
+        return <SignUpPanel uid={user.uid} email={user.email} displayName={user.displayName} photoURL={user.photoURL}/>;
       }
     } else {
       return <LogOnPanel />;
