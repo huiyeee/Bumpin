@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./App.css";
-import { useData, setData, useUserState } from "./utilities/firebase";
+import { useData, setData, useUserState, signOut } from "./utilities/firebase";
 import { useParams } from "react-router-dom";
 
 import LogOnPanel from "./components/LogOn";
