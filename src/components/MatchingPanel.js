@@ -15,13 +15,20 @@ const MatchingPanel = ({ uid, users }) => {
     if (matches.length == matchIndex) {
       return <></>;
     } else if (matches.length == matchIndex + 1) {
-      
-      return <MatchableCard myself={users[uid]} other={users[matches[matchIndex]]} />;
+      return (
+        <MatchableCard myself={users[uid]} other={users[matches[matchIndex]]} />
+      );
     } else {
       return (
         <>
-          <MatchableCard myself={users[uid]} other={users[matches[matchIndex]]} />
-          <MatchableCard myself={users[uid]} other={users[matches[matchIndex + 1]]} />
+          <MatchableCard
+            myself={users[uid]}
+            other={users[matches[matchIndex]]}
+          />
+          <MatchableCard
+            myself={users[uid]}
+            other={users[matches[matchIndex + 1]]}
+          />
         </>
       );
     }
@@ -31,21 +38,22 @@ const MatchingPanel = ({ uid, users }) => {
     <div>
       <p>Matching, please wait...</p>
       {showMatches()}
-      <Button onClick={() => {
-        console.log("Previous match index: " + matchIndex)
-        setMatchIndex(matchIndex + 2 >= matches.length ? 0 : matchIndex + 2)
-      }}
+      <Button
+        onClick={() => {
+          console.log("Previous match index: " + matchIndex);
+          setMatchIndex(matchIndex + 2 >= matches.length ? 0 : matchIndex + 2);
+        }}
       >
         Next
       </Button>
-
-      <Button
+      <div
+        className="b-button"
         onClick={() => {
           setData(`/users/${uid}/status`, Initial);
         }}
       >
         Leave the hallway
-      </Button>
+      </div>
     </div>
   );
 };

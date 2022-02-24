@@ -12,7 +12,6 @@ import {
   Matched,
   Initial,
   Matching,
-  WaitForConfirmation,
 } from "../utilities/constant";
 import { Link, useSearchParams, useParams } from 'react-router-dom';
 
