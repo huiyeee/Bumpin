@@ -20,6 +20,7 @@ const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log('here');
     setProfile();
   };
 
@@ -59,7 +60,7 @@ const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
           </Select>
         </FormControl>
 
-        <div className='b-button' type="submit">Submit</div>
+        <div className='b-button' type="submit" onClick={handleSubmit} >Submit</div>
       </form>
     </div>
   );
