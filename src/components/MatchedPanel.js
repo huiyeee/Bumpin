@@ -13,13 +13,14 @@ const MatchedPanel = ({ uid, shared_zoom_link }) => {
         <p>You've bumped into someone!</p>
         <Link to={`/${meetingId}/meeting`} state={{ shared_zoom_link }}>Click to join via Zoom</Link>
       </div>
-      <Button
+      <div
+        className='b-button'
         onClick={() => {
           setData(`${process.env.NODE_ENV}/users/${uid}/status`, Initial);
         }}
       >
         Leave the hallway
-      </Button>
+      </div>
     </div>
   );
 };

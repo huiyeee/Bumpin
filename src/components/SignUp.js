@@ -23,6 +23,11 @@ const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
     setProfile();
   };
 
+  const handleGoBack = (event) => {
+    event.preventDefault();
+    setData(`users/${uid}/zoom_link`, 'undefined');
+  };
+
   const setProfile = () => {
     setData(`/users/${uid}/uid`, uid);
     setData(`/users/${uid}/email`, email);
@@ -59,7 +64,8 @@ const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
           </Select>
         </FormControl>
 
-        <Button type="submit">Submit</Button>
+        <div className='b-button' type="submit" onClick={handleSubmit} >Submit</div>
+        <div className='b-button' type="submit" onClick={handleGoBack} >Go Back</div>
       </form>
     </div>
   );
