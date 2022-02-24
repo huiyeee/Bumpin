@@ -24,12 +24,12 @@ const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
   };
 
   const setProfile = () => {
-    setData(`users/${uid}/uid`, uid);
-    setData(`users/${uid}/email`, email);
-    setData(`users/${uid}/displayName`, displayName);
-    setData(`users/${uid}/photoURL`, photoURL);
-    setData(`users/${uid}/zoom_link`, zoomLink);
-    setData(`users/${uid}/team`, team);
+    setData(`/users/${uid}/uid`, uid);
+    setData(`/users/${uid}/email`, email);
+    setData(`/users/${uid}/displayName`, displayName);
+    setData(`/users/${uid}/photoURL`, photoURL);
+    setData(`/users/${uid}/zoom_link`, zoomLink);
+    setData(`/users/${uid}/team`, team);
   };
 
   return (
