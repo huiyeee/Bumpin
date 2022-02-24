@@ -20,8 +20,12 @@ const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('here');
     setProfile();
+  };
+
+  const handleGoBack = (event) => {
+    event.preventDefault();
+    setData(`users/${uid}/zoom_link`, 'undefined');
   };
 
   const setProfile = () => {
@@ -61,6 +65,7 @@ const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
         </FormControl>
 
         <div className='b-button' type="submit" onClick={handleSubmit} >Submit</div>
+        <div className='b-button' type="submit" onClick={handleGoBack} >Go Back</div>
       </form>
     </div>
   );
