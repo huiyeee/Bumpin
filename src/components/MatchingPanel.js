@@ -28,13 +28,14 @@ const MatchingPanel = ({ uid, users }) => {
     <div>
       <p>Matching, please wait...</p>
       {showMatches()}
-      <Button
+      <div
+        className='b-button'
         onClick={() => {
           setData(`/users/${uid}/status`, Initial);
         }}
       >
         Leave the hallway
-      </Button>
+      </div>
     </div>
   );
 };

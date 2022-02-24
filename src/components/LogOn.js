@@ -14,7 +14,7 @@ const LogOnPanel = () => {
           background: "white",
         }}/>
         <p></p>
-      <Button onClick={() => signInWithGoogle()}>Sign In</Button>
+        <div className='b-button' onClick={() => signInWithGoogle()}>Sign In</div>
     </div>
   );
 };

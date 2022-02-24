@@ -59,7 +59,7 @@ const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
           </Select>
         </FormControl>
 
-        <Button type="submit">Submit</Button>
+        <div className='b-button' type="submit">Submit</div>
       </form>
     </div>
   );

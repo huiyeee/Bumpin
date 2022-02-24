@@ -12,7 +12,6 @@ import {
   Matched,
   Initial,
   Matching,
-  WaitForConfirmation,
 } from "../utilities/constant";
 
 const MatchableCard = ({ myself, other }) => {
