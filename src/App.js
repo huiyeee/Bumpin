@@ -77,7 +77,7 @@ const App = () => {
   };
 
   return (
-    <div className="App">
+    <div className="App" style={{backgroundColor: "#f8615d"}}>
       <header className="App-header">{RenderPage()}</header>
     </div>
   );
