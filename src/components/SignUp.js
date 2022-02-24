@@ -25,16 +25,16 @@ const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
 
   const handleGoBack = (event) => {
     event.preventDefault();
-    setData(`users/${uid}/zoom_link`, 'undefined');
+    setData(`${process.env.NODE_ENV}/users/${uid}/zoom_link`, "undefined");
   };
 
   const setProfile = () => {
-    setData(`/users/${uid}/uid`, uid);
-    setData(`/users/${uid}/email`, email);
-    setData(`/users/${uid}/displayName`, displayName);
-    setData(`/users/${uid}/photoURL`, photoURL);
-    setData(`/users/${uid}/zoom_link`, zoomLink);
-    setData(`/users/${uid}/team`, team);
+    setData(`${process.env.NODE_ENV}/users/${uid}/uid`, uid);
+    setData(`${process.env.NODE_ENV}/users/${uid}/email`, email);
+    setData(`${process.env.NODE_ENV}/users/${uid}/displayName`, displayName);
+    setData(`${process.env.NODE_ENV}/users/${uid}/photoURL`, photoURL);
+    setData(`${process.env.NODE_ENV}/users/${uid}/zoom_link`, zoomLink);
+    setData(`${process.env.NODE_ENV}/users/${uid}/team`, team);
   };
 
   return (
@@ -64,8 +64,12 @@ const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
           </Select>
         </FormControl>
 
-        <div className='b-button' type="submit" onClick={handleSubmit} >Submit</div>
-        <div className='b-button' type="submit" onClick={handleGoBack} >Go Back</div>
+        <div className="b-button" type="submit" onClick={handleSubmit}>
+          Submit
+        </div>
+        <div className="b-button" type="submit" onClick={handleGoBack}>
+          Go Back
+        </div>
       </form>
     </div>
   );
