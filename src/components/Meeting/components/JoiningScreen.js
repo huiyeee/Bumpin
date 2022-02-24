@@ -62,7 +62,7 @@ export function JoiningScreen({
   micOn,
   webcamOn,
   onClickStartMeeting,
-  location
+  location,
 }) {
   const [readyToJoin, setReadyToJoin] = useState(false);
   const videoPlayerRef = useRef();
@@ -78,11 +78,17 @@ export function JoiningScreen({
       const _meetingId = await createMeeting({ token });
       setMeetingId(_meetingId);
 
-      // set data 
-      setData(`/users/${data.myuid}/shared_zoom_link`, _meetingId);
-      setData(`/users/${data.otheruid}/shared_zoom_link`, _meetingId);
-      setData(`/users/${data.myuid}/status`, Matched);
-      setData(`/users/${data.otheruid}/status`, Matched);
+      // set data
+      setData(
+        `${process.env.NODE_ENV}/users/${data.myuid}/shared_zoom_link`,
+        _meetingId
+      );
+      setData(
+        `${process.env.NODE_ENV}/users/${data.otheruid}/shared_zoom_link`,
+        _meetingId
+      );
+      setData(`${process.env.NODE_ENV}/users/${data.myuid}/status`, Matched);
+      setData(`${process.env.NODE_ENV}/users/${data.otheruid}/status`, Matched);
     } else {
       setMeetingId(data.shared_zoom_link);
     }
@@ -144,7 +150,6 @@ export function JoiningScreen({
     }
   }, [webcamOn]);
 
-  
   return (
     <Box
       style={{
@@ -155,7 +160,8 @@ export function JoiningScreen({
         alignItems: "center",
         backgroundColor: theme.palette.background.default,
         padding: padding,
-      }}>
+      }}
+    >
       {readyToJoin ? (
         <Box
           position="absolute"
@@ -163,11 +169,13 @@ export function JoiningScreen({
             top: theme.spacing(2),
             right: 0,
             left: theme.spacing(2),
-          }}>
+          }}
+        >
           <IconButton
             onClick={() => {
               setReadyToJoin(false);
-            }}>
+            }}
+          >
             <ArrowBack />
           </IconButton>
         </Box>
@@ -183,7 +191,8 @@ export function JoiningScreen({
           flex: 1,
           alignItems: "center",
           justifyContent: "center",
-        }}>
+        }}
+      >
         {readyToJoin ? (
           <Box
             m={6}
@@ -195,7 +204,8 @@ export function JoiningScreen({
               alignItems: "center",
               justifyContent: "center",
               padding: padding,
-            }}>
+            }}
+          >
             <Box className={styles.previewBox}>
               <video
                 autoPlay
@@ -217,7 +227,8 @@ export function JoiningScreen({
                     justifyContent: "center",
                     right: 0,
                     left: 0,
-                  }}>
+                  }}
+                >
                   <Typography>Camera is Turned Off</Typography>
                 </Box>
               ) : null}
@@ -226,17 +237,20 @@ export function JoiningScreen({
                 position="absolute"
                 bottom={theme.spacing(2)}
                 left="0"
-                right="0">
+                right="0"
+              >
                 <Grid
                   container
                   alignItems="center"
                   justify="center"
-                  spacing={2}>
+                  spacing={2}
+                >
                   <Grid item>
                     <Tooltip
                       title={micOn ? "Turn off mic" : "Turn on mic"}
                       arrow
-                      placement="top">
+                      placement="top"
+                    >
                       <Button
                         onClick={() => _handleToggleMic()}
                         variant="contained"
@@ -248,7 +262,8 @@ export function JoiningScreen({
                                 color: "white",
                               }
                         }
-                        className={styles.toggleButton}>
+                        className={styles.toggleButton}
+                      >
                         {micOn ? <Mic /> : <MicOff />}
                       </Button>
                     </Tooltip>
@@ -257,7 +272,8 @@ export function JoiningScreen({
                     <Tooltip
                       title={webcamOn ? "Turn off camera" : "Turn on camera"}
                       arrow
-                      placement="top">
+                      placement="top"
+                    >
                       <Button
                         onClick={() => _handleToggleWebcam()}
                         variant="contained"
@@ -269,7 +285,8 @@ export function JoiningScreen({
                                 color: "white",
                               }
                         }
-                        className={styles.toggleButton}>
+                        className={styles.toggleButton}
+                      >
                         {webcamOn ? <Videocam /> : <VideocamOff />}
                       </Button>
                     </Tooltip>
@@ -313,7 +330,8 @@ export function JoiningScreen({
                         }
                         onClickStartMeeting();
                       }}
-                      id={"btnJoin"}>
+                      id={"btnJoin"}
+                    >
                       Start
                     </Button>
                   </InputAdornment>
@@ -344,7 +362,7 @@ export function JoiningScreen({
           //     setMicOn(true);
           //   }}
           // />
-          <div>Loading...</div> 
+          <div>Loading...</div>
         )}
       </Grid>
     </Box>
