@@ -74,18 +74,24 @@ export function JoiningScreen({
   useEffect(async () => {
     const token = await getToken();
     const data = location.state;
-    const _meetingId = await createMeeting({ token });
-    setMeetingId(_meetingId);
-    setData(
-      `${process.env.NODE_ENV}/users/${data.myuid}/shared_zoom_link`,
-      _meetingId
-    );
-    setData(
-      `${process.env.NODE_ENV}/users/${data.otheruid}/shared_zoom_link`,
-      _meetingId
-    );
-    setData(`${process.env.NODE_ENV}/users/${data.myuid}/status`, Matched);
-    setData(`${process.env.NODE_ENV}/users/${data.otheruid}/status`, Matched);
+    if (!data.shared_zoom_link) {
+      const _meetingId = await createMeeting({ token });
+      setMeetingId(_meetingId);
+
+      // set data
+      setData(
+        `${process.env.NODE_ENV}/users/${data.myuid}/shared_zoom_link`,
+        _meetingId
+      );
+      setData(
+        `${process.env.NODE_ENV}/users/${data.otheruid}/shared_zoom_link`,
+        _meetingId
+      );
+      setData(`${process.env.NODE_ENV}/users/${data.myuid}/status`, Matched);
+      setData(`${process.env.NODE_ENV}/users/${data.otheruid}/status`, Matched);
+    } else {
+      setMeetingId(data.shared_zoom_link);
+    }
     setToken(token);
     setReadyToJoin(true);
     setWebcamOn(true);
