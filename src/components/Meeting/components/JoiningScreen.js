@@ -79,16 +79,10 @@ export function JoiningScreen({
       setMeetingId(_meetingId);
 
       // set data
-      setData(
-        `${process.env.NODE_ENV}/users/${data.myuid}/shared_zoom_link`,
-        _meetingId
-      );
-      setData(
-        `${process.env.NODE_ENV}/users/${data.otheruid}/shared_zoom_link`,
-        _meetingId
-      );
-      setData(`${process.env.NODE_ENV}/users/${data.myuid}/status`, Matched);
-      setData(`${process.env.NODE_ENV}/users/${data.otheruid}/status`, Matched);
+      setData(`/users/${data.myuid}/shared_zoom_link`, _meetingId);
+      setData(`/users/${data.otheruid}/shared_zoom_link`, _meetingId);
+      setData(`/users/${data.myuid}/status`, Matched);
+      setData(`/users/${data.otheruid}/status`, Matched);
     } else {
       setMeetingId(data.shared_zoom_link);
     }
