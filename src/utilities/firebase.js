@@ -47,8 +47,7 @@ const firebase = initializeApp(firebaseConfig);
 
 export const database = getDatabase(firebase);
 
-export const setData = (path, value) =>
-  set(ref(database, process.env.NODE_ENV + path), value);
+export const setData = (path, value) => set(ref(database, process.env.NODE_ENV + path), value);
 
 export const useData = (path, transform) => {
   const [data, setData] = useState();
@@ -56,7 +55,7 @@ export const useData = (path, transform) => {
   const [error, setError] = useState();
 
   useEffect(() => {
-    const dbRef = ref(database, process.env.NODE_ENV + path);
+    const dbRef = ref(database, process.env.NODE_ENV +path);
     const devMode =
       !process.env.NODE_ENV || process.env.NODE_ENV === "development";
     if (devMode) {
