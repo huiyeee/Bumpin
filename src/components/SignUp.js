@@ -40,7 +40,6 @@ const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
 
   return (
     <div>
-      <p>It seems you need to add your meeting link. Please enter below:</p>
       <form onSubmit={handleSubmit}>
         <FormControl fullWidth>
           <InputLabel id="team-name-input">Team</InputLabel>
@@ -60,12 +59,12 @@ const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
           </Select>
         </FormControl>
 
-        <div className="b-button" type="submit" onClick={handleSubmit}>
+        <Button className="b-button mui" type="submit" onClick={handleSubmit}>
           Submit
-        </div>
-        <div className="b-button" type="submit" onClick={handleGoBack}>
+        </Button>
+        <Button className="b-button mui" type="submit" onClick={handleGoBack}>
           Go Back
-        </div>
+        </Button>
       </form>
     </div>
   );

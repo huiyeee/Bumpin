@@ -49,22 +49,22 @@ const App = () => {
 
   const LogOutButton = () => {
     return (
-      <div className="b-button" onClick={() => signOut()}>
+      <Button className="b-button mui" onClick={() => signOut()}>
         Sign Out
-      </div>
+      </Button>
     );
   };
   const SignUpButton = () => {
     return (
-      <div
-        className="b-button"
+      <Button
+        className="b-button mui"
         onClick={() =>
           // setData(`${process.env.NODE_ENV}/users/${user.uid}/team`, null)
           setData(`${process.env.NODE_ENV}/users/${user.uid}/status`, Profile)
         }
       >
         Change My Profile
-      </div>
+      </Button>
     );
   };
 

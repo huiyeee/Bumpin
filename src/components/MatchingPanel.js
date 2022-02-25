@@ -39,6 +39,7 @@ const MatchingPanel = ({ uid, users }) => {
       <p>Matching, please wait...</p>
       {showMatches()}
       <Button
+        className="b-button mui"
         onClick={() => {
           console.log("Previous match index: " + matchIndex);
           setMatchIndex(matchIndex + 2 >= matches.length ? 0 : matchIndex + 2);
@@ -46,14 +47,14 @@ const MatchingPanel = ({ uid, users }) => {
       >
         Next
       </Button>
-      <div
-        className="b-button"
+      <Button
+        className="b-button mui"
         onClick={() => {
           setData(`/users/${uid}/status`, Initial);
         }}
       >
         Leave the hallway
-      </div>
+      </Button>
     </div>
   );
 };
