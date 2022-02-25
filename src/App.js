@@ -22,7 +22,7 @@ const App = () => {
     if (user && meetingId) {
       console.log(user);
       setData(`/users/${user.uid}/previous_meeting_id`, meetingId);
-      setData(`/users/${user.uid}/status`, Initial);
+      setData(`/users/${user.uid}/status`, Profile);
     }
   }, [user]);
 
