@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+import {initializeApp} from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
-import { getDatabase, onValue, ref, set } from "firebase/database";
+import {getDatabase, onValue, ref, set} from "firebase/database";
 
 import {
   getAuth,
@@ -12,7 +12,7 @@ import {
   signOut,
 } from "firebase/auth";
 // https://firebase.google.com/docs/web/setup#available-libraries
-import { wait } from "@testing-library/user-event/dist/utils";
+import {wait} from "@testing-library/user-event/dist/utils";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -32,7 +32,7 @@ export const signInWithGoogle = () => {
 
 const firebaseSignOut = () => signOut(getAuth(firebase));
 
-export { firebaseSignOut as signOut };
+export {firebaseSignOut as signOut};
 
 export const useUserState = () => {
   const [user, setUser] = useState();
@@ -45,9 +45,11 @@ export const useUserState = () => {
 // Initialize Firebase
 const firebase = initializeApp(firebaseConfig);
 
+export const env = window.location.host.indexOf("bumpin-7d62f") === -1 ? "development" : "production"
+
 export const database = getDatabase(firebase);
 
-export const setData = (path, value) => set(ref(database, path), value);
+export const setData = (path, value) => set(ref(database, env + path), value);
 
 export const useData = (path, transform) => {
   const [data, setData] = useState();
@@ -55,18 +57,18 @@ export const useData = (path, transform) => {
   const [error, setError] = useState();
 
   useEffect(() => {
-    const dbRef = ref(database, path);
+    const dbRef = ref(database, env + path);
     const devMode =
-      !process.env.NODE_ENV || process.env.NODE_ENV === "development";
+      !env || env === "development";
     if (devMode) {
-      // console.log(`loading ${path}`);
+      console.log(`loading ${path}`);
     }
     return onValue(
       dbRef,
       (snapshot) => {
         const val = snapshot.val();
         if (devMode) {
-          // console.log(val);
+          console.log(val);
         }
         setData(transform ? transform(val) : val);
         setLoading(false);

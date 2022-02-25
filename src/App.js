@@ -1,24 +1,20 @@
 import React, { useEffect } from "react";
 import "./App.css";
-import { useData, setData, useUserState } from "./utilities/firebase";
+import { useData, setData, useUserState, signOut } from "./utilities/firebase";
 import { useParams } from "react-router-dom";
-
+import theme from "./styling/theme";
+import { ThemeProvider, CssBaseline, Typography } from "@material-ui/core";
 import LogOnPanel from "./components/LogOn";
 import LobbyPanel from "./components/Lobby";
 import MatchedPanel from "./components/MatchedPanel";
 import SignUpPanel from "./components/SignUp";
-import {
-  Matched,
-  Initial,
-  Matching,
-  WaitForConfirmation,
-} from "./utilities/constant";
+import { Matched, Initial, Matching, Profile } from "./utilities/constant";
 import MatchingPanel from "./components/MatchingPanel";
-import { signOut } from "./utilities/firebase";
 import { Button } from "@mui/material";
+import Meeting from "./components/Meeting/Meeting";
 
 const App = () => {
-  const [users, loading, error] = useData("/users");
+  const [users, loading, error] = useData(`/users`);
   const { meetingId } = useParams();
   const [user] = useUserState();
 
@@ -26,7 +22,7 @@ const App = () => {
     if (user && meetingId) {
       console.log(user);
       setData(`/users/${user.uid}/previous_meeting_id`, meetingId);
-      setData(`/users/${user.uid}/status`, Initial);
+      setData(`/users/${user.uid}/status`, Profile);
     }
   }, [user]);
 
@@ -50,11 +46,21 @@ const App = () => {
   };
 
   const LogOutButton = () => {
-    return <Button onClick={() => signOut()}>Sign Out</Button>;
+    return (
+      <Button className="b-button mui" onClick={() => signOut()}>
+        Sign Out
+      </Button>
+    );
   };
   const SignUpButton = () => {
     return (
-      <Button onClick={() => setData(`/users/${user.uid}/zoom_link`, null)}>
+      <Button
+        className="b-button mui"
+        onClick={() =>
+          // setData(`/users/${user.uid}/team`, null)
+          setData(`/users/${user.uid}/status`, Profile)
+        }
+      >
         Change My Profile
       </Button>
     );
@@ -62,24 +68,50 @@ const App = () => {
 
   const RenderPage = () => {
     if (user) {
-      if (users[user.uid].zoom_link) {
+      if (users[user.uid].status !== Profile) {
         return (
           <>
             {RenderUserStatusPanel()} {SignUpButton()} {LogOutButton()}
           </>
         );
       } else {
-        return <SignUpPanel uid={user.uid} email={user.email} displayName={user.displayName} photoURL={user.photoURL}/>;
+        return (
+          <SignUpPanel
+            uid={user.uid}
+            email={user.email}
+            displayName={user.displayName}
+            photoURL={user.photoURL}
+          />
+        );
       }
     } else {
       return <LogOnPanel />;
     }
   };
 
+  const background = () => {
+    let url = "";
+    if (user !== null && users[user.uid].status === Matching) {
+      url =
+        "https://firebasestorage.googleapis.com/v0/b/bumpin-7d62f.appspot.com/o/hallway.png?alt=media&token=eec8653d-af5b-41d7-9f51-8ec4a73cdeaf";
+    } else {
+      url =
+        "https://firebasestorage.googleapis.com/v0/b/bumpin-7d62f.appspot.com/o/background.png?alt=media&token=b35f2139-c32b-45ac-a713-1a194bae351e";
+    }
+    return {
+      backgroundImage: "url(" + url + ")",
+      backgroundPosition: "center",
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+    };
+  };
   return (
-    <div className="App">
-      <header className="App-header">{RenderPage()}</header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <div className="App" style={background(user, users)}>
+        <header className="App-header">{RenderPage()}</header>
+      </div>
+    </ThemeProvider>
   );
 };
 

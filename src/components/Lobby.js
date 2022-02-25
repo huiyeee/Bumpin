@@ -1,16 +1,18 @@
 import React from "react";
-import { Button } from "@mui/material";
+import "../App.css";
+import { Button, Typography } from "@mui/material";
 import { setData } from "../utilities/firebase";
 import { Matching } from "../utilities/constant";
 
 const LobbyPanel = ({ uid }) => {
   return (
     <div>
-      <p>
-        Would you like to enter the hallway? We'll let you know if someone comes
-        in
-      </p>
+      <Typography variant="h2" sx={{ color: "#ffebee" }}>
+        Would you like to enter the hallway? <br /> We'll let you know if
+        someone comes in
+      </Typography>
       <Button
+        className="b-button mui"
         onClick={() => {
           setData(`/users/${uid}/status`, Matching);
         }}

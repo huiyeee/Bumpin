@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "../logo.svg";
 import { setData } from "../utilities/firebase";
+import { Matched, Initial, Matching, Profile } from "../utilities/constant";
 import {
   Button,
   TextField,
@@ -23,24 +24,23 @@ const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
     setProfile();
   };
 
+  const handleGoBack = (event) => {
+    event.preventDefault();
+    setData(`/users/${uid}/status`, Initial);
+  };
+
   const setProfile = () => {
-    setData(`users/${uid}/uid`, uid);
-    setData(`users/${uid}/email`, email);
-    setData(`users/${uid}/displayName`, displayName);
-    setData(`users/${uid}/photoURL`, photoURL);
-    setData(`users/${uid}/zoom_link`, zoomLink);
-    setData(`users/${uid}/team`, team);
+    setData(`/users/${uid}/uid`, uid);
+    setData(`/users/${uid}/email`, email);
+    setData(`/users/${uid}/displayName`, displayName);
+    setData(`/users/${uid}/photoURL`, photoURL);
+    setData(`/users/${uid}/team`, team);
+    setData(`/users/${uid}/status`, Initial);
   };
 
   return (
     <div>
-      <p>It seems you need to add your meeting link. Please enter below:</p>
       <form onSubmit={handleSubmit}>
-        <TextField
-          onInput={(e) => setZoomLink(e.target.value)}
-          value={zoomLink}
-          placeholder="https://zoom.us/my/..."
-        />
         <FormControl fullWidth>
           <InputLabel id="team-name-input">Team</InputLabel>
           <Select
@@ -59,7 +59,12 @@ const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
           </Select>
         </FormControl>
 
-        <Button type="submit">Submit</Button>
+        <Button className="b-button mui" type="submit" onClick={handleSubmit}>
+          Submit
+        </Button>
+        <Button className="b-button mui" type="submit" onClick={handleGoBack}>
+          Go Back
+        </Button>
       </form>
     </div>
   );

@@ -8,20 +8,13 @@ import {
   Typography,
 } from "@mui/material";
 import { setData } from "../utilities/firebase";
-import {
-  Matched,
-  Initial,
-  Matching,
-  WaitForConfirmation,
-} from "../utilities/constant";
+import { Matched, Initial, Matching } from "../utilities/constant";
+import { Link, useSearchParams, useParams } from "react-router-dom";
 
 const MatchableCard = ({ myself, other }) => {
-  const match = () => {
-    setData(`/users/${myself.uid}/shared_zoom_link`, myself.zoom_link);
-    setData(`/users/${other.uid}/shared_zoom_link`, myself.zoom_link);
-    setData(`/users/${myself.uid}/status`, Matched);
-    setData(`/users/${other.uid}/status`, Matched);
-  };
+  const { meetingId } = useParams();
+
+  const data = { myuid: myself.uid, otheruid: other.uid };
 
   return (
     <div>
@@ -41,9 +34,9 @@ const MatchableCard = ({ myself, other }) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" onClick={match}>
-            Match
-          </Button>
+          <Link to={`/${meetingId}/meeting/`} state={data}>
+            <Button size="small">Match</Button>
+          </Link>
         </CardActions>
       </Card>
     </div>
