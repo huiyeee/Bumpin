@@ -14,7 +14,7 @@ const LobbyPanel = ({ uid }) => {
       <Button
         className="b-button mui"
         onClick={() => {
-          setData(`${process.env.NODE_ENV}/users/${uid}/status`, Matching);
+          setData(`/users/${uid}/status`, Matching);
         }}
       >
         Enter the hallway

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "./App.css";
 import { useData, setData, useUserState, signOut } from "./utilities/firebase";
 import { useParams } from "react-router-dom";
+import theme from "./styling/theme";
 import { ThemeProvider, CssBaseline, Typography } from "@material-ui/core";
 import LogOnPanel from "./components/LogOn";
 import LobbyPanel from "./components/Lobby";
@@ -11,8 +12,6 @@ import { Matched, Initial, Matching, Profile } from "./utilities/constant";
 import MatchingPanel from "./components/MatchingPanel";
 import { Button } from "@mui/material";
 import Meeting from "./components/Meeting/Meeting";
-import theme from "./styling/theme";
-import background from "./styling/background";
 
 const App = () => {
   const [users, loading, error] = useData(`/users`);
@@ -23,7 +22,7 @@ const App = () => {
     if (user && meetingId) {
       console.log(user);
       setData(`/users/${user.uid}/previous_meeting_id`, meetingId);
-      setData(`/users/${user.uid}/status`, Initial);
+      setData(`/users/${user.uid}/status`, Profile);
     }
   }, [user]);
 
@@ -57,7 +56,10 @@ const App = () => {
     return (
       <Button
         className="b-button mui"
-        onClick={() => setData(`/users/${user.uid}/zoom_link`, null)}
+        onClick={() =>
+          // setData(`/users/${user.uid}/team`, null)
+          setData(`/users/${user.uid}/status`, Profile)
+        }
       >
         Change My Profile
       </Button>
@@ -85,6 +87,23 @@ const App = () => {
     } else {
       return <LogOnPanel />;
     }
+  };
+
+  const background = () => {
+    let url = "";
+    if (user !== null && users[user.uid].status === Matching) {
+      url =
+        "https://firebasestorage.googleapis.com/v0/b/bumpin-7d62f.appspot.com/o/hallway.png?alt=media&token=eec8653d-af5b-41d7-9f51-8ec4a73cdeaf";
+    } else {
+      url =
+        "https://firebasestorage.googleapis.com/v0/b/bumpin-7d62f.appspot.com/o/background.png?alt=media&token=b35f2139-c32b-45ac-a713-1a194bae351e";
+    }
+    return {
+      backgroundImage: "url(" + url + ")",
+      backgroundPosition: "center",
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+    };
   };
   return (
     <ThemeProvider theme={theme}>

@@ -26,7 +26,7 @@ const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
 
   const handleGoBack = (event) => {
     event.preventDefault();
-    setData(`/users/${uid}/zoom_link`, "undefined");
+    setData(`/users/${uid}/status`, Initial);
   };
 
   const setProfile = () => {
@@ -34,8 +34,8 @@ const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
     setData(`/users/${uid}/email`, email);
     setData(`/users/${uid}/displayName`, displayName);
     setData(`/users/${uid}/photoURL`, photoURL);
-    setData(`/users/${uid}/zoom_link`, zoomLink);
     setData(`/users/${uid}/team`, team);
+    setData(`/users/${uid}/status`, Initial);
   };
 
   return (
