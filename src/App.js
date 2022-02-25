@@ -7,7 +7,7 @@ import LogOnPanel from "./components/LogOn";
 import LobbyPanel from "./components/Lobby";
 import MatchedPanel from "./components/MatchedPanel";
 import SignUpPanel from "./components/SignUp";
-import { Matched, Initial, Matching } from "./utilities/constant";
+import { Matched, Initial, Matching, Profile } from "./utilities/constant";
 import MatchingPanel from "./components/MatchingPanel";
 import { Button } from "@mui/material";
 import Meeting from "./components/Meeting/Meeting";
@@ -59,7 +59,8 @@ const App = () => {
       <Button
         className="b-button mui"
         onClick={() =>
-          setData(`${process.env.NODE_ENV}/users/${user.uid}/zoom_link`, null)
+          // setData(`${process.env.NODE_ENV}/users/${user.uid}/team`, null)
+          setData(`${process.env.NODE_ENV}/users/${user.uid}/status`, Profile)
         }
       >
         Change My Profile
@@ -69,7 +70,7 @@ const App = () => {
 
   const RenderPage = () => {
     if (user) {
-      if (users[user.uid].zoom_link) {
+      if (users[user.uid].status !== Profile) {
         return (
           <>
             {RenderUserStatusPanel()} {SignUpButton()} {LogOutButton()}
@@ -92,7 +93,7 @@ const App = () => {
 
   const background = () => {
     let url = "";
-    if (user !== null && users[user.uid].status === Initial) {
+    if (user !== null && (users[user.uid].status === Initial || users[user.uid].status === Profile )) {
       url =
         "https://firebasestorage.googleapis.com/v0/b/bumpin-7d62f.appspot.com/o/background.png?alt=media&token=b35f2139-c32b-45ac-a713-1a194bae351e";
     } else {

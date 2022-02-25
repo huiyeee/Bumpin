@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "../logo.svg";
 import { setData } from "../utilities/firebase";
+import { Matched, Initial, Matching, Profile } from "../utilities/constant";
 import {
   Button,
   TextField,
@@ -25,7 +26,7 @@ const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
 
   const handleGoBack = (event) => {
     event.preventDefault();
-    setData(`${process.env.NODE_ENV}/users/${uid}/zoom_link`, "undefined");
+    setData(`${process.env.NODE_ENV}/users/${uid}/status`, Initial);
   };
 
   const setProfile = () => {
@@ -33,18 +34,13 @@ const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
     setData(`${process.env.NODE_ENV}/users/${uid}/email`, email);
     setData(`${process.env.NODE_ENV}/users/${uid}/displayName`, displayName);
     setData(`${process.env.NODE_ENV}/users/${uid}/photoURL`, photoURL);
-    setData(`${process.env.NODE_ENV}/users/${uid}/zoom_link`, zoomLink);
     setData(`${process.env.NODE_ENV}/users/${uid}/team`, team);
+    setData(`${process.env.NODE_ENV}/users/${uid}/status`, Initial);
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        {/* <TextField
-          onInput={(e) => setZoomLink(e.target.value)}
-          value={zoomLink}
-          placeholder="https://zoom.us/my/..."
-        /> */}
         <FormControl fullWidth>
           <InputLabel id="team-name-input">Team</InputLabel>
           <Select
