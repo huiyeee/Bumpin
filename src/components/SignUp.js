@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "../logo.svg";
 import { setData } from "../utilities/firebase";
+import { Matched, Initial, Matching, Profile } from "../utilities/constant";
 import {
   Button,
   TextField,
@@ -40,11 +41,6 @@ const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        {/* <TextField
-          onInput={(e) => setZoomLink(e.target.value)}
-          value={zoomLink}
-          placeholder="https://zoom.us/my/..."
-        /> */}
         <FormControl fullWidth>
           <InputLabel id="team-name-input">Team</InputLabel>
           <Select

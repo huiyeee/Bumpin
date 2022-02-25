@@ -11,6 +11,7 @@ import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { JoiningScreen } from "./components/JoiningScreen";
 import { useLocation } from "react-router-dom";
+import { Button, Typography } from "@mui/material";
 
 const primary = "#3E84F6";
 
@@ -24,16 +25,16 @@ const chunk = (arr) => {
   return newArr;
 };
 
-function formatAMPM(date) {
-  var hours = date.getHours();
-  var minutes = date.getMinutes();
-  var ampm = hours >= 12 ? "pm" : "am";
-  hours = hours % 12;
-  hours = hours ? hours : 12; // the hour '0' should be '12'
-  minutes = minutes < 10 ? "0" + minutes : minutes;
-  var strTime = hours + ":" + minutes + " " + ampm;
-  return strTime;
-}
+// function formatAMPM(date) {
+//   var hours = date.getHours();
+//   var minutes = date.getMinutes();
+//   var ampm = hours >= 12 ? "pm" : "am";
+//   hours = hours % 12;
+//   hours = hours ? hours : 12; // the hour '0' should be '12'
+//   minutes = minutes < 10 ? "0" + minutes : minutes;
+//   var strTime = hours + ":" + minutes + " " + ampm;
+//   return strTime;
+// }
 
 const Title = ({ title, dark }) => {
   return <h2 style={{ color: dark ? primary : "#fff" }}>{title}</h2>;
@@ -105,88 +106,88 @@ const ExternalVideo = () => {
   );
 };
 
-const MessageList = ({ messages }) => {
-  return (
-    <div>
-      {messages?.map((message, i) => {
-        const { senderName, message: text, timestamp } = message;
+// const MessageList = ({ messages }) => {
+//   return (
+//     <div>
+//       {messages?.map((message, i) => {
+//         const { senderName, message: text, timestamp } = message;
 
-        return (
-          <div
-            style={{
-              margin: 8,
-              backgroundColor: "darkblue",
-              borderRadius: 8,
-              overflow: "hidden",
-              padding: 8,
-              color: "#fff",
-            }}
-            key={i}
-          >
-            <p style={{ margin: 0, padding: 0, fontStyle: "italic" }}>
-              {senderName}
-            </p>
-            <h3 style={{ margin: 0, padding: 0, marginTop: 4 }}>{text}</h3>
-            <p
-              style={{
-                margin: 0,
-                padding: 0,
-                opacity: 0.6,
-                marginTop: 4,
-              }}
-            >
-              {formatAMPM(new Date(timestamp))}
-            </p>
-          </div>
-        );
-      })}
-    </div>
-  );
-};
+//         return (
+//           <div
+//             style={{
+//               margin: 8,
+//               backgroundColor: "darkblue",
+//               borderRadius: 8,
+//               overflow: "hidden",
+//               padding: 8,
+//               color: "#fff",
+//             }}
+//             key={i}
+//           >
+//             <p style={{ margin: 0, padding: 0, fontStyle: "italic" }}>
+//               {senderName}
+//             </p>
+//             <h3 style={{ margin: 0, padding: 0, marginTop: 4 }}>{text}</h3>
+//             <p
+//               style={{
+//                 margin: 0,
+//                 padding: 0,
+//                 opacity: 0.6,
+//                 marginTop: 4,
+//               }}
+//             >
+//               {formatAMPM(new Date(timestamp))}
+//             </p>
+//           </div>
+//         );
+//       })}
+//     </div>
+//   );
+// };
 
-const MeetingChat = ({ tollbarHeight }) => {
-  const { publish, messages } = usePubSub("CHAT", {});
-  const [message, setMessage] = useState("");
-  return (
-    <div
-      style={{
-        marginLeft: borderRadius,
-        width: 400,
-        backgroundColor: primary,
-        overflowY: "scroll",
-        borderRadius,
-        height: `calc(100vh - ${tollbarHeight + 2 * borderRadius}px)`,
-        padding: borderRadius,
-      }}
-    >
-      <Title title={"Chat"} />
+// const MeetingChat = ({ tollbarHeight }) => {
+//   const { publish, messages } = usePubSub("CHAT", {});
+//   const [message, setMessage] = useState("");
+//   return (
+//     <div
+//       style={{
+//         marginLeft: borderRadius,
+//         width: 400,
+//         backgroundColor: primary,
+//         overflowY: "scroll",
+//         borderRadius,
+//         height: `calc(100vh - ${tollbarHeight + 2 * borderRadius}px)`,
+//         padding: borderRadius,
+//       }}
+//     >
+//       <Title title={"Chat"} />
 
-      <div style={{ display: "flex" }}>
-        <input
-          value={message}
-          onChange={(e) => {
-            const v = e.target.value;
-            setMessage(v);
-          }}
-        />
-        <button
-          className={"button default"}
-          onClick={() => {
-            const m = message;
+//       <div style={{ display: "flex" }}>
+//         <input
+//           value={message}
+//           onChange={(e) => {
+//             const v = e.target.value;
+//             setMessage(v);
+//           }}
+//         />
+//         <button
+//           className={"button default"}
+//           onClick={() => {
+//             const m = message;
 
-            if (m.length) {
-              publish(m, { persist: true });
-              setMessage("");
-            }
-          }}
-        >
-          Send
-        </button>
-      </div>
-      <MessageList messages={messages} />
-    </div>
-  );
-};
+//             if (m.length) {
+//               publish(m, { persist: true });
+//               setMessage("");
+//             }
+//           }}
+//         >
+//           Send
+//         </button>
+//       </div>
+//       <MessageList messages={messages} />
+//     </div>
+//   );
+// };
 
 const ParticipantView = ({ participantId }) => {
   const webcamRef = useRef(null);
@@ -347,7 +348,7 @@ const ParticipantView = ({ participantId }) => {
               left: 10,
             }}
           >
-            <button
+            {/* <button
               className="button blue"
               style={
                 {
@@ -376,12 +377,12 @@ const ParticipantView = ({ participantId }) => {
               }}
             >
               Switch Participant
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
 
-      <div
+      {/* <div
         style={{
           marginTop: borderRadius,
           position: "relative",
@@ -429,8 +430,8 @@ const ParticipantView = ({ participantId }) => {
             </p>
           </div>
         </div>
-      </div>
-      <table>
+      </div> */}
+      {/* <table>
         {[
           { k: "Name", v: displayName },
           { k: "webcamOn", v: webcamOn ? "YES" : "NO" },
@@ -449,7 +450,7 @@ const ParticipantView = ({ participantId }) => {
             </td>
           </tr>
         ))}
-      </table>
+      </table> */}
     </div>
   );
 };
@@ -812,16 +813,7 @@ function MeetingView({ onNewMeetingIdToken, onMeetingLeave }) {
       }}
     >
       <div style={{ height: tollbarHeight }}>
-        <button className={"button red"} onClick={leave}>
-          LEAVE
-        </button>
-        <button className={"button blue"} onClick={toggleMic}>
-          toggleMic
-        </button>
-        <button className={"button blue"} onClick={toggleWebcam}>
-          toggleWebcam
-        </button>
-        <button className={"button blue"} onClick={toggleScreenShare}>
+        {/* <button className={"button blue"} onClick={toggleScreenShare}>
           toggleScreenShare
         </button>
         <button className={"button blue"} onClick={handlestartVideo}>
@@ -850,16 +842,16 @@ function MeetingView({ onNewMeetingIdToken, onMeetingLeave }) {
         </button>
         <button className={"button blue"} onClick={handleStopRecording}>
           stop recording
-        </button>
-        <button
+        </button> */}
+        {/* <button
           className={"button blue"}
           onClick={() => setParticipantViewVisible((s) => !s)}
         >
           Switch to {participantViewVisible ? "Connections" : "Participants"}{" "}
           view
-        </button>
+        </button> */}
 
-        <button
+        {/* <button
           className={"button blue"}
           onClick={async () => {
             const meetingId = prompt(
@@ -880,7 +872,7 @@ function MeetingView({ onNewMeetingIdToken, onMeetingLeave }) {
           }}
         >
           Make Connections
-        </button>
+        </button> */}
       </div>
       <h1>Meeting id is : {meetingId}</h1>
       <div style={{ display: "flex", flex: 1 }}>
@@ -894,11 +886,20 @@ function MeetingView({ onNewMeetingIdToken, onMeetingLeave }) {
             height: `calc(100vh - ${tollbarHeight}px)`,
           }}
         >
-          <ExternalVideo />
-          {/* <ParticipantsView /> */}
-          {participantViewVisible ? <ParticipantsView /> : <ConnectionsView />}
+          <ParticipantsView />
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Button className={"button red"} onClick={leave}>
+              Leave Meeting
+            </Button>
+            <Button className={"button blue"} onClick={toggleMic}>
+              Toggle Mic
+            </Button>
+            <Button className={"button blue"} onClick={toggleWebcam}>
+              Toggle Webcam
+            </Button>
+          </div>
         </div>
-        <MeetingChat tollbarHeight={tollbarHeight} />
+        {/* <MeetingChat tollbarHeight={tollbarHeight} /> */}
       </div>
     </div>
   );

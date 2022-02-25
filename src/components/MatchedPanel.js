@@ -12,7 +12,7 @@ const MatchedPanel = ({ uid, shared_zoom_link }) => {
       <div>
         <Typography>You've bumped into someone!</Typography>
         <Link to={`/${meetingId}/meeting`} state={{ shared_zoom_link }}>
-          Click to join via Zoom
+          Click to join the meeting
         </Link>
       </div>
       <Button
