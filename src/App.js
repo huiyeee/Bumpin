@@ -49,21 +49,21 @@ const App = () => {
 
   const LogOutButton = () => {
     return (
-      <div className="b-button" onClick={() => signOut()}>
+      <Button className="b-button mui" onClick={() => signOut()}>
         Sign Out
-      </div>
+      </Button>
     );
   };
   const SignUpButton = () => {
     return (
-      <div
-        className="b-button"
+      <Button
+        className="b-button mui"
         onClick={() =>
           setData(`${process.env.NODE_ENV}/users/${user.uid}/zoom_link`, null)
         }
       >
         Change My Profile
-      </div>
+      </Button>
     );
   };
 
