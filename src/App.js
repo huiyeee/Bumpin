@@ -8,7 +8,14 @@ import LogOnPanel from "./components/LogOn";
 import LobbyPanel from "./components/Lobby";
 import MatchedPanel from "./components/MatchedPanel";
 import SignUpPanel from "./components/SignUp";
-import { Matched, Initial, Matching, Profile } from "./utilities/constant";
+import RedirectPanel from "./components/RedirectPanel";
+import {
+  Matched,
+  Initial,
+  Matching,
+  Profile,
+  Redirect,
+} from "./utilities/constant";
 import MatchingPanel from "./components/MatchingPanel";
 import { Button } from "@mui/material";
 import Meeting from "./components/Meeting/Meeting";
@@ -35,6 +42,8 @@ const App = () => {
       return <LobbyPanel uid={user.uid} />;
     } else if (users[user.uid].status === Matching) {
       return <MatchingPanel uid={user.uid} users={users} />;
+    } else if (users[user.uid].status === Redirect) {
+      return <RedirectPanel />;
     } else if (users[user.uid].status === Matched) {
       return (
         <MatchedPanel

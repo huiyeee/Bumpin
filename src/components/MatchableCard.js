@@ -8,13 +8,18 @@ import {
   Typography,
 } from "@mui/material";
 import { setData } from "../utilities/firebase";
-import { Matched, Initial, Matching } from "../utilities/constant";
+import { Redirect } from "../utilities/constant";
 import { Link, useSearchParams, useParams } from "react-router-dom";
 
 const MatchableCard = ({ myself, other }) => {
   const { meetingId } = useParams();
 
   const data = { myuid: myself.uid, otheruid: other.uid };
+
+  const redirect = () => {
+    setData(`/users/${myself.uid}/status`, Redirect);
+    setData(`/users/${other.uid}/status`, Redirect);
+  };
 
   return (
     <div>
@@ -35,7 +40,9 @@ const MatchableCard = ({ myself, other }) => {
         </CardContent>
         <CardActions>
           <Link to={`/${meetingId}/meeting/`} state={data}>
-            <Button size="small">Match</Button>
+            <Button size="small" onClick={redirect}>
+              Match
+            </Button>
           </Link>
         </CardActions>
       </Card>
