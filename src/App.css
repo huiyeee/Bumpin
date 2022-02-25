@@ -37,3 +37,15 @@
   /* choose hover background color */
   /* background-color: darkred; */
 }
+
+.logo {
+  width: 300px;
+  height: 300px;
+  border: 7px solid #1b2f2f;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.innerItemPadding * {
+  padding: 10px;
+}

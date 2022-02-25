@@ -1,3 +1,5 @@
+import { Matched, Initial, Matching } from "../utilities/constant";
+
 const background = (user, users) => {
   let url = "";
   if (user !== null && users[user.uid].status === Matching) {
