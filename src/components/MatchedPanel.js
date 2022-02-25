@@ -11,7 +11,7 @@ const MatchedPanel = ({ uid, shared_zoom_link }) => {
     <div>
       <div>
         <p>You've bumped into someone!</p>
-        <Link to={`/${meetingId}/meeting`} state={{ shared_zoom_link }}>Click to join via Zoom</Link>
+        <Link to={`/${meetingId}/meeting`} state={{ shared_zoom_link }}>Click to join the meeting</Link>
       </div>
       <div
         className='b-button'
