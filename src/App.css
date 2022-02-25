@@ -33,6 +33,7 @@
   box-shadow: 2px 2px 5px 0 DarkSlateGray;
 }
 
-.b-button:hover {
-  cursor: pointer;
+.b-button.mui:hover {
+  /* choose hover background color */
+  /* background-color: darkred; */
 }
