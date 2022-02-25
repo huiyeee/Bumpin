@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import "./App.css";
 import { useData, setData, useUserState, signOut } from "./utilities/firebase";
 import { useParams } from "react-router-dom";
-
+import theme from "./styling/theme";
+import { ThemeProvider, CssBaseline, Typography } from "@material-ui/core";
 import LogOnPanel from "./components/LogOn";
 import LobbyPanel from "./components/Lobby";
 import MatchedPanel from "./components/MatchedPanel";
@@ -105,9 +106,12 @@ const App = () => {
     };
   };
   return (
-    <div className="App" style={background()}>
-      <header className="App-header">{RenderPage()}</header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <div className="App" style={background(user, users)}>
+        <header className="App-header">{RenderPage()}</header>
+      </div>
+    </ThemeProvider>
   );
 };
 
