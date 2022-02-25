@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./App.css";
 import { useData, setData, useUserState, signOut } from "./utilities/firebase";
 import { useParams } from "react-router-dom";
-
+import { ThemeProvider, CssBaseline, Typography } from "@material-ui/core";
 import LogOnPanel from "./components/LogOn";
 import LobbyPanel from "./components/Lobby";
 import MatchedPanel from "./components/MatchedPanel";
@@ -11,20 +11,19 @@ import { Matched, Initial, Matching, Profile } from "./utilities/constant";
 import MatchingPanel from "./components/MatchingPanel";
 import { Button } from "@mui/material";
 import Meeting from "./components/Meeting/Meeting";
+import theme from "./styling/theme";
+import background from "./styling/background";
 
 const App = () => {
-  const [users, loading, error] = useData(`${process.env.NODE_ENV}/users`);
+  const [users, loading, error] = useData(`/users`);
   const { meetingId } = useParams();
   const [user] = useUserState();
 
   useEffect(() => {
     if (user && meetingId) {
       console.log(user);
-      setData(
-        `${process.env.NODE_ENV}/users/${user.uid}/previous_meeting_id`,
-        meetingId
-      );
-      setData(`${process.env.NODE_ENV}/users/${user.uid}/status`, Initial);
+      setData(`/users/${user.uid}/previous_meeting_id`, meetingId);
+      setData(`/users/${user.uid}/status`, Initial);
     }
   }, [user]);
 
@@ -58,10 +57,7 @@ const App = () => {
     return (
       <Button
         className="b-button mui"
-        onClick={() =>
-          // setData(`${process.env.NODE_ENV}/users/${user.uid}/team`, null)
-          setData(`${process.env.NODE_ENV}/users/${user.uid}/status`, Profile)
-        }
+        onClick={() => setData(`/users/${user.uid}/zoom_link`, null)}
       >
         Change My Profile
       </Button>
@@ -90,27 +86,13 @@ const App = () => {
       return <LogOnPanel />;
     }
   };
-
-  const background = () => {
-    let url = "";
-    if (user !== null && (users[user.uid].status === Initial || users[user.uid].status === Profile )) {
-      url =
-        "https://firebasestorage.googleapis.com/v0/b/bumpin-7d62f.appspot.com/o/background.png?alt=media&token=b35f2139-c32b-45ac-a713-1a194bae351e";
-    } else {
-      url =
-        "https://firebasestorage.googleapis.com/v0/b/bumpin-7d62f.appspot.com/o/hallway.png?alt=media&token=eec8653d-af5b-41d7-9f51-8ec4a73cdeaf";
-    }
-    return {
-      backgroundImage: "url(" + url + ")",
-      backgroundPosition: "center",
-      backgroundSize: "cover",
-      backgroundRepeat: "no-repeat",
-    };
-  };
   return (
-    <div className="App" style={background()}>
-      <header className="App-header">{RenderPage()}</header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <div className="App" style={background(user, users)}>
+        <header className="App-header">{RenderPage()}</header>
+      </div>
+    </ThemeProvider>
   );
 };
 
