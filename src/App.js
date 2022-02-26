@@ -8,7 +8,6 @@ import LogOnPanel from "./components/LogOn";
 import LobbyPanel from "./components/Lobby";
 import MatchedPanel from "./components/MatchedPanel";
 import ChangeProfilePanel from "./components/ChangeProfile";
-import { Matched, Initial, Matching, Profile } from "./utilities/constant";
 import RedirectPanel from "./components/RedirectPanel";
 import {
   Matched,
