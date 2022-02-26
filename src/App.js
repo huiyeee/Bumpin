@@ -23,7 +23,7 @@ const App = () => {
       console.log(user);
       setData(`/users/${user.uid}/previous_meeting_id`, meetingId);
       setData(`/users/${user.uid}/status`, Initial);
-
+      
     }
   }, [user]);
 
@@ -59,7 +59,7 @@ const App = () => {
 
   const RenderPage = () => {
     if (user) {
-      if (users[user.uid].uid === null){
+      if (users[user.uid].uid == null){
         setData(`/users/${user.uid}/status`, Profile);
       }
       return (
