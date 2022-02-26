@@ -7,7 +7,7 @@ import { ThemeProvider, CssBaseline, Typography } from "@material-ui/core";
 import LogOnPanel from "./components/LogOn";
 import LobbyPanel from "./components/Lobby";
 import MatchedPanel from "./components/MatchedPanel";
-import SignUpPanel from "./components/SignUp";
+import ChangeProfilePanel from "./components/ChangeProfile";
 import { Matched, Initial, Matching, Profile } from "./utilities/constant";
 import MatchingPanel from "./components/MatchingPanel";
 import { Button } from "@mui/material";
@@ -22,7 +22,8 @@ const App = () => {
     if (user && meetingId) {
       console.log(user);
       setData(`/users/${user.uid}/previous_meeting_id`, meetingId);
-      setData(`/users/${user.uid}/status`, Profile);
+      setData(`/users/${user.uid}/status`, Initial);
+      
     }
   }, [user]);
 
@@ -30,10 +31,19 @@ const App = () => {
   if (loading || (user && users && !users[user.uid]))
     return <h1>Loading Bumpin...</h1>;
 
+  
   const RenderUserStatusPanel = () => {
     if (users[user.uid].status === Initial) {
-      return <LobbyPanel uid={user.uid} />;
-    } else if (users[user.uid].status === Matching) {
+      return <LobbyPanel uid={user.uid}  />;
+    } else if (users[user.uid].status === Profile){
+      return (<ChangeProfilePanel
+        uid={user.uid}
+        email={user.email}
+        displayName={user.displayName}
+        photoURL={user.photoURL}
+      />);
+    }
+    else if (users[user.uid].status === Matching) {
       return <MatchingPanel uid={user.uid} users={users} />;
     } else if (users[user.uid].status === Matched) {
       return (
@@ -45,45 +55,18 @@ const App = () => {
     }
   };
 
-  const LogOutButton = () => {
-    return (
-      <Button className="b-button mui" onClick={() => signOut()}>
-        Sign Out
-      </Button>
-    );
-  };
-  const SignUpButton = () => {
-    return (
-      <Button
-        className="b-button mui"
-        onClick={() =>
-          // setData(`/users/${user.uid}/team`, null)
-          setData(`/users/${user.uid}/status`, Profile)
-        }
-      >
-        Change My Profile
-      </Button>
-    );
-  };
+  
 
   const RenderPage = () => {
     if (user) {
-      if (users[user.uid].status !== Profile) {
-        return (
-          <>
-            {RenderUserStatusPanel()} {SignUpButton()} {LogOutButton()}
-          </>
-        );
-      } else {
-        return (
-          <SignUpPanel
-            uid={user.uid}
-            email={user.email}
-            displayName={user.displayName}
-            photoURL={user.photoURL}
-          />
-        );
+      if (users[user.uid].uid == null){
+        setData(`/users/${user.uid}/status`, Profile);
       }
+      return (
+        <>
+          {RenderUserStatusPanel()} 
+        </>
+      );
     } else {
       return <LogOnPanel />;
     }

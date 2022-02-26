@@ -11,7 +11,7 @@ import {
   Select,
 } from "@mui/material";
 
-const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
+const ChangeProfilePanel = ({ uid, email, displayName, photoURL }) => {
   const [zoomLink, setZoomLink] = React.useState("");
 
   const [team, setTeam] = React.useState("");
@@ -70,4 +70,4 @@ const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
   );
 };
 
-export default SignUpPanel;
+export default ChangeProfilePanel;
