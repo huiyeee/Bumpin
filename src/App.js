@@ -9,9 +9,15 @@ import LobbyPanel from "./components/Lobby";
 import MatchedPanel from "./components/MatchedPanel";
 import ChangeProfilePanel from "./components/ChangeProfile";
 import { Matched, Initial, Matching, Profile } from "./utilities/constant";
+import RedirectPanel from "./components/RedirectPanel";
+import {
+  Matched,
+  Initial,
+  Matching,
+  Profile,
+  Redirect,
+} from "./utilities/constant";
 import MatchingPanel from "./components/MatchingPanel";
-import { Button } from "@mui/material";
-import Meeting from "./components/Meeting/Meeting";
 
 const App = () => {
   const [users, loading, error] = useData(`/users`);
@@ -23,7 +29,6 @@ const App = () => {
       console.log(user);
       setData(`/users/${user.uid}/previous_meeting_id`, meetingId);
       setData(`/users/${user.uid}/status`, Initial);
-      
     }
   }, [user]);
 
@@ -31,20 +36,22 @@ const App = () => {
   if (loading || (user && users && !users[user.uid]))
     return <h1>Loading Bumpin...</h1>;
 
-  
   const RenderUserStatusPanel = () => {
     if (users[user.uid].status === Initial) {
-      return <LobbyPanel uid={user.uid}  />;
-    } else if (users[user.uid].status === Profile){
-      return (<ChangeProfilePanel
-        uid={user.uid}
-        email={user.email}
-        displayName={user.displayName}
-        photoURL={user.photoURL}
-      />);
-    }
-    else if (users[user.uid].status === Matching) {
+      return <LobbyPanel uid={user.uid} />;
+    } else if (users[user.uid].status === Profile) {
+      return (
+        <ChangeProfilePanel
+          uid={user.uid}
+          email={user.email}
+          displayName={user.displayName}
+          photoURL={user.photoURL}
+        />
+      );
+    } else if (users[user.uid].status === Matching) {
       return <MatchingPanel uid={user.uid} users={users} />;
+    } else if (users[user.uid].status === Redirect) {
+      return <RedirectPanel />;
     } else if (users[user.uid].status === Matched) {
       return (
         <MatchedPanel
@@ -55,18 +62,12 @@ const App = () => {
     }
   };
 
-  
-
   const RenderPage = () => {
     if (user) {
-      if (users[user.uid].uid == null){
+      if (users[user.uid].uid == null) {
         setData(`/users/${user.uid}/status`, Profile);
       }
-      return (
-        <>
-          {RenderUserStatusPanel()} 
-        </>
-      );
+      return <>{RenderUserStatusPanel()}</>;
     } else {
       return <LogOnPanel />;
     }
