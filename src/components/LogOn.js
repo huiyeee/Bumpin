@@ -13,9 +13,11 @@ const LogOnPanel = () => {
         className="center"
         style={{
           borderRadius: "50%",
-          width: 100,
-          height: 100,
+          width: "15%",
+          height: "15%",
           background: "white",
+          border: "7px solid #393555",
+          margin: "20px"
         }}
       />
       <p></p>

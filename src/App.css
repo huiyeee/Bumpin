@@ -11,30 +11,21 @@
   font-size: calc(10px + 2vmin);
 }
 
-.b-button {
-  margin: 5px auto;
-  width: fit-content;
-  min-width: 300px;
-  background-color: white;
-  border-radius: 20px;
-  border: 3px solid DarkSlateGray;
-  color: #1b2f2f;
-  box-shadow: 2px 2px 5px 0 DarkSlateGray;
-}
-
 .b-button.mui {
   margin: 5px auto;
   width: fit-content;
   min-width: 300px;
   background-color: white;
   border-radius: 20px;
-  border: 3px solid DarkSlateGray;
+  border: 3px solid #393555;
   color: #1b2f2f;
-  box-shadow: 2px 2px 5px 0 DarkSlateGray;
+  box-shadow: 2px 2px 5px 0 darkslategray;
 }
 
-.b-button:hover {
+.b-button.mui:hover {
   cursor: pointer;
+  background-color: #393555;
+  color: white;
 }
 
 .logo {
