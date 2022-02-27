@@ -38,6 +38,8 @@ const ChangeProfilePanel = ({ uid, email, displayName, photoURL }) => {
     setData(`/users/${uid}/status`, Initial);
   };
 
+  document.querySelector(".App-header").innerText = "Change my profile";
+
   return (
     <div>
       <form onSubmit={handleSubmit}>

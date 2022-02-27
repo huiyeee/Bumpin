@@ -6,7 +6,8 @@ import { useParams, Link } from "react-router-dom";
 
 const MatchedPanel = ({ uid, shared_zoom_link }) => {
   const { meetingId } = useParams();
-
+  document.querySelector(".App-header").innerText = "You've Bump'd into someone!!";
+  
   return (
     <div>
       <div>

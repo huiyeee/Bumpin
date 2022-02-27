@@ -36,7 +36,10 @@ const App = () => {
     return <h1>Loading Bumpin...</h1>;
 
   const RenderUserStatusPanel = () => {
+    let header = document.querySelector(".App-header");
+    if (!header) return;
     if (users[user.uid].status === Initial) {
+      header.innerText = "Welcome to Bump'n";
       return <LobbyPanel uid={user.uid} />;
     } else if (users[user.uid].status === Profile) {
       return (
@@ -48,8 +51,10 @@ const App = () => {
         />
       );
     } else if (users[user.uid].status === Matching) {
+      header.innerText = "Matching, please wait";
       return <MatchingPanel uid={user.uid} users={users} />;
     } else if (users[user.uid].status === Redirect) {
+      header.innerText = "Matching, please wait";
       return <RedirectPanel />;
     } else if (users[user.uid].status === Matched) {
       return (
@@ -92,7 +97,8 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className="App" style={background(user, users)}>
-        <header className="App-header">{RenderPage()}</header>
+        <header className="App-header"></header>
+        <main className="App-main">{RenderPage()}</main>
       </div>
     </ThemeProvider>
   );
