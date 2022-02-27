@@ -10,6 +10,8 @@ import {
   InputLabel,
   Select,
 } from "@mui/material";
+import CheckIcon from '@mui/icons-material/Check';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const ChangeProfilePanel = ({ uid, email, displayName, photoURL }) => {
   const [zoomLink, setZoomLink] = React.useState("");
@@ -62,9 +64,11 @@ const ChangeProfilePanel = ({ uid, email, displayName, photoURL }) => {
         </FormControl>
 
         <Button className="b-button mui" type="submit" onClick={handleSubmit}>
+          <CheckIcon/>
           Submit
         </Button>
         <Button className="b-button mui" type="submit" onClick={handleGoBack}>
+          <ArrowBackIcon/>
           Go Back
         </Button>
       </form>

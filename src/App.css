@@ -48,3 +48,7 @@
 .innerItemPadding * {
   padding: 10px;
 }
+
+.b-link {
+  text-decoration: none;
+}

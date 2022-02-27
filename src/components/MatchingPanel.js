@@ -3,6 +3,8 @@ import { Button } from "@mui/material";
 import { setData } from "../utilities/firebase";
 import { Initial, Matched, Matching } from "../utilities/constant";
 import MatchableCard from "./MatchableCard";
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
 
 const MatchingPanel = ({ uid, users }) => {
   const [matchIndex, setMatchIndex] = useState(0);
@@ -46,7 +48,8 @@ const MatchingPanel = ({ uid, users }) => {
           setMatchIndex(matchIndex + 2 >= matches.length ? 0 : matchIndex + 2);
         }}
       >
-        Next
+        <DirectionsWalkIcon/>
+        Keep walking
       </Button>
       <Button
         className="b-button mui"
@@ -54,6 +57,7 @@ const MatchingPanel = ({ uid, users }) => {
           setData(`/users/${uid}/status`, Initial);
         }}
       >
+        <ExitToAppIcon/>
         Leave the hallway
       </Button>
     </div>
