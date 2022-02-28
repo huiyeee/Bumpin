@@ -17,7 +17,7 @@ const MatchingPanel = ({ uid, users }) => {
     if (matches.length == matchIndex) {
       return <></>;
     } else if (matches.length == matchIndex + 1) {
-      document.querySelector(".App-header").innerText = "Match found!";
+      document.querySelector(".App-header").innerText = "Matches found!";
       return (
         <MatchableCard myself={users[uid]} other={users[matches[matchIndex]]} />
       );
@@ -40,7 +40,7 @@ const MatchingPanel = ({ uid, users }) => {
 
   return (
     <div>
-      {showMatches()}
+      <div className="matchable-cards"> {showMatches()} </div>
       <Button
         className="b-button mui"
         onClick={() => {

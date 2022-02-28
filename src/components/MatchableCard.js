@@ -1,11 +1,6 @@
 import React from "react";
 import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
+  Button
 } from "@mui/material";
 import { setData } from "../utilities/firebase";
 import { Redirect } from "../utilities/constant";
@@ -22,30 +17,12 @@ const MatchableCard = ({ myself, other }) => {
   };
 
   return (
-    <div>
-      <Card sx={{ maxWidth: 345 }}>
-        <CardMedia
-          component="img"
-          height="140"
-          image={other.photoURL}
-          alt="green iguana"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {other.displayName}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {other.team}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Link to={`/${meetingId}/meeting/`} state={data}>
-            <Button size="small" onClick={redirect}>
-              Match
-            </Button>
-          </Link>
-        </CardActions>
-      </Card>
+    <div className="profile">
+      <img className="profile-img" src={other.photoURL}></img>
+      <p className="profile-name">{other.displayName}</p>
+      <Link className="b-link" to={`/${meetingId}/meeting/`} state={data}>
+        <Button className="profile-match-btn mui" onClick={redirect}>Match</Button>
+      </Link>
     </div>
   );
 };
