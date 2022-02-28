@@ -6,7 +6,7 @@ import MatchableCard from "./MatchableCard";
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
 
-const MatchingPanel = ({ uid, users }) => {
+const MatchingPanel = ({ uid, users, setHeaderText }) => {
   const [matchIndex, setMatchIndex] = useState(0);
   const matches = Object.keys(users).filter(
     (key) =>
@@ -15,14 +15,15 @@ const MatchingPanel = ({ uid, users }) => {
   );
   const showMatches = () => {
     if (matches.length == matchIndex) {
+      setHeaderText("Matching!");
       return <></>;
     } else if (matches.length == matchIndex + 1) {
-      document.querySelector(".App-header").innerText = "Matches found!";
+      setHeaderText("Matches found!");
       return (
         <MatchableCard myself={users[uid]} other={users[matches[matchIndex]]} />
       );
     } else {
-      document.querySelector(".App-header").innerText = "Matches found!";
+      setHeaderText("Matches found!");
       return (
         <>
           <MatchableCard

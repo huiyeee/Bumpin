@@ -9,8 +9,6 @@ import MatchedPartnerCard from "./MatchedPartnerCard";
 
 const MatchedPanel = ({uid, other, shared_zoom_link}) => {
   const {meetingId} = useParams();
-  document.querySelector(".App-header").innerText = "You've Bump'd into someone!!";
-
   return (
     <div>
       <div>

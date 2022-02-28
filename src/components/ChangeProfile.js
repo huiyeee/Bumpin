@@ -14,8 +14,6 @@ import CheckIcon from '@mui/icons-material/Check';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const ChangeProfilePanel = ({ uid, email, displayName, photoURL }) => {
-  const [zoomLink, setZoomLink] = React.useState("");
-
   const [team, setTeam] = React.useState("");
   const handleTeamChange = (event) => {
     setTeam(event.target.value);
@@ -39,9 +37,6 @@ const ChangeProfilePanel = ({ uid, email, displayName, photoURL }) => {
     setData(`/users/${uid}/team`, team);
     setData(`/users/${uid}/status`, Initial);
   };
-
-  document.querySelector(".App-header").innerText = "Change my profile";
-
   return (
     <div>
       <form onSubmit={handleSubmit}>

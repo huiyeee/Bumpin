@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import "./App.css";
 import { useData, setData, useUserState, signOut } from "./utilities/firebase";
 import { useParams } from "react-router-dom";
@@ -19,6 +19,8 @@ import {
 import MatchingPanel from "./components/MatchingPanel";
 
 const App = () => {
+  const [headerText, setHeaderText] = useState("");
+  const [matched, setMatched] = useState(false);
   const [users, loading, error] = useData(`/users`);
   const { meetingId } = useParams();
   const [user] = useUserState();
@@ -29,16 +31,29 @@ const App = () => {
       setData(`/users/${user.uid}/status`, Initial);
     }
   }, [user]);
+  useEffect(() => {
+    if (!user||!user.uid||!users[user.uid]){
+      return
+    }
+    if (users[user.uid].status === Initial) {
+      console.log("init")
+      setHeaderText("Welcome to Bump'n");
+    }else if (users[user.uid].status === Profile) {
+      setHeaderText("Change my profile");
+    }else if (users[user.uid].status === Matching) {
+    }else if (users[user.uid].status === Redirect) {
+      setHeaderText("Redirecting, please wait");
+    }else if (users[user.uid].status === Matched) {
+      setHeaderText("You've Bump'd into someone!!");
+    }
+  }, [users]);
 
   if (error) return <h1>{error}</h1>;
   if (loading || (user && users && !users[user.uid]))
     return <h1>Loading Bumpin...</h1>;
 
   const RenderUserStatusPanel = () => {
-    let header = document.querySelector(".App-header");
-    if (!header) return;
     if (users[user.uid].status === Initial) {
-      header.innerText = "Welcome to Bump'n";
       return <LobbyPanel uid={user.uid} />;
     } else if (users[user.uid].status === Profile) {
       return (
@@ -50,10 +65,8 @@ const App = () => {
         />
       );
     } else if (users[user.uid].status === Matching) {
-      header.innerText = "Matching, please wait";
-      return <MatchingPanel uid={user.uid} users={users} />;
+      return <MatchingPanel uid={user.uid} users={users} setHeaderText={setHeaderText}/>;
     } else if (users[user.uid].status === Redirect) {
-      header.innerText = "Matching, please wait";
       return <RedirectPanel />;
     } else if (users[user.uid].status === Matched) {
       return (
@@ -97,7 +110,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className="App" style={background(user, users)}>
-        <header className="App-header"></header>
+        <header className="App-header">{headerText}</header>
         <main className="App-main">{RenderPage()}</main>
       </div>
     </ThemeProvider>
