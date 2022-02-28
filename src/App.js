@@ -25,7 +25,6 @@ const App = () => {
 
   useEffect(() => {
     if (user && meetingId) {
-      console.log(user);
       setData(`/users/${user.uid}/previous_meeting_id`, meetingId);
       setData(`/users/${user.uid}/status`, Initial);
     }
@@ -60,7 +59,7 @@ const App = () => {
       return (
         <MatchedPanel
           uid={user.uid}
-          other = {users[user.partner]}
+          other = {users[users[user.uid].partner]}
           shared_zoom_link={users[user.uid].shared_zoom_link}
         />
       );
