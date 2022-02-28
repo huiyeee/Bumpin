@@ -60,6 +60,7 @@ const App = () => {
       return (
         <MatchedPanel
           uid={user.uid}
+          other = {users[user.partner]}
           shared_zoom_link={users[user.uid].shared_zoom_link}
         />
       );
