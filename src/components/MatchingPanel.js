@@ -15,7 +15,7 @@ const MatchingPanel = ({ uid, users, setHeaderText }) => {
   );
   const showMatches = () => {
     if (matches.length == matchIndex) {
-      setHeaderText("Matching!");
+      setHeaderText("Matching...");
       return <></>;
     } else if (matches.length == matchIndex + 1) {
       setHeaderText("Matches found!");

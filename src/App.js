@@ -20,7 +20,6 @@ import MatchingPanel from "./components/MatchingPanel";
 
 const App = () => {
   const [headerText, setHeaderText] = useState("");
-  const [matched, setMatched] = useState(false);
   const [users, loading, error] = useData(`/users`);
   const { meetingId } = useParams();
   const [user] = useUserState();
@@ -31,12 +30,12 @@ const App = () => {
       setData(`/users/${user.uid}/status`, Initial);
     }
   }, [user]);
+  
   useEffect(() => {
     if (!user||!user.uid||!users[user.uid]){
       return
     }
     if (users[user.uid].status === Initial) {
-      console.log("init")
       setHeaderText("Welcome to Bump'n");
     }else if (users[user.uid].status === Profile) {
       setHeaderText("Change my profile");
