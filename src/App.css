@@ -13,9 +13,11 @@
 
 .App-header {
   display: block;
-  height: 14vh;
+  min-height: 14vh;
   border-radius: 0 0 0 100px;
-  font-size: 92px;
+  font-size: 10vh;
+  overflow: wrap;
+  align-items:center;
   color: #383555;
   background-color: #FAF5FC;
 }

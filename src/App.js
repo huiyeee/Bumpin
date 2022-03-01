@@ -19,7 +19,7 @@ import {
 import MatchingPanel from "./components/MatchingPanel";
 
 const App = () => {
-  const [headerText, setHeaderText] = useState("");
+  const [headerText, setHeaderText] = useState("Welcome to Bump'n");
   const [users, loading, error] = useData(`/users`);
   const { meetingId } = useParams();
   const [user] = useUserState();
@@ -109,7 +109,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className="App" style={background(user, users)}>
-        <header className="App-header">{headerText}</header>
+        <header className="App-header">{headerText }</header>
         <main className="App-main">{RenderPage()}</main>
       </div>
     </ThemeProvider>
