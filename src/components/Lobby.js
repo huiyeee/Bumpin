@@ -36,6 +36,7 @@ const LobbyPanel = ({uid}) => {
         Would you like to enter the hallway? <br /> We'll let you know if
         someone comes in
       </Typography>
+      <div className="lobby-btns">
       <Button
         className="b-button mui"
         onClick={() => {
@@ -47,6 +48,7 @@ const LobbyPanel = ({uid}) => {
         Enter the hallway
       </Button>
       {ChangeProfileButton()} {LogOutButton()}
+      </div>
     </div>
   );
 };

@@ -42,25 +42,27 @@ const MatchingPanel = ({ uid, users, setHeaderText }) => {
   return (
     <div>
       <div className="matchable-cards"> {showMatches()} </div>
-      <Button
-        className="b-button mui"
-        onClick={() => {
-          console.log("Previous match index: " + matchIndex);
-          setMatchIndex(matchIndex + 2 >= matches.length ? 0 : matchIndex + 2);
-        }}
-      >
-        <DirectionsWalkIcon/>
-        Keep walking
-      </Button>
-      <Button
-        className="b-button mui"
-        onClick={() => {
-          setData(`/users/${uid}/status`, Initial);
-        }}
-      >
-        <ExitToAppIcon/>
-        Leave the hallway
-      </Button>
+      <div className="matching-btns">
+        <Button
+          className="b-button mui"
+          onClick={() => {
+            console.log("Previous match index: " + matchIndex);
+            setMatchIndex(matchIndex + 2 >= matches.length ? 0 : matchIndex + 2);
+          }}
+        >
+          <DirectionsWalkIcon/>
+          Keep walking
+        </Button>
+        <Button
+          className="b-button mui"
+          onClick={() => {
+            setData(`/users/${uid}/status`, Initial);
+          }}
+        >
+          <ExitToAppIcon/>
+          Leave the hallway
+        </Button>
+      </div>
     </div>
   );
 };

@@ -99,3 +99,8 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
+.lobby-btns, .matching-btns {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,10 +1,4 @@
 import React from "react";
-import {
-  Button
-} from "@mui/material";
-import {setData} from "../utilities/firebase";
-import {Redirect} from "../utilities/constant";
-import {Link, useSearchParams, useParams} from "react-router-dom";
 
 const MatchedPartnerCard = ({other}) => {
   return (
