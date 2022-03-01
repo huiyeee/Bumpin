@@ -6,12 +6,14 @@ import LogOn from "./components/LogOn";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Meeting from "./components/Meeting/Meeting";
+import About from "./components/About";
 
 const CustomRouter = () => {
   // read
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="" element={<About />}></Route>
         <Route path="/:meetingId" element={<App />}></Route>
         <Route path="/:meetingId/meeting" element={<Meeting />}></Route>
       </Routes>
