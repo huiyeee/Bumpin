@@ -75,6 +75,7 @@
   margin: 50px;
   display: inline-block;
   width: 220px;
+  margin-bottom: 20px;
 }
 
 .profile-match-btn.mui {
@@ -100,7 +101,7 @@
   justify-content: space-between;
 }
 
-.lobby-btns, .matching-btns {
+.lobby-btns, .matching-btns, .profile-btns {
   display: flex;
   flex-direction: column;
 }

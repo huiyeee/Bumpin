@@ -39,6 +39,10 @@ const ChangeProfilePanel = ({ uid, email, displayName, photoURL }) => {
   };
   return (
     <div>
+      <div className="profile">
+        <img className="profile-img" src={photoURL}></img>
+        <p className="profile-name">{displayName}</p>
+      </div>
       <form onSubmit={handleSubmit}>
         <FormControl fullWidth>
           <InputLabel id="team-name-input">Team</InputLabel>
@@ -58,14 +62,16 @@ const ChangeProfilePanel = ({ uid, email, displayName, photoURL }) => {
           </Select>
         </FormControl>
 
-        <Button className="b-button mui" type="submit" onClick={handleSubmit}>
-          <CheckIcon/>
-          Submit
-        </Button>
-        <Button className="b-button mui" type="submit" onClick={handleGoBack}>
-          <ArrowBackIcon/>
-          Go Back
-        </Button>
+        <div className="profile-btns">
+          <Button className="b-button mui" type="submit" onClick={handleSubmit}>
+            <CheckIcon/>
+            Submit
+          </Button>
+          <Button className="b-button mui" type="submit" onClick={handleGoBack}>
+            <ArrowBackIcon/>
+            Go Back
+          </Button>
+        </div>
       </form>
     </div>
   );
