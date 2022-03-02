@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import "./App.css";
 import { useData, setData, useUserState, signOut } from "./utilities/firebase";
 import { useParams } from "react-router-dom";
@@ -19,17 +19,33 @@ import {
 import MatchingPanel from "./components/MatchingPanel";
 
 const App = () => {
+  const [headerText, setHeaderText] = useState("Welcome to Bump'n");
   const [users, loading, error] = useData(`/users`);
   const { meetingId } = useParams();
   const [user] = useUserState();
 
   useEffect(() => {
     if (user && meetingId) {
-      console.log(user);
       setData(`/users/${user.uid}/previous_meeting_id`, meetingId);
       setData(`/users/${user.uid}/status`, Initial);
     }
   }, [user]);
+  
+  useEffect(() => {
+    if (!user||!user.uid||!users[user.uid]){
+      return
+    }
+    if (users[user.uid].status === Initial) {
+      setHeaderText("Welcome to Bump'n");
+    }else if (users[user.uid].status === Profile) {
+      setHeaderText("Change my profile");
+    }else if (users[user.uid].status === Matching) {
+    }else if (users[user.uid].status === Redirect) {
+      setHeaderText("Redirecting, please wait");
+    }else if (users[user.uid].status === Matched) {
+      setHeaderText("You've Bump'd into someone!!");
+    }
+  }, [users]);
 
   if (error) return <h1>{error}</h1>;
   if (loading || (user && users && !users[user.uid]))
@@ -48,13 +64,14 @@ const App = () => {
         />
       );
     } else if (users[user.uid].status === Matching) {
-      return <MatchingPanel uid={user.uid} users={users} />;
+      return <MatchingPanel uid={user.uid} users={users} setHeaderText={setHeaderText}/>;
     } else if (users[user.uid].status === Redirect) {
       return <RedirectPanel />;
     } else if (users[user.uid].status === Matched) {
       return (
         <MatchedPanel
           uid={user.uid}
+          other = {users[users[user.uid].partner]}
           shared_zoom_link={users[user.uid].shared_zoom_link}
         />
       );
@@ -92,7 +109,8 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className="App" style={background(user, users)}>
-        <header className="App-header">{RenderPage()}</header>
+        <header className="App-header">{headerText }</header>
+        <main className="App-main">{RenderPage()}</main>
       </div>
     </ThemeProvider>
   );

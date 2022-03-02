@@ -3,11 +3,15 @@ import "../App.css";
 import { Button, Typography } from "@mui/material";
 import { setData, signOut } from "../utilities/firebase";
 import { Matching, Profile } from "../utilities/constant";
+import DoorSlidingIcon from '@mui/icons-material/DoorSliding';
+import PersonIcon from '@mui/icons-material/Person';
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 
 const LobbyPanel = ({uid}) => {
   const LogOutButton = () => {
     return (
       <Button className="b-button mui" onClick={() => signOut()}>
+        <PowerSettingsNewIcon/>
         Sign Out
       </Button>
     );
@@ -21,6 +25,7 @@ const LobbyPanel = ({uid}) => {
           setData(`/users/${uid}/status`, Profile)
         }
       >
+        <PersonIcon/>
         Change My Profile
       </Button>
     );
@@ -31,15 +36,19 @@ const LobbyPanel = ({uid}) => {
         Would you like to enter the hallway? <br /> We'll let you know if
         someone comes in
       </Typography>
+      <div className="lobby-btns">
       <Button
         className="b-button mui"
         onClick={() => {
           setData(`/users/${uid}/status`, Matching);
         }}
+
       >
+        <DoorSlidingIcon/>
         Enter the hallway
       </Button>
       {ChangeProfileButton()} {LogOutButton()}
+      </div>
     </div>
   );
 };

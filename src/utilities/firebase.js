@@ -61,14 +61,14 @@ export const useData = (path, transform) => {
     const devMode =
       !env || env === "development";
     if (devMode) {
-      console.log(`loading ${path}`);
+      // console.log(`loading ${path}`);
     }
     return onValue(
       dbRef,
       (snapshot) => {
         const val = snapshot.val();
         if (devMode) {
-          console.log(val);
+          // console.log(val);
         }
         setData(transform ? transform(val) : val);
         setLoading(false);

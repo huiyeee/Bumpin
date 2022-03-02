@@ -81,6 +81,8 @@ export function JoiningScreen({
       // set data
       setData(`/users/${data.myuid}/shared_zoom_link`, _meetingId);
       setData(`/users/${data.otheruid}/shared_zoom_link`, _meetingId);
+      setData(`/users/${data.myuid}/partner`, data.otheruid);
+      setData(`/users/${data.otheruid}/partner`, data.myuid);
       setData(`/users/${data.myuid}/status`, Matched);
       setData(`/users/${data.otheruid}/status`, Matched);
     } else {
