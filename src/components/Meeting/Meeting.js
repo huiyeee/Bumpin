@@ -148,6 +148,7 @@ const MessageList = ({ messages }) => {
 const MeetingChat = ({ tollbarHeight }) => {
   const { publish, messages } = usePubSub("CHAT", {});
   const [message, setMessage] = useState("");
+  const date = new Date();
   return (
     <div
       style={{
@@ -161,7 +162,12 @@ const MeetingChat = ({ tollbarHeight }) => {
       }}
     >
       <iframe
-        src="https://hellowordl.net/?seed=20220228"
+        src={
+          `https://hellowordl.net/?seed=` +
+          date.getFullYear() +
+          (date.getMonth + 1) +
+          date.getDate
+        }
         height="600"
         width="400"
         title="Iframe Example"
