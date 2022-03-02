@@ -23,7 +23,6 @@ const App = () => {
   const [users, loading, error] = useData(`/users`);
   const { meetingId } = useParams();
   const [user] = useUserState();
-
   useEffect(() => {
     if (user && meetingId) {
       setData(`/users/${user.uid}/previous_meeting_id`, meetingId);
@@ -46,6 +45,35 @@ const App = () => {
       setHeaderText("You've Bump'd into someone!!");
     }
   }, [users]);
+
+  useEffect(() => {
+    window.addEventListener('beforeunload', alertUser);
+    if (user && meetingId){
+      window.addEventListener('unload',handleTabClosing(user));
+    }
+    return () => {
+        window.removeEventListener('beforeunload', alertUser);
+        {(user && meetingId) ? window.removeEventListener('unload', handleTabClosing(user)) : <></>} ;
+        
+    }
+    
+  }, [user]);
+
+  
+  
+  const alertUser = (event) =>{
+    event.preventDefault()
+    event.returnValue = 'Are you sure you want to close?'
+  }
+
+  const handleTabClosing = (user) => {
+    resetStatus(user);
+  };
+
+  const resetStatus = (user) => {
+    setData(`/users/${user.uid}/previous_meeting_id`, "hi");
+    setData(`/users/${user.uid}/status`, Initial);
+  }
 
   if (error) return <h1>{error}</h1>;
   if (loading || (user && users && !users[user.uid]))
