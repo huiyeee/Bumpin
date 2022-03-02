@@ -10,7 +10,7 @@ const AboutPanel = () => {
         <CssBaseline />
         <div className="App" style={background()}>
             <header className="App-header">About Bumpin</header>
-            <main className="App-main"><h1>Hi! Do you want to meet more of your coworkers? You can try out our Bumpin app!</h1></main>
+            <main className="App-main"><h1 className="About-text" >Hi! Do you want to meet more of your coworkers? You can try out our Bumpin app!</h1></main>
         </div>
     </ThemeProvider>
   );
