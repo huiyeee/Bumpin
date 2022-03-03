@@ -144,7 +144,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className="App" style={background(user, users)}>
-        <header className="App-header">{headerText}</header>
+        <header className="App-header" data-cy="welcome-header">{headerText}</header>
         <main className="App-main">{RenderPage()}</main>
       </div>
     </ThemeProvider>
