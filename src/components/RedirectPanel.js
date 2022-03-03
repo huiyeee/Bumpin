@@ -1,15 +1,11 @@
 import React from "react";
-import { Button, Typography } from "@mui/material";
-import { Initial } from "../utilities/constant";
-import { setData } from "../utilities/firebase";
-import { useParams, Link } from "react-router-dom";
+import {Button, Typography} from "@mui/material";
+import HourglassTopIcon from '@mui/icons-material/HourglassTop';
 
 const RedirectPanel = () => {
   return (
     <div>
-      <div>
-        <Typography>You've bumped into someone! Please wait...</Typography>
-      </div>
+      <HourglassTopIcon fontSize="large"/>
     </div>
   );
 };

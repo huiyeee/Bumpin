@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { useData, setData, useUserState, signOut } from "./utilities/firebase";
 import { useParams } from "react-router-dom";
@@ -7,7 +7,7 @@ import { ThemeProvider, CssBaseline, Typography } from "@material-ui/core";
 import LogOnPanel from "./components/LogOn";
 import LobbyPanel from "./components/Lobby";
 import MatchedPanel from "./components/MatchedPanel";
-import SignUpPanel from "./components/SignUp";
+import ChangeProfilePanel from "./components/ChangeProfile";
 import RedirectPanel from "./components/RedirectPanel";
 import {
   Matched,
@@ -17,21 +17,64 @@ import {
   Redirect,
 } from "./utilities/constant";
 import MatchingPanel from "./components/MatchingPanel";
-import { Button } from "@mui/material";
-import Meeting from "./components/Meeting/Meeting";
 
 const App = () => {
+  const [headerText, setHeaderText] = useState("Welcome to Bump'n");
   const [users, loading, error] = useData(`/users`);
   const { meetingId } = useParams();
   const [user] = useUserState();
-
   useEffect(() => {
     if (user && meetingId) {
-      console.log(user);
       setData(`/users/${user.uid}/previous_meeting_id`, meetingId);
-      setData(`/users/${user.uid}/status`, Profile);
+      setData(`/users/${user.uid}/status`, Initial);
     }
   }, [user]);
+
+  useEffect(() => {
+    if (!user || !user.uid || !users[user.uid]) {
+      return;
+    }
+    if (users[user.uid].status === Initial) {
+      setHeaderText("Welcome to Bump'n");
+    } else if (users[user.uid].status === Profile) {
+      setHeaderText("Change my profile");
+    } else if (users[user.uid].status === Matching) {
+    } else if (users[user.uid].status === Redirect) {
+      setHeaderText("Redirecting, please wait");
+    } else if (users[user.uid].status === Matched) {
+      setHeaderText("You've Bump'd into someone!!");
+    }
+  }, [users]);
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", alertUser);
+    if (user && meetingId) {
+      window.addEventListener("unload", handleTabClosing(user));
+    }
+    return () => {
+      window.removeEventListener("beforeunload", alertUser);
+      {
+        user && meetingId ? (
+          window.removeEventListener("unload", handleTabClosing(user))
+        ) : (
+          <></>
+        );
+      }
+    };
+  }, [user]);
+
+  const alertUser = (event) => {
+    event.preventDefault();
+    event.returnValue = "Are you sure you want to close?";
+  };
+
+  const handleTabClosing = (user) => {
+    resetStatus(user);
+  };
+
+  const resetStatus = (user) => {
+    setData(`/users/${user.uid}/status`, Initial);
+  };
 
   if (error) return <h1>{error}</h1>;
   if (loading || (user && users && !users[user.uid]))
@@ -40,59 +83,42 @@ const App = () => {
   const RenderUserStatusPanel = () => {
     if (users[user.uid].status === Initial) {
       return <LobbyPanel uid={user.uid} />;
+    } else if (users[user.uid].status === Profile) {
+      return (
+        <ChangeProfilePanel
+          uid={user.uid}
+          email={user.email}
+          displayName={user.displayName}
+          photoURL={user.photoURL}
+        />
+      );
     } else if (users[user.uid].status === Matching) {
-      return <MatchingPanel uid={user.uid} users={users} />;
+      return (
+        <MatchingPanel
+          uid={user.uid}
+          users={users}
+          setHeaderText={setHeaderText}
+        />
+      );
     } else if (users[user.uid].status === Redirect) {
       return <RedirectPanel />;
     } else if (users[user.uid].status === Matched) {
       return (
         <MatchedPanel
           uid={user.uid}
+          other={users[users[user.uid].partner]}
           shared_zoom_link={users[user.uid].shared_zoom_link}
         />
       );
     }
   };
 
-  const LogOutButton = () => {
-    return (
-      <Button className="b-button mui" onClick={() => signOut()}>
-        Sign Out
-      </Button>
-    );
-  };
-  const SignUpButton = () => {
-    return (
-      <Button
-        className="b-button mui"
-        onClick={() =>
-          // setData(`/users/${user.uid}/team`, null)
-          setData(`/users/${user.uid}/status`, Profile)
-        }
-      >
-        Change My Profile
-      </Button>
-    );
-  };
-
   const RenderPage = () => {
     if (user) {
-      if (users[user.uid].status !== Profile) {
-        return (
-          <>
-            {RenderUserStatusPanel()} {SignUpButton()} {LogOutButton()}
-          </>
-        );
-      } else {
-        return (
-          <SignUpPanel
-            uid={user.uid}
-            email={user.email}
-            displayName={user.displayName}
-            photoURL={user.photoURL}
-          />
-        );
+      if (users[user.uid].uid == null) {
+        setData(`/users/${user.uid}/status`, Profile);
       }
+      return <>{RenderUserStatusPanel()}</>;
     } else {
       return <LogOnPanel />;
     }
@@ -118,7 +144,8 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className="App" style={background(user, users)}>
-        <header className="App-header">{RenderPage()}</header>
+        <header className="App-header" data-cy="welcome-header">{headerText}</header>
+        <main className="App-main">{RenderPage()}</main>
       </div>
     </ThemeProvider>
   );

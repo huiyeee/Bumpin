@@ -10,10 +10,10 @@ import {
   InputLabel,
   Select,
 } from "@mui/material";
+import CheckIcon from '@mui/icons-material/Check';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
-  const [zoomLink, setZoomLink] = React.useState("");
-
+const ChangeProfilePanel = ({ uid, email, displayName, photoURL }) => {
   const [team, setTeam] = React.useState("");
   const handleTeamChange = (event) => {
     setTeam(event.target.value);
@@ -37,9 +37,12 @@ const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
     setData(`/users/${uid}/team`, team);
     setData(`/users/${uid}/status`, Initial);
   };
-
   return (
     <div>
+      <div className="profile">
+        <img className="profile-img" src={photoURL}></img>
+        <p className="profile-name">{displayName}</p>
+      </div>
       <form onSubmit={handleSubmit}>
         <FormControl fullWidth>
           <InputLabel id="team-name-input">Team</InputLabel>
@@ -59,15 +62,19 @@ const SignUpPanel = ({ uid, email, displayName, photoURL }) => {
           </Select>
         </FormControl>
 
-        <Button className="b-button mui" type="submit" onClick={handleSubmit}>
-          Submit
-        </Button>
-        <Button className="b-button mui" type="submit" onClick={handleGoBack}>
-          Go Back
-        </Button>
+        <div className="profile-btns">
+          <Button className="b-button mui" type="submit" onClick={handleSubmit}>
+            <CheckIcon/>
+            Submit
+          </Button>
+          <Button className="b-button mui" type="submit" onClick={handleGoBack}>
+            <ArrowBackIcon/>
+            Go Back
+          </Button>
+        </div>
       </form>
     </div>
   );
 };
 
-export default SignUpPanel;
+export default ChangeProfilePanel;
