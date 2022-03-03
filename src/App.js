@@ -84,12 +84,16 @@ const App = () => {
     if (users[user.uid].status === Initial) {
       return <LobbyPanel uid={user.uid} />;
     } else if (users[user.uid].status === Profile) {
+      let displayUser = users[user.uid]
+      if (displayUser.displayName === undefined){
+        displayUser = user
+      }
       return (
         <ChangeProfilePanel
-          uid={user.uid}
-          email={user.email}
-          displayName={user.displayName}
-          photoURL={user.photoURL}
+          uid={displayUser.uid}
+          email={displayUser.email}
+          displayName={displayUser.displayName}
+          photoURL={displayUser.photoURL}
         />
       );
     } else if (users[user.uid].status === Matching) {

@@ -1,20 +1,25 @@
 import React from "react";
 import logo from "../logo.svg";
-import { setData } from "../utilities/firebase";
-import { Matched, Initial, Matching, Profile } from "../utilities/constant";
+import {setData} from "../utilities/firebase";
+import {Matched, Initial, Matching, Profile} from "../utilities/constant";
 import {
   Button,
   TextField,
   FormControl,
   MenuItem,
   InputLabel,
-  Select,
+  Select, IconButton,
 } from "@mui/material";
 import CheckIcon from '@mui/icons-material/Check';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import EditIcon from '@mui/icons-material/Edit';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
-const ChangeProfilePanel = ({ uid, email, displayName, photoURL }) => {
+const ChangeProfilePanel = ({uid, email, displayName, photoURL}) => {
   const [team, setTeam] = React.useState("");
+  const [name, setName] = React.useState(displayName);
+  const [editName, setEditName] = React.useState(false);
+  const [editTeam, setEditTeam] = React.useState(false);
   const handleTeamChange = (event) => {
     setTeam(event.target.value);
   };
@@ -32,7 +37,7 @@ const ChangeProfilePanel = ({ uid, email, displayName, photoURL }) => {
   const setProfile = () => {
     setData(`/users/${uid}/uid`, uid);
     setData(`/users/${uid}/email`, email);
-    setData(`/users/${uid}/displayName`, displayName);
+    setData(`/users/${uid}/displayName`, name);
     setData(`/users/${uid}/photoURL`, photoURL);
     setData(`/users/${uid}/team`, team);
     setData(`/users/${uid}/status`, Initial);
@@ -41,9 +46,27 @@ const ChangeProfilePanel = ({ uid, email, displayName, photoURL }) => {
     <div>
       <div className="profile">
         <img className="profile-img" src={photoURL}></img>
-        <p className="profile-name">{displayName}</p>
       </div>
       <form onSubmit={handleSubmit}>
+        {editName ?
+          <>
+            <TextField
+              className="profile-name-input"
+              variant="standard"
+              value={name}
+              onInput={(e) => setName(e.target.value)}/>
+            <IconButton onClick={() => {
+              setEditName(false);
+            }}><CheckCircleOutlineIcon/></IconButton>
+          </>
+          :
+          <>
+            <div className="profile-name-input">{name}</div>
+            <IconButton onClick={() => {
+              setEditName(true)
+            }}><EditIcon/></IconButton>
+          </>
+        }
         <FormControl fullWidth>
           <InputLabel id="team-name-input">Team</InputLabel>
           <Select
