@@ -20,7 +20,8 @@ const ChangeProfilePanel = ({ displayName, teamName, photoURL, uid }) => {
   const [team, setTeam] = React.useState(teamName);
   const [name, setName] = React.useState(displayName);
   const [editName, setEditName] = React.useState(false);
-  // const [photo, setPhoto] = React.useState(photoURL);
+  const [editPhoto, setEditPhoto] = React.useState(false);
+  const [photo, setPhoto] = React.useState(photoURL);
   // const [editTeam, setEditTeam] = React.useState(false);
   const handleTeamChange = (event) => {
     setTeam(event.target.value);
@@ -39,14 +40,44 @@ const ChangeProfilePanel = ({ displayName, teamName, photoURL, uid }) => {
   const setProfile = () => {
     setData(`/users/${uid}/displayName`, name);
     setData(`/users/${uid}/team`, team);
+    setData(`/users/${uid}/photoURL`, photo);
     setData(`/users/${uid}/status`, Initial);
   };
   return (
     <div>
       <div className="profile">
-        <img className="profile-img" src={photoURL}></img>
+        <img className="profile-img" src={photo}></img>
       </div>
+      
       <form onSubmit={handleSubmit}>
+      {editPhoto ? (
+          <>
+            <TextField
+              className="profile-photo-url-input"
+              variant="standard"
+              value={photo}
+              onInput={(e) => setPhoto(e.target.value)}
+            />
+            <IconButton
+              onClick={() => {
+                setEditPhoto(false);
+              }}
+            >
+              <CheckCircleOutlineIcon />
+            </IconButton>
+          </>
+        ) : (
+          <>
+            <div className="profile-photo-url-input">{''}</div>
+            <IconButton
+              onClick={() => {
+                setEditPhoto(true);
+              }}
+            >
+              <EditIcon />
+            </IconButton>
+          </>
+        )}
         {editName ? (
           <>
             <TextField
@@ -75,6 +106,8 @@ const ChangeProfilePanel = ({ displayName, teamName, photoURL, uid }) => {
             </IconButton>
           </>
         )}
+        
+        
         <FormControl fullWidth>
           <InputLabel id="team-name-input">Team</InputLabel>
           <Select
