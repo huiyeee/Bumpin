@@ -42,7 +42,7 @@ const LobbyPanel = ({uid}) => {
         onClick={() => {
           setData(`/users/${uid}/status`, Matching);
         }}
-
+        data-cy="enter-button"
       >
         <DoorSlidingIcon/>
         Enter the hallway
