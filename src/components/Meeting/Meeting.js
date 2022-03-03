@@ -148,6 +148,23 @@ const MessageList = ({ messages }) => {
 const MeetingChat = ({ tollbarHeight }) => {
   const { publish, messages } = usePubSub("CHAT", {});
   const [message, setMessage] = useState("");
+  const [dateNum, setDateNum] = useState("20220131");
+  useEffect(() => {
+    const date = new Date();
+    const year = date.getFullYear().toString();
+    let month = date.getMonth() + 1;
+    month = month.toString();
+    if (date.getMonth() + 1 < 10) {
+      month = "0" + (date.getMonth() + 1);
+    }
+    let day = date.getDate().toString();
+    if (date.getDate() < 10) {
+      day = "0" + date.getDate();
+    }
+    // console.log(year + month + day);
+    setDateNum(year + month + day);
+  }, []);
+
   return (
     <div
       style={{
@@ -161,7 +178,7 @@ const MeetingChat = ({ tollbarHeight }) => {
       }}
     >
       <iframe
-        src="https://hellowordl.net/?seed=20220228"
+        src={`https://hellowordl.net/?seed=` + dateNum}
         height="600"
         width="400"
         title="Iframe Example"
