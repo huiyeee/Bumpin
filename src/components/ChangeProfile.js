@@ -1,25 +1,27 @@
 import React from "react";
 import logo from "../logo.svg";
-import {setData} from "../utilities/firebase";
-import {Matched, Initial, Matching, Profile} from "../utilities/constant";
+import { setData } from "../utilities/firebase";
+import { Matched, Initial, Matching, Profile } from "../utilities/constant";
 import {
   Button,
   TextField,
   FormControl,
   MenuItem,
   InputLabel,
-  Select, IconButton,
+  Select,
+  IconButton,
 } from "@mui/material";
-import CheckIcon from '@mui/icons-material/Check';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import EditIcon from '@mui/icons-material/Edit';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import CheckIcon from "@mui/icons-material/Check";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import EditIcon from "@mui/icons-material/Edit";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
-const ChangeProfilePanel = ({uid, email, displayName, photoURL}) => {
-  const [team, setTeam] = React.useState("");
+const ChangeProfilePanel = ({ displayName, teamName, photoURL, uid }) => {
+  const [team, setTeam] = React.useState(teamName);
   const [name, setName] = React.useState(displayName);
   const [editName, setEditName] = React.useState(false);
-  const [editTeam, setEditTeam] = React.useState(false);
+  // const [photo, setPhoto] = React.useState(photoURL);
+  // const [editTeam, setEditTeam] = React.useState(false);
   const handleTeamChange = (event) => {
     setTeam(event.target.value);
   };
@@ -35,10 +37,7 @@ const ChangeProfilePanel = ({uid, email, displayName, photoURL}) => {
   };
 
   const setProfile = () => {
-    setData(`/users/${uid}/uid`, uid);
-    setData(`/users/${uid}/email`, email);
     setData(`/users/${uid}/displayName`, name);
-    setData(`/users/${uid}/photoURL`, photoURL);
     setData(`/users/${uid}/team`, team);
     setData(`/users/${uid}/status`, Initial);
   };
@@ -48,25 +47,34 @@ const ChangeProfilePanel = ({uid, email, displayName, photoURL}) => {
         <img className="profile-img" src={photoURL}></img>
       </div>
       <form onSubmit={handleSubmit}>
-        {editName ?
+        {editName ? (
           <>
             <TextField
               className="profile-name-input"
               variant="standard"
               value={name}
-              onInput={(e) => setName(e.target.value)}/>
-            <IconButton onClick={() => {
-              setEditName(false);
-            }}><CheckCircleOutlineIcon/></IconButton>
+              onInput={(e) => setName(e.target.value)}
+            />
+            <IconButton
+              onClick={() => {
+                setEditName(false);
+              }}
+            >
+              <CheckCircleOutlineIcon />
+            </IconButton>
           </>
-          :
+        ) : (
           <>
             <div className="profile-name-input">{name}</div>
-            <IconButton onClick={() => {
-              setEditName(true)
-            }}><EditIcon/></IconButton>
+            <IconButton
+              onClick={() => {
+                setEditName(true);
+              }}
+            >
+              <EditIcon />
+            </IconButton>
           </>
-        }
+        )}
         <FormControl fullWidth>
           <InputLabel id="team-name-input">Team</InputLabel>
           <Select
@@ -87,11 +95,11 @@ const ChangeProfilePanel = ({uid, email, displayName, photoURL}) => {
 
         <div className="profile-btns">
           <Button className="b-button mui" type="submit" onClick={handleSubmit}>
-            <CheckIcon/>
+            <CheckIcon />
             Submit
           </Button>
           <Button className="b-button mui" type="submit" onClick={handleGoBack}>
-            <ArrowBackIcon/>
+            <ArrowBackIcon />
             Go Back
           </Button>
         </div>
