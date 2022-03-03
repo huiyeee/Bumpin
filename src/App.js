@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { useData, setData, useUserState, signOut } from "./utilities/firebase";
 import { useParams } from "react-router-dom";
@@ -23,29 +23,58 @@ const App = () => {
   const [users, loading, error] = useData(`/users`);
   const { meetingId } = useParams();
   const [user] = useUserState();
-
   useEffect(() => {
     if (user && meetingId) {
       setData(`/users/${user.uid}/previous_meeting_id`, meetingId);
       setData(`/users/${user.uid}/status`, Initial);
     }
   }, [user]);
-  
+
   useEffect(() => {
-    if (!user||!user.uid||!users[user.uid]){
-      return
+    if (!user || !user.uid || !users[user.uid]) {
+      return;
     }
     if (users[user.uid].status === Initial) {
       setHeaderText("Welcome to Bump'n");
-    }else if (users[user.uid].status === Profile) {
+    } else if (users[user.uid].status === Profile) {
       setHeaderText("Change my profile");
-    }else if (users[user.uid].status === Matching) {
-    }else if (users[user.uid].status === Redirect) {
+    } else if (users[user.uid].status === Matching) {
+    } else if (users[user.uid].status === Redirect) {
       setHeaderText("Redirecting, please wait");
-    }else if (users[user.uid].status === Matched) {
+    } else if (users[user.uid].status === Matched) {
       setHeaderText("You've Bump'd into someone!!");
     }
   }, [users]);
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", alertUser);
+    if (user && meetingId) {
+      window.addEventListener("unload", handleTabClosing(user));
+    }
+    return () => {
+      window.removeEventListener("beforeunload", alertUser);
+      {
+        user && meetingId ? (
+          window.removeEventListener("unload", handleTabClosing(user))
+        ) : (
+          <></>
+        );
+      }
+    };
+  }, [user]);
+
+  const alertUser = (event) => {
+    event.preventDefault();
+    event.returnValue = "Are you sure you want to close?";
+  };
+
+  const handleTabClosing = (user) => {
+    resetStatus(user);
+  };
+
+  const resetStatus = (user) => {
+    setData(`/users/${user.uid}/status`, Initial);
+  };
 
   if (error) return <h1>{error}</h1>;
   if (loading || (user && users && !users[user.uid]))
@@ -64,14 +93,20 @@ const App = () => {
         />
       );
     } else if (users[user.uid].status === Matching) {
-      return <MatchingPanel uid={user.uid} users={users} setHeaderText={setHeaderText}/>;
+      return (
+        <MatchingPanel
+          uid={user.uid}
+          users={users}
+          setHeaderText={setHeaderText}
+        />
+      );
     } else if (users[user.uid].status === Redirect) {
       return <RedirectPanel />;
     } else if (users[user.uid].status === Matched) {
       return (
         <MatchedPanel
           uid={user.uid}
-          other = {users[users[user.uid].partner]}
+          other={users[users[user.uid].partner]}
           shared_zoom_link={users[user.uid].shared_zoom_link}
         />
       );
@@ -109,7 +144,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className="App" style={background(user, users)}>
-        <header className="App-header">{headerText }</header>
+        <header className="App-header">{headerText}</header>
         <main className="App-main">{RenderPage()}</main>
       </div>
     </ThemeProvider>
