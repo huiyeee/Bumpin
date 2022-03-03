@@ -11,7 +11,8 @@ const MatchingPanel = ({ uid, users, setHeaderText }) => {
   const matches = Object.keys(users).filter(
     (key) =>
       users[key].status === Matching &&
-      users[key].previous_meeting_id !== users[uid].previous_meeting_id
+      users[key].previous_meeting_id !== users[uid].previous_meeting_id && 
+      users[key].team !== users[uid].team
   );
   const showMatches = () => {
     if (matches.length == matchIndex) {
