@@ -22,7 +22,7 @@ const ChangeProfilePanel = ({ displayName, teamName, photoURL, uid }) => {
   const [editName, setEditName] = React.useState(false);
   const [editPhoto, setEditPhoto] = React.useState(false);
   const [photo, setPhoto] = React.useState(photoURL);
-  // const [editTeam, setEditTeam] = React.useState(false);
+  const [editTeam, setEditTeam] = React.useState(false);
   const handleTeamChange = (event) => {
     setTeam(event.target.value);
   };
@@ -116,8 +116,46 @@ const ChangeProfilePanel = ({ displayName, teamName, photoURL, uid }) => {
         )}
       </div>
         
+        <></>
+        <div className="profile-row">
+        {editTeam ? (
+          <>
+            <TextField
+              className="profile-name-input"
+              variant="standard"
+              value={team}
+              onInput={(e) => setTeam(e.target.value)}
+              sx={{ input: { color: 'white' } }}
+              InputProps={{
+                inputProps: {
+                    style: { textAlign: "center" },
+                }
+              }}
+            />
+            <IconButton
+              onClick={() => {
+                setEditTeam(false);
+              }}
+            >
+              <CheckCircleOutlineIcon />
+            </IconButton>
+          </>
+        ) : (
+          <>
+            <div className="profile-name-input">{team}</div>
+            <IconButton
+              onClick={() => {
+                setEditTeam(true);
+              }}
+            >
+              <EditIcon />
+            </IconButton>
+          </>
+        )}
+      </div>
+
         
-        <FormControl fullWidth>
+        {/* <FormControl fullWidth>
           <InputLabel id="team-name-input">Team</InputLabel>
           <Select
             id="select-team-name"
@@ -133,7 +171,7 @@ const ChangeProfilePanel = ({ displayName, teamName, photoURL, uid }) => {
             <MenuItem value={"Orange"}>Orange</MenuItem>
             <MenuItem value={"Yellow"}>Yellow</MenuItem>
           </Select>
-        </FormControl>
+        </FormControl> */}
 
         <div className="profile-btns">
           <Button className="b-button mui" type="submit" onClick={handleSubmit}>
