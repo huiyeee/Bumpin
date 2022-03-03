@@ -57,6 +57,7 @@ const ChangeProfilePanel = ({ displayName, teamName, photoURL, uid }) => {
               variant="standard"
               value={photo}
               onInput={(e) => setPhoto(e.target.value)}
+              sx={{ input: { color: 'white' } }}
             />
             <IconButton
               onClick={() => {
@@ -78,6 +79,7 @@ const ChangeProfilePanel = ({ displayName, teamName, photoURL, uid }) => {
             </IconButton>
           </>
         )}
+      <div className="profile-row">
         {editName ? (
           <>
             <TextField
@@ -85,6 +87,12 @@ const ChangeProfilePanel = ({ displayName, teamName, photoURL, uid }) => {
               variant="standard"
               value={name}
               onInput={(e) => setName(e.target.value)}
+              sx={{ input: { color: 'white' } }}
+              InputProps={{
+                inputProps: {
+                    style: { textAlign: "center" },
+                }
+              }}
             />
             <IconButton
               onClick={() => {
@@ -106,6 +114,7 @@ const ChangeProfilePanel = ({ displayName, teamName, photoURL, uid }) => {
             </IconButton>
           </>
         )}
+      </div>
         
         
         <FormControl fullWidth>
