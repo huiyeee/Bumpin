@@ -84,12 +84,16 @@ const App = () => {
     if (users[user.uid].status === Initial) {
       return <LobbyPanel uid={user.uid} />;
     } else if (users[user.uid].status === Profile) {
+      // let displayUser = users[user.uid]
+      // if (displayUser.displayName === undefined){
+      //   displayUser = user
+      // }
       return (
         <ChangeProfilePanel
-          uid={user.uid}
-          email={user.email}
-          displayName={user.displayName}
-          photoURL={user.photoURL}
+          displayName={users[user.uid].displayName}
+          photoURL={users[user.uid].photoURL}
+          teamName={users[user.uid].team}
+          uid={users[user.uid].uid}
         />
       );
     } else if (users[user.uid].status === Matching) {
@@ -117,6 +121,10 @@ const App = () => {
     if (user) {
       if (users[user.uid].uid == null) {
         setData(`/users/${user.uid}/status`, Profile);
+        setData(`/users/${user.uid}/uid`, user.uid);
+        setData(`/users/${user.uid}/email`, user.email);
+        setData(`/users/${user.uid}/displayName`, user.displayName);
+        setData(`/users/${user.uid}/photoURL`, user.photoURL);
       }
       return <>{RenderUserStatusPanel()}</>;
     } else {
@@ -144,7 +152,9 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className="App" style={background(user, users)}>
-        <header className="App-header" data-cy="welcome-header">{headerText}</header>
+        <header className="App-header" data-cy="welcome-header">
+          {headerText}
+        </header>
         <main className="App-main">{RenderPage()}</main>
       </div>
     </ThemeProvider>
