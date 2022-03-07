@@ -118,7 +118,7 @@ const App = () => {
       );
     } else if (users[user.uid].status === PreMatch) {
       return (
-        <RoomSelected />
+        <RoomSelected  uid={user.uid}/>
       )
     }
   };
