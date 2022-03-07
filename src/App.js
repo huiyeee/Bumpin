@@ -15,8 +15,10 @@ import {
   Matching,
   Profile,
   Redirect,
+  PreMatch,
 } from "./utilities/constant";
 import MatchingPanel from "./components/MatchingPanel";
+import RoomSelected from "./components/RoomSelected";
 
 const App = () => {
   const [headerText, setHeaderText] = useState("Welcome to Bump'n");
@@ -114,6 +116,10 @@ const App = () => {
           shared_zoom_link={users[user.uid].shared_zoom_link}
         />
       );
+    } else if (users[user.uid].status === PreMatch) {
+      return (
+        <RoomSelected />
+      )
     }
   };
 
