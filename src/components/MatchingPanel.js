@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import { setData } from "../utilities/firebase";
-import { Initial, Matched, Matching, PreMatch } from "../utilities/constant";
+import { Initial, Matched, Matching } from "../utilities/constant";
 import MatchableCard from "./MatchableCard";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import DirectionsWalkIcon from "@mui/icons-material/DirectionsWalk";
@@ -11,7 +11,6 @@ const MatchingPanel = ({ uid, users, setHeaderText }) => {
   const matches = Object.keys(users).filter(
     (key) =>
       users[key].status === Matching &&
-      key !== uid &&
       // users[key].previous_meeting_id !== users[uid].previous_meeting_id &&
       // users[key].team !== users[uid].team &&
       users[key].roomPreference === users[uid].roomPreference
@@ -61,7 +60,7 @@ const MatchingPanel = ({ uid, users, setHeaderText }) => {
         <Button
           className="b-button mui"
           onClick={() => {
-            setData(`/users/${uid}/status`, PreMatch);
+            setData(`/users/${uid}/status`, Initial);
           }}
         >
           <ExitToAppIcon />

@@ -13,15 +13,18 @@ const CustomRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* <Route path="" element={<AboutPanel />}></Route> */}
-        <Route path="/" element={<App />}></Route>
-        <Route path="/meeting" element={<Meeting />}></Route>
+        <Route path="" element={<AboutPanel />}></Route>
+        <Route path="/:meetingId" element={<App />}></Route>
+        <Route path="/:meetingId/meeting" element={<Meeting />}></Route>
       </Routes>
     </BrowserRouter>
-  );
-};
+  )
+}
 
-ReactDOM.render(<CustomRouter />, document.getElementById("root"));
+ReactDOM.render(
+  <CustomRouter />,
+  document.getElementById("root")
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

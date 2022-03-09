@@ -23,11 +23,11 @@ import RoomSelected from "./components/RoomSelected";
 const App = () => {
   const [headerText, setHeaderText] = useState("Welcome to Bump'n");
   const [users, loading, error] = useData(`/users`);
-  // const { meetingId } = useParams();
+  const { meetingId } = useParams();
   const [user] = useUserState();
   useEffect(() => {
-    if (user) {
-      // setData(`/users/${user.uid}/previous_meeting_id`, meetingId);
+    if (user && meetingId) {
+      setData(`/users/${user.uid}/previous_meeting_id`, meetingId);
       setData(`/users/${user.uid}/status`, Initial);
     }
   }, [user]);
@@ -50,13 +50,13 @@ const App = () => {
 
   useEffect(() => {
     window.addEventListener("beforeunload", alertUser);
-    if (user) {
+    if (user && meetingId) {
       window.addEventListener("unload", handleTabClosing(user));
     }
     return () => {
       window.removeEventListener("beforeunload", alertUser);
       {
-        user ? (
+        user && meetingId ? (
           window.removeEventListener("unload", handleTabClosing(user))
         ) : (
           <></>
@@ -117,7 +117,9 @@ const App = () => {
         />
       );
     } else if (users[user.uid].status === PreMatch) {
-      return <RoomSelected uid={user.uid} />;
+      return (
+        <RoomSelected  uid={user.uid}/>
+      )
     }
   };
 
@@ -138,11 +140,7 @@ const App = () => {
 
   const background = () => {
     let url = "";
-    if (
-      user !== null &&
-      (users[user.uid].status === Matching ||
-        users[user.uid].status === PreMatch)
-    ) {
+    if (user !== null && users[user.uid].status === Matching) {
       url =
         "https://firebasestorage.googleapis.com/v0/b/bumpin-7d62f.appspot.com/o/hallway.png?alt=media&token=eec8653d-af5b-41d7-9f51-8ec4a73cdeaf";
     } else {
