@@ -1,7 +1,5 @@
 import React from "react";
-import {
-  Button
-} from "@mui/material";
+import { Button } from "@mui/material";
 import { setData } from "../utilities/firebase";
 import { Redirect } from "../utilities/constant";
 import { Link, useSearchParams, useParams } from "react-router-dom";
@@ -20,8 +18,10 @@ const MatchableCard = ({ myself, other }) => {
     <div className="profile">
       <img className="profile-img" src={other.photoURL}></img>
       <p className="profile-name">{other.displayName}</p>
-      <Link className="b-link" to={`/${meetingId}/meeting/`} state={data}>
-        <Button className="profile-match-btn mui" onClick={redirect}>Match</Button>
+      <Link className="b-link" to={`/meeting/`} state={data}>
+        <Button className="profile-match-btn mui" onClick={redirect}>
+          Match
+        </Button>
       </Link>
     </div>
   );
