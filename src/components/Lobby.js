@@ -2,10 +2,11 @@ import React from "react";
 import "../App.css";
 import { Button, Typography } from "@mui/material";
 import { setData, signOut } from "../utilities/firebase";
-import { Matching, Profile } from "../utilities/constant";
+import { Matching, PreMatch, Profile } from "../utilities/constant";
 import DoorSlidingIcon from '@mui/icons-material/DoorSliding';
 import PersonIcon from '@mui/icons-material/Person';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import RoomSelected from "./RoomSelected";
 
 const LobbyPanel = ({uid}) => {
   const LogOutButton = () => {
@@ -40,7 +41,7 @@ const LobbyPanel = ({uid}) => {
       <Button
         className="b-button mui"
         onClick={() => {
-          setData(`/users/${uid}/status`, Matching);
+          setData(`/users/${uid}/status`, PreMatch);
         }}
         data-cy="enter-button"
       >

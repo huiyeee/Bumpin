@@ -15,17 +15,19 @@ import {
   Matching,
   Profile,
   Redirect,
+  PreMatch,
 } from "./utilities/constant";
 import MatchingPanel from "./components/MatchingPanel";
+import RoomSelected from "./components/RoomSelected";
 
 const App = () => {
   const [headerText, setHeaderText] = useState("Welcome to Bump'n");
   const [users, loading, error] = useData(`/users`);
-  const { meetingId } = useParams();
+  // const { meetingId } = useParams();
   const [user] = useUserState();
   useEffect(() => {
-    if (user && meetingId) {
-      setData(`/users/${user.uid}/previous_meeting_id`, meetingId);
+    if (user) {
+      // setData(`/users/${user.uid}/previous_meeting_id`, meetingId);
       setData(`/users/${user.uid}/status`, Initial);
     }
   }, [user]);
@@ -48,13 +50,13 @@ const App = () => {
 
   useEffect(() => {
     window.addEventListener("beforeunload", alertUser);
-    if (user && meetingId) {
+    if (user) {
       window.addEventListener("unload", handleTabClosing(user));
     }
     return () => {
       window.removeEventListener("beforeunload", alertUser);
       {
-        user && meetingId ? (
+        user ? (
           window.removeEventListener("unload", handleTabClosing(user))
         ) : (
           <></>
@@ -84,12 +86,16 @@ const App = () => {
     if (users[user.uid].status === Initial) {
       return <LobbyPanel uid={user.uid} />;
     } else if (users[user.uid].status === Profile) {
+      // let displayUser = users[user.uid]
+      // if (displayUser.displayName === undefined){
+      //   displayUser = user
+      // }
       return (
         <ChangeProfilePanel
-          uid={user.uid}
-          email={user.email}
-          displayName={user.displayName}
-          photoURL={user.photoURL}
+          displayName={users[user.uid].displayName}
+          photoURL={users[user.uid].photoURL}
+          teamName={users[user.uid].team}
+          uid={users[user.uid].uid}
         />
       );
     } else if (users[user.uid].status === Matching) {
@@ -110,6 +116,8 @@ const App = () => {
           shared_zoom_link={users[user.uid].shared_zoom_link}
         />
       );
+    } else if (users[user.uid].status === PreMatch) {
+      return <RoomSelected uid={user.uid} />;
     }
   };
 
@@ -117,6 +125,10 @@ const App = () => {
     if (user) {
       if (users[user.uid].uid == null) {
         setData(`/users/${user.uid}/status`, Profile);
+        setData(`/users/${user.uid}/uid`, user.uid);
+        setData(`/users/${user.uid}/email`, user.email);
+        setData(`/users/${user.uid}/displayName`, user.displayName);
+        setData(`/users/${user.uid}/photoURL`, user.photoURL);
       }
       return <>{RenderUserStatusPanel()}</>;
     } else {
@@ -126,7 +138,11 @@ const App = () => {
 
   const background = () => {
     let url = "";
-    if (user !== null && users[user.uid].status === Matching) {
+    if (
+      user !== null &&
+      (users[user.uid].status === Matching ||
+        users[user.uid].status === PreMatch)
+    ) {
       url =
         "https://firebasestorage.googleapis.com/v0/b/bumpin-7d62f.appspot.com/o/hallway.png?alt=media&token=eec8653d-af5b-41d7-9f51-8ec4a73cdeaf";
     } else {
@@ -144,7 +160,9 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className="App" style={background(user, users)}>
-        <header className="App-header" data-cy="welcome-header">{headerText}</header>
+        <header className="App-header" data-cy="welcome-header">
+          {headerText}
+        </header>
         <main className="App-main">{RenderPage()}</main>
       </div>
     </ThemeProvider>

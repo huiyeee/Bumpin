@@ -9,12 +9,20 @@ import {
   MenuItem,
   InputLabel,
   Select,
+  IconButton,
 } from "@mui/material";
-import CheckIcon from '@mui/icons-material/Check';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import CheckIcon from "@mui/icons-material/Check";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import EditIcon from "@mui/icons-material/Edit";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
-const ChangeProfilePanel = ({ uid, email, displayName, photoURL }) => {
-  const [team, setTeam] = React.useState("");
+const ChangeProfilePanel = ({ displayName, teamName, photoURL, uid }) => {
+  const [team, setTeam] = React.useState(teamName);
+  const [name, setName] = React.useState(displayName);
+  const [editName, setEditName] = React.useState(false);
+  const [editPhoto, setEditPhoto] = React.useState(false);
+  const [photo, setPhoto] = React.useState(photoURL);
+  const [editTeam, setEditTeam] = React.useState(false);
   const handleTeamChange = (event) => {
     setTeam(event.target.value);
   };
@@ -30,21 +38,124 @@ const ChangeProfilePanel = ({ uid, email, displayName, photoURL }) => {
   };
 
   const setProfile = () => {
-    setData(`/users/${uid}/uid`, uid);
-    setData(`/users/${uid}/email`, email);
-    setData(`/users/${uid}/displayName`, displayName);
-    setData(`/users/${uid}/photoURL`, photoURL);
+    setData(`/users/${uid}/displayName`, name);
     setData(`/users/${uid}/team`, team);
+    setData(`/users/${uid}/photoURL`, photo);
     setData(`/users/${uid}/status`, Initial);
   };
   return (
     <div>
       <div className="profile">
-        <img className="profile-img" src={photoURL}></img>
-        <p className="profile-name">{displayName}</p>
+        <img className="profile-img" src={photo}></img>
       </div>
+      
       <form onSubmit={handleSubmit}>
-        <FormControl fullWidth>
+      {editPhoto ? (
+          <>
+            <TextField
+              className="profile-photo-url-input"
+              variant="standard"
+              value={photo}
+              onInput={(e) => setPhoto(e.target.value)}
+              sx={{ input: { color: 'white' } }}
+            />
+            <IconButton
+              onClick={() => {
+                setEditPhoto(false);
+              }}
+            >
+              <CheckCircleOutlineIcon />
+            </IconButton>
+          </>
+        ) : (
+          <>
+            <div className="profile-photo-url-input">{''}</div>
+            <IconButton
+              onClick={() => {
+                setEditPhoto(true);
+              }}
+            >
+              <EditIcon />
+            </IconButton>
+          </>
+        )}
+      <div className="profile-row">
+        {editName ? (
+          <>
+            <TextField
+              className="profile-name-input"
+              variant="standard"
+              value={name}
+              onInput={(e) => setName(e.target.value)}
+              sx={{ input: { color: 'white' } }}
+              InputProps={{
+                inputProps: {
+                    style: { textAlign: "center" },
+                }
+              }}
+            />
+            <IconButton
+              onClick={() => {
+                setEditName(false);
+              }}
+            >
+              <CheckCircleOutlineIcon />
+            </IconButton>
+          </>
+        ) : (
+          <>
+            <div className="profile-name-input">{name}</div>
+            <IconButton
+              onClick={() => {
+                setEditName(true);
+              }}
+            >
+              <EditIcon />
+            </IconButton>
+          </>
+        )}
+      </div>
+        
+        <></>
+        <div className="profile-row">
+        {editTeam ? (
+          <>
+            <TextField
+              className="profile-name-input"
+              variant="standard"
+              value={team}
+              onInput={(e) => setTeam(e.target.value)}
+              sx={{ input: { color: 'white' } }}
+              InputProps={{
+                inputProps: {
+                    style: { textAlign: "center" },
+                }
+              }}
+            />
+            <IconButton
+              onClick={() => {
+                setEditTeam(false);
+              }}
+            >
+              <CheckCircleOutlineIcon />
+            </IconButton>
+          </>
+        ) : (
+          <>
+            <div className="profile-name-input">{team}</div>
+            <IconButton
+              onClick={() => {
+                setEditTeam(true);
+              }}
+            >
+              <EditIcon />
+            </IconButton>
+          </>
+        )}
+      </div>
+
+        
+        {/* <FormControl fullWidth>
           <InputLabel id="team-name-input">Team</InputLabel>
           <Select
             id="select-team-name"
@@ -60,15 +171,15 @@ const ChangeProfilePanel = ({ uid, email, displayName, photoURL }) => {
             <MenuItem value={"Orange"}>Orange</MenuItem>
             <MenuItem value={"Yellow"}>Yellow</MenuItem>
           </Select>
-        </FormControl>
+        </FormControl> */}
 
         <div className="profile-btns">
           <Button className="b-button mui" type="submit" onClick={handleSubmit}>
-            <CheckIcon/>
+            <CheckIcon />
             Submit
           </Button>
           <Button className="b-button mui" type="submit" onClick={handleGoBack}>
-            <ArrowBackIcon/>
+            <ArrowBackIcon />
             Go Back
           </Button>
         </div>
