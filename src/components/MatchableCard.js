@@ -7,7 +7,11 @@ import { Link, useSearchParams, useParams } from "react-router-dom";
 const MatchableCard = ({ myself, other }) => {
   const { meetingId } = useParams();
 
-  const data = { myuid: myself.uid, otheruid: other.uid };
+  const data = {
+    myuid: myself.uid,
+    otheruid: other.uid,
+    myname: myself.displayName,
+  };
 
   const redirect = () => {
     setData(`/users/${myself.uid}/status`, Redirect);
@@ -18,7 +22,11 @@ const MatchableCard = ({ myself, other }) => {
     <div className="profile">
       <img className="profile-img" src={other.photoURL}></img>
       <p className="profile-name">{other.displayName}</p>
-      <Link className="b-link" to={`/meeting?room=` + myself.roomPreference} state={data}>
+      <Link
+        className="b-link"
+        to={`/meeting?room=` + myself.roomPreference}
+        state={data}
+      >
         <Button className="profile-match-btn mui" onClick={redirect}>
           Match
         </Button>

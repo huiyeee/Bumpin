@@ -92,6 +92,7 @@ export function JoiningScreen({
     setReadyToJoin(true);
     setWebcamOn(true);
     setMicOn(true);
+    setParticipantName(data.myname);
   }, []);
 
   const padding = useResponsiveSize({
@@ -290,50 +291,21 @@ export function JoiningScreen({
                 </Grid>
               </Box>
             </Box>
-            <TextField
-              style={{
-                width: "100%",
-                marginTop: "1rem",
+            <Button
+              disabled={participantName.length < 3}
+              color="primary"
+              variant="contained"
+              onClick={(e) => {
+                if (videoTrack) {
+                  videoTrack.stop();
+                  setVideoTrack(null);
+                }
+                onClickStartMeeting();
               }}
-              id="outlined"
-              label="Name"
-              helperText={
-                participantName.length < 3
-                  ? "Enter Name with which you would like to join meeting"
-                  : ""
-              }
-              onChange={(e) => {
-                setParticipantName(e.target.value);
-              }}
-              variant="outlined"
-              defaultValue={participantName}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Person />
-                  </InputAdornment>
-                ),
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <Button
-                      disabled={participantName.length < 3}
-                      color="primary"
-                      variant="contained"
-                      onClick={(e) => {
-                        if (videoTrack) {
-                          videoTrack.stop();
-                          setVideoTrack(null);
-                        }
-                        onClickStartMeeting();
-                      }}
-                      id={"btnJoin"}
-                    >
-                      Start
-                    </Button>
-                  </InputAdornment>
-                ),
-              }}
-            />
+              id={"btnJoin"}
+            >
+              Start
+            </Button>
           </Box>
         ) : (
           // <MeetingDetailsScreen
