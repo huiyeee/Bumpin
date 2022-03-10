@@ -17,9 +17,17 @@
   border-radius: 0 0 0 100px;
   font-size: 10vh;
   overflow: wrap;
-  align-items:center;
-  color: #383555;
-  background-color: #FAF5FC;
+  color: white;
+  background-color: #B9C2CC;
+}
+
+.App-logo{
+  width: 276px;
+  height: 70px;
+  display: flex;
+  padding-top: 20px;
+  padding-left:50px
+  
 }
 
 .About-text{
@@ -41,6 +49,16 @@
   cursor: pointer;
   background-color: #393555;
   color: white;
+}
+
+.header-text {
+  padding-top: 100px;
+  /* UI Properties */
+  text-align: center;
+  font: normal normal bold 100px/123px Helvetica Neue;
+  letter-spacing: 0px;
+  color: #6668A6;
+  opacity: 1;
 }
 
 .logo {
@@ -128,4 +146,28 @@
 .lobby-btns, .matching-btns, .profile-btns {
   display: flex;
   flex-direction: column;
+}
+
+
+.hallway-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+
+.hallway-buttons.mui {
+  width: fit-content;
+  min-width: 300px;
+  background-color: white;
+  border-radius: 20px;
+  border: 3px solid #393555;
+  color: #1b2f2f;
+  box-shadow: 2px 2px 5px 0 darkslategray;
+}
+
+
+.hallway-buttons.mui:hover {
+  cursor: pointer;
+  background-color: #393555;
+  color: white;
 }

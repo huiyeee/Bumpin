@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import { setData } from "../utilities/firebase";
-import { Initial, Matched, Matching } from "../utilities/constant";
+import { Initial, Matched, Matching, PreMatch } from "../utilities/constant";
 import MatchableCard from "./MatchableCard";
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import DirectionsWalkIcon from "@mui/icons-material/DirectionsWalk";
 
 const MatchingPanel = ({ uid, users, setHeaderText }) => {
   const [matchIndex, setMatchIndex] = useState(0);
   const matches = Object.keys(users).filter(
     (key) =>
       users[key].status === Matching &&
-      users[key].previous_meeting_id !== users[uid].previous_meeting_id && 
-      users[key].team !== users[uid].team
+      key !== uid &&
+      // users[key].previous_meeting_id !== users[uid].previous_meeting_id &&
+      // users[key].team !== users[uid].team &&
+      users[key].roomPreference === users[uid].roomPreference
   );
   const showMatches = () => {
     if (matches.length == matchIndex) {
@@ -48,19 +50,21 @@ const MatchingPanel = ({ uid, users, setHeaderText }) => {
           className="b-button mui"
           onClick={() => {
             console.log("Previous match index: " + matchIndex);
-            setMatchIndex(matchIndex + 2 >= matches.length ? 0 : matchIndex + 2);
+            setMatchIndex(
+              matchIndex + 2 >= matches.length ? 0 : matchIndex + 2
+            );
           }}
         >
-          <DirectionsWalkIcon/>
+          <DirectionsWalkIcon />
           Keep walking
         </Button>
         <Button
           className="b-button mui"
           onClick={() => {
-            setData(`/users/${uid}/status`, Initial);
+            setData(`/users/${uid}/status`, PreMatch);
           }}
         >
-          <ExitToAppIcon/>
+          <ExitToAppIcon />
           Leave the hallway
         </Button>
       </div>

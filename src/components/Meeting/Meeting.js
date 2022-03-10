@@ -10,8 +10,9 @@ import { getToken } from "./api";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { JoiningScreen } from "./components/JoiningScreen";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { Button, Typography } from "@mui/material";
+import { Link } from "@material-ui/core";
 
 const primary = "#3E84F6";
 
@@ -146,6 +147,8 @@ const MessageList = ({ messages }) => {
 };
 
 const MeetingChat = ({ tollbarHeight }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  let room = searchParams.get("room");
   const { publish, messages } = usePubSub("CHAT", {});
   const [message, setMessage] = useState("");
   const [dateNum, setDateNum] = useState("20220131");
@@ -177,12 +180,16 @@ const MeetingChat = ({ tollbarHeight }) => {
         padding: borderRadius,
       }}
     >
-      <iframe
-        src={`https://hellowordl.net/?seed=` + dateNum}
-        height="600"
-        width="400"
-        title="Iframe Example"
-      ></iframe>
+      {room === "game" ? (
+        <iframe
+          src={`https://hellowordl.net/?seed=` + dateNum}
+          height="600"
+          width="400"
+          title="Iframe Example"
+        />
+      ) : (
+        <></>
+      )}
       <Title title={"Chat"} />
 
       <div style={{ display: "flex" }}>
@@ -361,6 +368,16 @@ const ParticipantView = ({ participantId }) => {
               }}
             >
               WEB CAM
+            </p>
+            <p
+              style={{
+                color: webcamOn ? "green" : "red",
+                fontSize: 16,
+                fontWeight: "bold",
+                opacity: 1,
+              }}
+            >
+              {displayName}
             </p>
           </div>
 
@@ -911,9 +928,9 @@ function MeetingView({ onNewMeetingIdToken, onMeetingLeave }) {
         >
           <ParticipantsView />
           <div style={{ display: "flex", justifyContent: "center" }}>
-            <Button className={"button red"} onClick={leave}>
-              Leave Meeting
-            </Button>
+            <Link className="b-link" href="/">
+              <Button className={"button red"}>Leave Meeting</Button>
+            </Link>
             <Button className={"button blue"} onClick={toggleMic}>
               Toggle Mic
             </Button>
