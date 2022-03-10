@@ -114,7 +114,7 @@ const App = () => {
           uid={user.uid}
           other={users[users[user.uid].partner]}
           shared_zoom_link={users[user.uid].shared_zoom_link}
-          room = {user.roomPreference}
+          room = {users[user.uid].roomPreference}
         />
       );
     } else if (users[user.uid].status === PreMatch) {
