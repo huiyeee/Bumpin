@@ -7,13 +7,13 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import DuoIcon from "@mui/icons-material/Duo";
 import MatchedPartnerCard from "./MatchedPartnerCard";
 
-const MatchedPanel = ({ uid, other, shared_zoom_link }) => {
+const MatchedPanel = ({ uid, other, shared_zoom_link, room }) => {
   const { meetingId } = useParams();
   return (
     <div>
       <div>
         <MatchedPartnerCard other={other} />
-        <Link className="b-link" to={`/meeting`} state={{ shared_zoom_link }}>
+        <Link className="b-link" to={`/meeting?room=`+ room} state={{ shared_zoom_link }}>
           <Button className="b-button mui">
             <DuoIcon />
             Click to join the meeting
