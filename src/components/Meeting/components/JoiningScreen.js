@@ -292,7 +292,6 @@ export function JoiningScreen({
               </Box>
             </Box>
             <Button
-              disabled={participantName.length < 3}
               color="primary"
               variant="contained"
               onClick={(e) => {
