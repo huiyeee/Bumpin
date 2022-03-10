@@ -145,13 +145,13 @@ const App = () => {
         users[user.uid].status === PreMatch)
     ) {
       url =
-        "https://firebasestorage.googleapis.com/v0/b/bumpin-7d62f.appspot.com/o/hallway.png?alt=media&token=eec8653d-af5b-41d7-9f51-8ec4a73cdeaf";
-    } else {
-      url =
-        "https://firebasestorage.googleapis.com/v0/b/bumpin-7d62f.appspot.com/o/background.png?alt=media&token=b35f2139-c32b-45ac-a713-1a194bae351e";
-    }
+        "https://firebasestorage.googleapis.com/v0/b/bumpin-7d62f.appspot.com/o/hallway.png?alt=media&token=e15531cc-f54a-4d3f-8ad4-c33837ba8d60";}
+    // } else {
+    //   url =
+    //     "https://firebasestorage.googleapis.com/v0/b/bumpin-7d62f.appspot.com/o/background.png?alt=media&token=b35f2139-c32b-45ac-a713-1a194bae351e";
+    // }
     return {
-      //backgroundImage: "url(" + url + ")",
+      backgroundImage: "url(" + url + ")",
       backgroundPosition: "center",
       backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
