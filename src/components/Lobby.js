@@ -33,7 +33,7 @@ const LobbyPanel = ({uid}) => {
   };
   return (
     <div>
-      <Typography variant="h2" sx={{ color: "#ffebee" }}>
+      <Typography variant="h2" sx={{ color: "#b0a8a8" }}>
         Would you like to enter the hallway? <br /> We'll let you know if
         someone comes in
       </Typography>
