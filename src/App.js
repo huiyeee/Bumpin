@@ -41,7 +41,11 @@ const App = () => {
     } else if (users[user.uid].status === Profile) {
       setHeaderText("Change my profile");
     } else if (users[user.uid].status === Matching) {
-    } else if (users[user.uid].status === Redirect) {
+      
+    } else if (users[user.uid].status === PreMatch){
+      setHeaderText("Hallway");
+    }
+      else if (users[user.uid].status === Redirect) {
       setHeaderText("Redirecting, please wait");
     } else if (users[user.uid].status === Matched) {
       setHeaderText("You've Bump'd into someone!!");
@@ -153,7 +157,7 @@ const App = () => {
     return {
       backgroundImage: "url(" + url + ")",
       backgroundPosition: "center",
-      backgroundSize: "cover",
+      backgroundSize: "100%",
       backgroundRepeat: "no-repeat",
     };
   };
@@ -162,6 +166,7 @@ const App = () => {
       <CssBaseline />
       <div className="App" style={background(user, users)}>
         <header className="App-header" data-cy="welcome-header">
+          <img className="App-logo" src="https://firebasestorage.googleapis.com/v0/b/bumpin-7d62f.appspot.com/o/bumpin%20logo%203png%20(1).png?alt=media&token=bc14dedb-634b-494b-823c-67069b19c469"></img>
         </header>
         <div className="header-text">
           {headerText}
