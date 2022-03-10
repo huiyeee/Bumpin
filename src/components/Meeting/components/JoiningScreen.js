@@ -92,7 +92,7 @@ export function JoiningScreen({
     setReadyToJoin(true);
     setWebcamOn(true);
     setMicOn(true);
-    setParticipantName(data.myname);
+    setParticipantName(data.displayName);
   }, []);
 
   const padding = useResponsiveSize({

@@ -10,7 +10,7 @@ const MatchableCard = ({ myself, other }) => {
   const data = {
     myuid: myself.uid,
     otheruid: other.uid,
-    myname: myself.displayName,
+    displayName: myself.displayName,
   };
 
   const redirect = () => {
