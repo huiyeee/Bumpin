@@ -21,7 +21,7 @@ import MatchingPanel from "./components/MatchingPanel";
 import RoomSelected from "./components/RoomSelected";
 
 const App = () => {
-  const [headerText, setHeaderText] = useState("Welcome to Bump'n");
+  const [mainText, setMainText] = useState("Welcome to Bump'n");
   const [users, loading, error] = useData(`/users`);
   // const { meetingId } = useParams();
   const [user] = useUserState();
@@ -37,16 +37,16 @@ const App = () => {
       return;
     }
     if (users[user.uid].status === Initial) {
-      setHeaderText("Welcome to Bump'n");
+      setMainText("Welcome to Bump'n");
     } else if (users[user.uid].status === Profile) {
-      setHeaderText("Change my profile");
+      setMainText("Change my profile");
     } else if (users[user.uid].status === Matching) {
     } else if (users[user.uid].status === PreMatch) {
-      setHeaderText("Hallway");
+      setMainText("Hallway");
     } else if (users[user.uid].status === Redirect) {
-      setHeaderText("Redirecting, please wait");
+      setMainText("Redirecting, please wait");
     } else if (users[user.uid].status === Matched) {
-      setHeaderText("You've Bump'd into someone!!");
+      setMainText("You've Bump'd into someone!!");
     }
   }, [users]);
 
@@ -105,7 +105,7 @@ const App = () => {
         <MatchingPanel
           uid={user.uid}
           users={users}
-          setHeaderText={setHeaderText}
+          setHeaderText={setMainText}
         />
       );
     } else if (users[user.uid].status === Redirect) {
@@ -171,7 +171,7 @@ const App = () => {
             src="https://firebasestorage.googleapis.com/v0/b/bumpin-7d62f.appspot.com/o/bumpin%20logo%203png%20(1).png?alt=media&token=bc14dedb-634b-494b-823c-67069b19c469"
           ></img>
         </header>
-        <div className="header-text">{headerText}</div>
+        <div className="main-text">{mainText}</div>
         <main className="App-main">{RenderPage()}</main>
       </div>
     </ThemeProvider>
