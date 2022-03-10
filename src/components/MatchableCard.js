@@ -18,7 +18,7 @@ const MatchableCard = ({ myself, other }) => {
     <div className="profile">
       <img className="profile-img" src={other.photoURL}></img>
       <p className="profile-name">{other.displayName}</p>
-      <Link className="b-link" to={`/meeting/`} state={data}>
+      <Link className="b-link" to={`/meeting?room=` + myself.roomPreference} state={data}>
         <Button className="profile-match-btn mui" onClick={redirect}>
           Match
         </Button>
