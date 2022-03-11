@@ -292,8 +292,7 @@ export function JoiningScreen({
               </Box>
             </Box>
             <Button
-              color="primary"
-              variant="contained"
+              className="b-button mui"
               onClick={(e) => {
                 if (videoTrack) {
                   videoTrack.stop();

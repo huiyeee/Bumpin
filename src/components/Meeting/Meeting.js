@@ -13,6 +13,7 @@ import { JoiningScreen } from "./components/JoiningScreen";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { Button, Typography } from "@mui/material";
 import { Link } from "@material-ui/core";
+import { border } from "@mui/system";
 
 const primary = "#3E84F6";
 
@@ -109,7 +110,7 @@ const ExternalVideo = () => {
 
 const MessageList = ({ messages }) => {
   return (
-    <div style={{ marginBottom: "20px" }}>
+    <div style={{ marginBottom: "50px" }}>
       {messages?.map((message, i) => {
         const { senderName, message: text, timestamp } = message;
 
@@ -117,7 +118,7 @@ const MessageList = ({ messages }) => {
           <div
             style={{
               margin: 8,
-              backgroundColor: "darkblue",
+              backgroundColor: "#393555",
               borderRadius: 8,
               overflow: "hidden",
               padding: 8,
@@ -125,19 +126,15 @@ const MessageList = ({ messages }) => {
             }}
             key={i}
           >
-            <p style={{ margin: 0, padding: 0, fontStyle: "italic" }}>
-              {senderName}
-            </p>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <span style={{ margin: 0, padding: 0, fontStyle: "italic" }}>
+                {senderName}
+              </span>
+              <span style={{ padding: 0, fontStyle: "italic" }}>
+                {formatAMPM(new Date(timestamp))}
+              </span>
+            </div>
             <h3 style={{ margin: 0, padding: 0, marginTop: 4 }}>{text}</h3>
-            <p
-              style={{
-                margin: 0,
-                padding: 0,
-                marginTop: 4,
-              }}
-            >
-              {formatAMPM(new Date(timestamp))}
-            </p>
           </div>
         );
       })}
@@ -187,23 +184,30 @@ const MeetingChat = ({ tollbarHeight }) => {
   return (
     <div
       style={{
-        backgroundColor: "grey",
+        border: "solid 2px grey",
+        backgroundColor: "white",
         overflowY: "scroll",
         height: "100%",
       }}
     >
-      <div style={{ position: "absolute", backgroundColor: "grey" }}>Chat</div>
-      <div style={{ marginTop: "30px" }}>
+      <div style={{ display: "flex", position: "absolute", width:"400px", height: "40px", backgroundColor: "#393555", alignItems: "center"}}>
+        <span style={{color: "white", fontSize: "18px", padding: "10px 10px", fontWeight: "bold"}}>Chat with your partner</span>
+      </div>
+      <div style={{ maxHeight: "330px", marginTop: "50px", marginBottom: "50px", overflow: "scroll" }}>
         <MessageList messages={messages} />
       </div>
       <div
         style={{
+          width: "380px",
           display: "flex",
+          justifyContent: "space-between",
           position: "absolute",
-          bottom: 3,
+          bottom: 10,
+          padding: "0 10px"
         }}
       >
         <input
+          style={{ border: "solid 1px grey", minWidth: "320px", height: "30px", fontSize: "16px"}}
           value={message}
           onChange={(e) => {
             const v = e.target.value;
@@ -211,7 +215,7 @@ const MeetingChat = ({ tollbarHeight }) => {
           }}
         />
         <button
-          className={"button default"}
+          style={{ background: "none", border: "none", fontSize: "14px"}}
           onClick={() => {
             const m = message;
 
@@ -274,7 +278,8 @@ const ParticipantView = ({ participantId }) => {
   return (
     <div
       style={{
-        width: "100%",
+        margin: "5px 20px",
+        width: "calc(100% - 40px)",
         overflow: "hidden",
         display: "flex",
         flexDirection: "column",
@@ -722,14 +727,14 @@ function MeetingView({ onNewMeetingIdToken, onMeetingLeave }) {
             height: "100vh",
           }}
         >
-          <div style={{ display: "flex", paddingLeft: "2%" }}>
+          <div style={{ display: "flex", alignSelf: "start", margin: "10px 20px" }}>
             <Link className="b-link" href="/">
-              <Button className={"button red"}>Leave Meeting</Button>
+              <Button className="b-button mui">Leave Meeting</Button>
             </Link>
-            <Button className={"button blue"} onClick={toggleMic}>
+            <Button className="b-button mui" onClick={toggleMic}>
               Toggle Mic
             </Button>
-            <Button className={"button blue"} onClick={toggleWebcam}>
+            <Button className="b-button mui" onClick={toggleWebcam}>
               Toggle Webcam
             </Button>
           </div>
