@@ -109,7 +109,7 @@ const ExternalVideo = () => {
 
 const MessageList = ({ messages }) => {
   return (
-    <div>
+    <div style={{ marginBottom: "20px" }}>
       {messages?.map((message, i) => {
         const { senderName, message: text, timestamp } = message;
 
@@ -133,7 +133,6 @@ const MessageList = ({ messages }) => {
               style={{
                 margin: 0,
                 padding: 0,
-                opacity: 0.6,
                 marginTop: 4,
               }}
             >
@@ -146,12 +145,10 @@ const MessageList = ({ messages }) => {
   );
 };
 
-const MeetingChat = ({ tollbarHeight }) => {
+const GameView = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  let room = searchParams.get("room");
-  const { publish, messages } = usePubSub("CHAT", {});
-  const [message, setMessage] = useState("");
   const [dateNum, setDateNum] = useState("20220131");
+  const room = searchParams.get("room");
   useEffect(() => {
     const date = new Date();
     const year = date.getFullYear().toString();
@@ -167,19 +164,8 @@ const MeetingChat = ({ tollbarHeight }) => {
     // console.log(year + month + day);
     setDateNum(year + month + day);
   }, []);
-
   return (
-    <div
-      style={{
-        marginLeft: borderRadius,
-        width: 400,
-        backgroundColor: primary,
-        overflowY: "scroll",
-        borderRadius,
-        height: `calc(100vh - ${tollbarHeight + 2 * borderRadius}px)`,
-        padding: borderRadius,
-      }}
-    >
+    <div>
       {room === "game" ? (
         <iframe
           src={`https://hellowordl.net/?seed=` + dateNum}
@@ -190,9 +176,37 @@ const MeetingChat = ({ tollbarHeight }) => {
       ) : (
         <></>
       )}
-      <Title title={"Chat"} />
+    </div>
+  );
+};
 
-      <div style={{ display: "flex" }}>
+const MeetingChat = ({ tollbarHeight }) => {
+  const { publish, messages } = usePubSub("CHAT", {});
+  const [message, setMessage] = useState("");
+
+  return (
+    <div
+      style={{
+        backgroundColor: "grey",
+        overflowY: "scroll",
+        height: "100%",
+      }}
+    >
+      <div
+        style={{ position: "absolute", backgroundColor: "grey", width: "100%" }}
+      >
+        Chat
+      </div>
+      <div style={{ marginTop: "30px" }}>
+        <MessageList messages={messages} />
+      </div>
+      <div
+        style={{
+          display: "flex",
+          position: "absolute",
+          bottom: 3,
+        }}
+      >
         <input
           value={message}
           onChange={(e) => {
@@ -214,7 +228,6 @@ const MeetingChat = ({ tollbarHeight }) => {
           Send
         </button>
       </div>
-      <MessageList messages={messages} />
     </div>
   );
 };
@@ -310,16 +323,16 @@ const ParticipantView = ({ participantId }) => {
   return (
     <div
       style={{
-        width,
+        width: "97%",
         backgroundColor: primary,
         borderRadius: borderRadius,
         overflow: "hidden",
         margin: borderRadius,
         padding: borderRadius,
         display: "flex",
-        flex: 1,
         flexDirection: "column",
         position: "relative",
+        height: "43vh",
       }}
     >
       <audio ref={micRef} autoPlay muted={isLocal} />
@@ -331,7 +344,7 @@ const ParticipantView = ({ participantId }) => {
           overflow: "hidden",
           backgroundColor: "pink",
           width: "100%",
-          height: 300,
+          height: "43vh",
         }}
       >
         <div
@@ -504,12 +517,11 @@ const ParticipantsView = () => {
         display: "flex",
         flexWrap: "wrap",
         flexDirection: "column",
-        padding: borderRadius,
+        height: "100%",
       }}
     >
-      <Title dark title={"Participants"} />
       {chunk([...participants.keys()]).map((k) => (
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
           {k.map((l) => (
             <ParticipantView key={l} participantId={l} />
           ))}
@@ -849,72 +861,9 @@ function MeetingView({ onNewMeetingIdToken, onMeetingLeave }) {
       style={{
         display: "flex",
         flexDirection: "column",
-        backgroundColor: "#D6E9FE",
       }}
     >
-      <div style={{ height: tollbarHeight }}>
-        {/* <button className={"button blue"} onClick={toggleScreenShare}>
-          toggleScreenShare
-        </button>
-        <button className={"button blue"} onClick={handlestartVideo}>
-          startVideo
-        </button>
-        <button className={"button blue"} onClick={handlestopVideo}>
-          stopVideo
-        </button>
-        <button className={"button blue"} onClick={handleresumeVideo}>
-          resumeVideo
-        </button>
-        <button className={"button blue"} onClick={handlepauseVideo}>
-          pauseVideo
-        </button>
-        <button className={"button blue"} onClick={handlesseekVideo}>
-          seekVideo
-        </button>
-        <button className={"button blue"} onClick={handleStartLiveStream}>
-          Start Live Stream
-        </button>
-        <button className={"button blue"} onClick={handleStopLiveStream}>
-          Stop Live Stream
-        </button>
-        <button className={"button blue"} onClick={handleStartRecording}>
-          start recording
-        </button>
-        <button className={"button blue"} onClick={handleStopRecording}>
-          stop recording
-        </button> */}
-        {/* <button
-          className={"button blue"}
-          onClick={() => setParticipantViewVisible((s) => !s)}
-        >
-          Switch to {participantViewVisible ? "Connections" : "Participants"}{" "}
-          view
-        </button> */}
-
-        {/* <button
-          className={"button blue"}
-          onClick={async () => {
-            const meetingId = prompt(
-              `Please enter meeting id where you want Connect`
-            );
-            if (meetingId) {
-              try {
-                await connectTo({
-                  meetingId,
-                  payload: "This is Testing Payload",
-                });
-              } catch (e) {
-                console.log("Connect to Error", e);
-              }
-            } else {
-              alert("Empty meetingId!");
-            }
-          }}
-        >
-          Make Connections
-        </button> */}
-      </div>
-      <h1>Meeting id is : {meetingId}</h1>
+      {/* <h1>Meeting id is : {meetingId}</h1> */}
       <div style={{ display: "flex", flex: 1 }}>
         <div
           style={{
@@ -923,11 +872,10 @@ function MeetingView({ onNewMeetingIdToken, onMeetingLeave }) {
             position: "relative",
             flex: 1,
             overflowY: "scroll",
-            height: `calc(100vh - ${tollbarHeight}px)`,
+            height: "100vh",
           }}
         >
-          <ParticipantsView />
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <div style={{ display: "flex", paddingLeft: "2%" }}>
             <Link className="b-link" href="/">
               <Button className={"button red"}>Leave Meeting</Button>
             </Link>
@@ -938,8 +886,19 @@ function MeetingView({ onNewMeetingIdToken, onMeetingLeave }) {
               Toggle Webcam
             </Button>
           </div>
+          <ParticipantsView />
         </div>
-        <MeetingChat tollbarHeight={tollbarHeight} />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            height: "100vh",
+            width: 400,
+          }}
+        >
+          <GameView />
+          <MeetingChat tollbarHeight={tollbarHeight} />
+        </div>
       </div>
     </div>
   );
