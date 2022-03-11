@@ -25,9 +25,12 @@
 .App-logo {
   max-width: 276px;
   max-height: 70px;
-  padding-bottom: 1%;
   display: flex;
   margin-left: 50px;
+}
+
+.header-left {
+  padding-top: 10px;
 }
 
 .About-text {

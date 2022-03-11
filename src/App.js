@@ -166,10 +166,12 @@ const App = () => {
       <CssBaseline />
       <div className="App" style={background(user, users)}>
         <header className="App-header" data-cy="welcome-header">
-          <img
-            className="App-logo"
-            src="https://firebasestorage.googleapis.com/v0/b/bumpin-7d62f.appspot.com/o/bumpin%20logo%203png%20(1).png?alt=media&token=bc14dedb-634b-494b-823c-67069b19c469"
-          ></img>
+          <div className="header-left">
+            <img
+              className="App-logo"
+              src="https://firebasestorage.googleapis.com/v0/b/bumpin-7d62f.appspot.com/o/bumpin%20logo%203png%20(1).png?alt=media&token=bc14dedb-634b-494b-823c-67069b19c469"
+            ></img>
+          </div>
         </header>
         <main className="App-main">
           <div className="main-text">{mainText}</div>
