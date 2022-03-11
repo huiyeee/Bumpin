@@ -21,7 +21,7 @@ import MatchingPanel from "./components/MatchingPanel";
 import RoomSelected from "./components/RoomSelected";
 
 const App = () => {
-  const [mainText, setMainText] = useState("Welcome to Bump'n");
+  const [mainText, setMainText] = useState("Welcome to Bumpin");
   const [users, loading, error] = useData(`/users`);
   // const { meetingId } = useParams();
   const [user] = useUserState();
@@ -37,7 +37,7 @@ const App = () => {
       return;
     }
     if (users[user.uid].status === Initial) {
-      setMainText("Welcome to Bump'n");
+      setMainText("Welcome to Bumpin");
     } else if (users[user.uid].status === Profile) {
       setMainText("Change my profile");
     } else if (users[user.uid].status === Matching) {

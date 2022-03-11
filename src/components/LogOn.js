@@ -5,21 +5,10 @@ import bumpinLogo from "../bumpinlogo.png";
 
 const LogOnPanel = () => {
   return (
-    <div>
-      <Typography variant="h2">Welcome to Bumpin! Log in to start.</Typography>
-      <img
-        src={bumpinLogo}
-        alt="Bumpin logo"
-        className="center"
-        style={{
-          borderRadius: "50%",
-          width: "15%",
-          height: "15%",
-          background: "white",
-          border: "7px solid #393555",
-          margin: "20px"
-        }}
-      />
+    <div style={{
+      width: "100%",
+    }}>
+      <p className="login-warning">Please login to start first.</p>
       <p></p>
       <Button className="b-button mui" onClick={() => signInWithGoogle()}>
         Sign In
