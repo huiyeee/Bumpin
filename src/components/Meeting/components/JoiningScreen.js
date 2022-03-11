@@ -9,6 +9,7 @@ import {
   IconButton,
   Tooltip,
   Typography,
+  Link,
 } from "@material-ui/core";
 import React, { useEffect, useRef, useState } from "react";
 import {
@@ -92,7 +93,7 @@ export function JoiningScreen({
     setReadyToJoin(true);
     setWebcamOn(true);
     setMicOn(true);
-    setParticipantName(data.myname);
+    setParticipantName(data.displayName);
   }, []);
 
   const padding = useResponsiveSize({
@@ -168,13 +169,15 @@ export function JoiningScreen({
             left: theme.spacing(2),
           }}
         >
-          <IconButton
-            onClick={() => {
-              setReadyToJoin(false);
-            }}
-          >
-            <ArrowBack />
-          </IconButton>
+          <Link className="b-link" href="/">
+            <IconButton
+              onClick={() => {
+                setReadyToJoin(false);
+              }}
+            >
+              <ArrowBack />
+            </IconButton>
+          </Link>
         </Box>
       ) : null}
       <Grid
@@ -292,8 +295,7 @@ export function JoiningScreen({
               </Box>
             </Box>
             <Button
-              color="primary"
-              variant="contained"
+              className="b-button mui"
               onClick={(e) => {
                 if (videoTrack) {
                   videoTrack.stop();

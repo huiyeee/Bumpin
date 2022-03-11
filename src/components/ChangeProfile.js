@@ -48,16 +48,16 @@ const ChangeProfilePanel = ({ displayName, teamName, photoURL, uid }) => {
       <div className="profile">
         <img className="profile-img" src={photo}></img>
       </div>
-      
+
       <form onSubmit={handleSubmit}>
-      {editPhoto ? (
+        {editPhoto ? (
           <>
             <TextField
               className="profile-photo-url-input"
               variant="standard"
               value={photo}
               onInput={(e) => setPhoto(e.target.value)}
-              sx={{ input: { color: 'white' } }}
+              sx={{ input: { color: "white" } }}
             />
             <IconButton
               onClick={() => {
@@ -69,7 +69,7 @@ const ChangeProfilePanel = ({ displayName, teamName, photoURL, uid }) => {
           </>
         ) : (
           <>
-            <div className="profile-photo-url-input">{''}</div>
+            <div className="profile-photo-url-input">{""}</div>
             <IconButton
               onClick={() => {
                 setEditPhoto(true);
@@ -79,83 +79,83 @@ const ChangeProfilePanel = ({ displayName, teamName, photoURL, uid }) => {
             </IconButton>
           </>
         )}
-      <div className="profile-row">
-        {editName ? (
-          <>
-            <TextField
-              className="profile-name-input"
-              variant="standard"
-              value={name}
-              onInput={(e) => setName(e.target.value)}
-              sx={{ input: { color: 'white' } }}
-              InputProps={{
-                inputProps: {
-                    style: { textAlign: "center" },
-                }
-              }}
-            />
-            <IconButton
-              onClick={() => {
-                setEditName(false);
-              }}
-            >
-              <CheckCircleOutlineIcon />
-            </IconButton>
-          </>
-        ) : (
-          <>
-            <div className="profile-name-input">{name}</div>
-            <IconButton
-              onClick={() => {
-                setEditName(true);
-              }}
-            >
-              <EditIcon />
-            </IconButton>
-          </>
-        )}
-      </div>
-        
-        <></>
-        <div className="profile-row">
-        {editTeam ? (
-          <>
-            <TextField
-              className="profile-name-input"
-              variant="standard"
-              value={team}
-              onInput={(e) => setTeam(e.target.value)}
-              sx={{ input: { color: 'white' } }}
-              InputProps={{
-                inputProps: {
-                    style: { textAlign: "center" },
-                }
-              }}
-            />
-            <IconButton
-              onClick={() => {
-                setEditTeam(false);
-              }}
-            >
-              <CheckCircleOutlineIcon />
-            </IconButton>
-          </>
-        ) : (
-          <>
-            <div className="profile-name-input">{team}</div>
-            <IconButton
-              onClick={() => {
-                setEditTeam(true);
-              }}
-            >
-              <EditIcon />
-            </IconButton>
-          </>
-        )}
-      </div>
+        <div style={{ marginLeft: "40px"}}>
+          <div className="profile-row">
+            {editName ? (
+              <>
+                <TextField
+                  className="profile-name-input"
+                  variant="standard"
+                  value={name}
+                  onInput={(e) => setName(e.target.value)}
+                  sx={{ input: { color: "white" } }}
+                  InputProps={{
+                    inputProps: {
+                      style: { textAlign: "center" },
+                    },
+                  }}
+                />
+                <IconButton
+                  onClick={() => {
+                    setEditName(false);
+                  }}
+                >
+                  <CheckCircleOutlineIcon />
+                </IconButton>
+              </>
+            ) : (
+              <>
+                <div className="profile-name-input">{name}</div>
+                <IconButton
+                  onClick={() => {
+                    setEditName(true);
+                  }}
+                >
+                  <EditIcon />
+                </IconButton>
+              </>
+            )}
+          </div>
 
-        
-        {/* <FormControl fullWidth>
+          <></>
+          <div className="profile-row">
+            {editTeam ? (
+              <>
+                <TextField
+                  className="profile-name-input"
+                  variant="standard"
+                  value={team}
+                  onInput={(e) => setTeam(e.target.value)}
+                  sx={{ input: { color: "white" } }}
+                  InputProps={{
+                    inputProps: {
+                      style: { textAlign: "center" },
+                    },
+                  }}
+                />
+                <IconButton
+                  onClick={() => {
+                    setEditTeam(false);
+                  }}
+                >
+                  <CheckCircleOutlineIcon />
+                </IconButton>
+              </>
+            ) : (
+              <>
+                <div className="profile-name-input">{team}</div>
+                <IconButton
+                  onClick={() => {
+                    setEditTeam(true);
+                  }}
+                >
+                  <EditIcon />
+                </IconButton>
+              </>
+            )}
+          </div>
+
+          {/* <FormControl fullWidth>
           <InputLabel id="team-name-input">Team</InputLabel>
           <Select
             id="select-team-name"
@@ -173,15 +173,26 @@ const ChangeProfilePanel = ({ displayName, teamName, photoURL, uid }) => {
           </Select>
         </FormControl> */}
 
-        <div className="profile-btns">
-          <Button className="b-button mui" type="submit" onClick={handleSubmit}>
-            <CheckIcon />
-            Submit
-          </Button>
-          <Button className="b-button mui" type="submit" onClick={handleGoBack}>
-            <ArrowBackIcon />
-            Go Back
-          </Button>
+          <div className="profile-btns">
+            <Button
+              style={{ margin: "5px 0" }}
+              className="b-button mui"
+              type="submit"
+              onClick={handleSubmit}
+            >
+              <CheckIcon />
+              Submit
+            </Button>
+            <Button
+              style={{ margin: "5px 0" }}
+              className="b-button mui"
+              type="submit"
+              onClick={handleGoBack}
+            >
+              <ArrowBackIcon />
+              Go Back
+            </Button>
+          </div>
         </div>
       </form>
     </div>

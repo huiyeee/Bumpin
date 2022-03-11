@@ -1,9 +1,10 @@
 .App {
   text-align: center;
+  height: 100vh;
 }
 
 .App-main {
-  min-height: 86vh;
+  height: 92vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,25 +13,27 @@
 }
 
 .App-header {
+  height: 8vh;
   display: block;
-  min-height: 14vh;
   border-radius: 0 0 0 100px;
   font-size: 10vh;
   overflow: wrap;
   color: white;
-  background-color: #B9C2CC;
+  background-color: #b9c2cc;
 }
 
-.App-logo{
-  width: 276px;
-  height: 70px;
+.App-logo {
+  max-width: 276px;
+  max-height: 70px;
   display: flex;
-  padding-top: 20px;
-  padding-left:50px
-  
+  margin-left: 50px;
 }
 
-.About-text{
+.header-left {
+  padding-top: 10px;
+}
+
+.About-text {
   margin: 5%;
 }
 
@@ -51,13 +54,12 @@
   color: white;
 }
 
-.header-text {
-  padding-top: 100px;
+.main-text {
   /* UI Properties */
   text-align: center;
-  font: normal normal bold 100px/123px Helvetica Neue;
+  font: normal normal bold 50px/70px Helvetica Neue;
   letter-spacing: 0px;
-  color: #6668A6;
+  color: #6668a6;
   opacity: 1;
 }
 
@@ -105,6 +107,7 @@
   font-size: 18px;
   z-index: 999;
   border: 3px solid white;
+  min-width: 300px;
 }
 
 .profile {
@@ -143,17 +146,17 @@
   justify-content: space-between;
 }
 
-.lobby-btns, .matching-btns, .profile-btns {
+.lobby-btns,
+.matching-btns,
+.profile-btns {
   display: flex;
   flex-direction: column;
 }
-
 
 .hallway-buttons {
   display: flex;
   flex-direction: row;
 }
-
 
 .hallway-buttons.mui {
   width: fit-content;
@@ -165,9 +168,12 @@
   box-shadow: 2px 2px 5px 0 darkslategray;
 }
 
-
 .hallway-buttons.mui:hover {
   cursor: pointer;
   background-color: #393555;
   color: white;
+}
+
+.login-warning {
+  color: #1b2f2f;
 }

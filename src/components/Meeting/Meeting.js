@@ -13,6 +13,7 @@ import { JoiningScreen } from "./components/JoiningScreen";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { Button, Typography } from "@mui/material";
 import { Link } from "@material-ui/core";
+import { border } from "@mui/system";
 
 const primary = "#3E84F6";
 
@@ -109,7 +110,7 @@ const ExternalVideo = () => {
 
 const MessageList = ({ messages }) => {
   return (
-    <div>
+    <div style={{ marginBottom: "50px" }}>
       {messages?.map((message, i) => {
         const { senderName, message: text, timestamp } = message;
 
@@ -117,7 +118,7 @@ const MessageList = ({ messages }) => {
           <div
             style={{
               margin: 8,
-              backgroundColor: "darkblue",
+              backgroundColor: "#393555",
               borderRadius: 8,
               overflow: "hidden",
               padding: 8,
@@ -125,20 +126,15 @@ const MessageList = ({ messages }) => {
             }}
             key={i}
           >
-            <p style={{ margin: 0, padding: 0, fontStyle: "italic" }}>
-              {senderName}
-            </p>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <span style={{ margin: 0, padding: 0, fontStyle: "italic" }}>
+                {senderName}
+              </span>
+              <span style={{ padding: 0, fontStyle: "italic" }}>
+                {formatAMPM(new Date(timestamp))}
+              </span>
+            </div>
             <h3 style={{ margin: 0, padding: 0, marginTop: 4 }}>{text}</h3>
-            <p
-              style={{
-                margin: 0,
-                padding: 0,
-                opacity: 0.6,
-                marginTop: 4,
-              }}
-            >
-              {formatAMPM(new Date(timestamp))}
-            </p>
           </div>
         );
       })}
@@ -146,12 +142,10 @@ const MessageList = ({ messages }) => {
   );
 };
 
-const MeetingChat = ({ tollbarHeight }) => {
+const GameView = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  let room = searchParams.get("room");
-  const { publish, messages } = usePubSub("CHAT", {});
-  const [message, setMessage] = useState("");
   const [dateNum, setDateNum] = useState("20220131");
+  const room = searchParams.get("room");
   useEffect(() => {
     const date = new Date();
     const year = date.getFullYear().toString();
@@ -167,19 +161,8 @@ const MeetingChat = ({ tollbarHeight }) => {
     // console.log(year + month + day);
     setDateNum(year + month + day);
   }, []);
-
   return (
-    <div
-      style={{
-        marginLeft: borderRadius,
-        width: 400,
-        backgroundColor: primary,
-        overflowY: "scroll",
-        borderRadius,
-        height: `calc(100vh - ${tollbarHeight + 2 * borderRadius}px)`,
-        padding: borderRadius,
-      }}
-    >
+    <div>
       {room === "game" ? (
         <iframe
           src={`https://hellowordl.net/?seed=` + dateNum}
@@ -190,10 +173,41 @@ const MeetingChat = ({ tollbarHeight }) => {
       ) : (
         <></>
       )}
-      <Title title={"Chat"} />
+    </div>
+  );
+};
 
-      <div style={{ display: "flex" }}>
+const MeetingChat = ({ tollbarHeight }) => {
+  const { publish, messages } = usePubSub("CHAT", {});
+  const [message, setMessage] = useState("");
+
+  return (
+    <div
+      style={{
+        border: "solid 2px grey",
+        backgroundColor: "white",
+        overflowY: "scroll",
+        height: "100%",
+      }}
+    >
+      <div style={{ display: "flex", position: "absolute", width:"400px", height: "40px", backgroundColor: "#393555", alignItems: "center"}}>
+        <span style={{color: "white", fontSize: "18px", padding: "10px 10px", fontWeight: "bold"}}>Chat with your partner</span>
+      </div>
+      <div style={{ maxHeight: "330px", marginTop: "50px", marginBottom: "50px", overflow: "scroll" }}>
+        <MessageList messages={messages} />
+      </div>
+      <div
+        style={{
+          width: "380px",
+          display: "flex",
+          justifyContent: "space-between",
+          position: "absolute",
+          bottom: 10,
+          padding: "0 10px"
+        }}
+      >
         <input
+          style={{ border: "solid 1px grey", minWidth: "320px", height: "30px", fontSize: "16px"}}
           value={message}
           onChange={(e) => {
             const v = e.target.value;
@@ -201,7 +215,7 @@ const MeetingChat = ({ tollbarHeight }) => {
           }}
         />
         <button
-          className={"button default"}
+          style={{ background: "none", border: "none", fontSize: "14px"}}
           onClick={() => {
             const m = message;
 
@@ -214,7 +228,6 @@ const MeetingChat = ({ tollbarHeight }) => {
           Send
         </button>
       </div>
-      <MessageList messages={messages} />
     </div>
   );
 };
@@ -222,36 +235,9 @@ const MeetingChat = ({ tollbarHeight }) => {
 const ParticipantView = ({ participantId }) => {
   const webcamRef = useRef(null);
   const micRef = useRef(null);
-  const screenShareRef = useRef(null);
 
-  const onStreamEnabled = (stream) => {};
-  const onStreamDisabled = (stream) => {};
-
-  const {
-    displayName,
-    participant,
-    webcamStream,
-    micStream,
-    screenShareStream,
-    webcamOn,
-    micOn,
-    screenShareOn,
-    isLocal,
-    isActiveSpeaker,
-    isMainParticipant,
-    switchTo,
-    pinState,
-    setQuality,
-    enableMic,
-    disableMic,
-    enableWebcam,
-    disableWebcam,
-    pin,
-    unpin,
-  } = useParticipant(participantId, {
-    onStreamEnabled,
-    onStreamDisabled,
-  });
+  const { displayName, webcamStream, micStream, webcamOn, micOn, isLocal } =
+    useParticipant(participantId);
 
   useEffect(() => {
     if (webcamRef.current) {
@@ -289,37 +275,15 @@ const ParticipantView = ({ participantId }) => {
     }
   }, [micStream, micOn]);
 
-  useEffect(() => {
-    if (screenShareRef.current) {
-      if (screenShareOn) {
-        const mediaStream = new MediaStream();
-        mediaStream.addTrack(screenShareStream.track);
-
-        screenShareRef.current.srcObject = mediaStream;
-        screenShareRef.current
-          .play()
-          .catch((error) =>
-            console.error("videoElem.current.play() failed", error)
-          );
-      } else {
-        screenShareRef.current.srcObject = null;
-      }
-    }
-  }, [screenShareStream, screenShareOn]);
-
   return (
     <div
       style={{
-        width,
-        backgroundColor: primary,
-        borderRadius: borderRadius,
+        margin: "5px 20px",
+        width: "calc(100% - 40px)",
         overflow: "hidden",
-        margin: borderRadius,
-        padding: borderRadius,
         display: "flex",
-        flex: 1,
         flexDirection: "column",
-        position: "relative",
+        height: "45vh",
       }}
     >
       <audio ref={micRef} autoPlay muted={isLocal} />
@@ -331,7 +295,7 @@ const ParticipantView = ({ participantId }) => {
           overflow: "hidden",
           backgroundColor: "pink",
           width: "100%",
-          height: 300,
+          height: "43vh",
         }}
       >
         <div
@@ -371,7 +335,17 @@ const ParticipantView = ({ participantId }) => {
             </p>
             <p
               style={{
-                color: webcamOn ? "green" : "red",
+                color: micOn ? "green" : "red",
+                fontSize: 16,
+                fontWeight: "bold",
+                opacity: 1,
+              }}
+            >
+              MIC
+            </p>
+            <p
+              style={{
+                color: "white",
                 fontSize: 16,
                 fontWeight: "bold",
                 opacity: 1,
@@ -380,117 +354,8 @@ const ParticipantView = ({ participantId }) => {
               {displayName}
             </p>
           </div>
-
-          <div
-            style={{
-              position: "absolute",
-              top: 10,
-              left: 10,
-            }}
-          >
-            {/* <button
-              className="button blue"
-              style={
-                {
-                  // height: 50,
-                  // width: 200,
-                }
-              }
-              onClick={async () => {
-                const meetingId = prompt(
-                  `Please enter meeting id where you want to switch ${displayName}`
-                );
-                const token = await getToken();
-                if (meetingId && token) {
-                  try {
-                    await switchTo({
-                      meetingId,
-                      payload: "Im Switching",
-                      token: token,
-                    });
-                  } catch (e) {
-                    console.log("swithc To Error", e);
-                  }
-                } else {
-                  alert("Empty meetingId!");
-                }
-              }}
-            >
-              Switch Participant
-            </button> */}
-          </div>
         </div>
       </div>
-
-      {/* <div
-        style={{
-          marginTop: borderRadius,
-          position: "relative",
-          borderRadius: borderRadius,
-          overflow: "hidden",
-          backgroundColor: "lightgreen",
-          width: "100%",
-          height: 300,
-        }}
-      >
-        <div
-          style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
-        >
-          <video
-            height={"100%"}
-            width={"100%"}
-            ref={screenShareRef}
-            style={{
-              backgroundColor: "black",
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              objectFit: "contain",
-            }}
-            autoPlay
-          />
-          <div
-            style={{
-              position: "absolute",
-              top: borderRadius,
-              right: borderRadius,
-            }}
-          >
-            <p
-              style={{
-                color: screenShareOn ? "green" : "red",
-                fontSize: 16,
-                fontWeight: "bold",
-                opacity: 1,
-              }}
-            >
-              SCREEN SHARING
-            </p>
-          </div>
-        </div>
-      </div> */}
-      {/* <table>
-        {[
-          { k: "Name", v: displayName },
-          { k: "webcamOn", v: webcamOn ? "YES" : "NO" },
-          { k: "micOn", v: micOn ? "YES" : "NO" },
-          { k: "screenShareOn", v: screenShareOn ? "YES" : "NO" },
-          { k: "isLocal", v: isLocal ? "YES" : "NO" },
-          { k: "isActiveSpeaker", v: isActiveSpeaker ? "YES" : "NO" },
-          { k: "isMainParticipant", v: isMainParticipant ? "YES" : "NO" },
-        ].map(({ k, v }) => (
-          <tr key={k}>
-            <td style={{ border: "1px solid #fff", padding: 4 }}>
-              <h3 style={{ margin: 0, padding: 0, color: "#fff" }}>{k}</h3>
-            </td>
-            <td style={{ border: "1px solid #fff", padding: 4 }}>
-              <h3 style={{ margin: 0, padding: 0, color: "#fff" }}>{v}</h3>
-            </td>
-          </tr>
-        ))}
-      </table> */}
     </div>
   );
 };
@@ -504,12 +369,11 @@ const ParticipantsView = () => {
         display: "flex",
         flexWrap: "wrap",
         flexDirection: "column",
-        padding: borderRadius,
+        height: "100%",
       }}
     >
-      <Title dark title={"Participants"} />
       {chunk([...participants.keys()]).map((k) => (
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
           {k.map((l) => (
             <ParticipantView key={l} participantId={l} />
           ))}
@@ -849,72 +713,9 @@ function MeetingView({ onNewMeetingIdToken, onMeetingLeave }) {
       style={{
         display: "flex",
         flexDirection: "column",
-        backgroundColor: "#D6E9FE",
       }}
     >
-      <div style={{ height: tollbarHeight }}>
-        {/* <button className={"button blue"} onClick={toggleScreenShare}>
-          toggleScreenShare
-        </button>
-        <button className={"button blue"} onClick={handlestartVideo}>
-          startVideo
-        </button>
-        <button className={"button blue"} onClick={handlestopVideo}>
-          stopVideo
-        </button>
-        <button className={"button blue"} onClick={handleresumeVideo}>
-          resumeVideo
-        </button>
-        <button className={"button blue"} onClick={handlepauseVideo}>
-          pauseVideo
-        </button>
-        <button className={"button blue"} onClick={handlesseekVideo}>
-          seekVideo
-        </button>
-        <button className={"button blue"} onClick={handleStartLiveStream}>
-          Start Live Stream
-        </button>
-        <button className={"button blue"} onClick={handleStopLiveStream}>
-          Stop Live Stream
-        </button>
-        <button className={"button blue"} onClick={handleStartRecording}>
-          start recording
-        </button>
-        <button className={"button blue"} onClick={handleStopRecording}>
-          stop recording
-        </button> */}
-        {/* <button
-          className={"button blue"}
-          onClick={() => setParticipantViewVisible((s) => !s)}
-        >
-          Switch to {participantViewVisible ? "Connections" : "Participants"}{" "}
-          view
-        </button> */}
-
-        {/* <button
-          className={"button blue"}
-          onClick={async () => {
-            const meetingId = prompt(
-              `Please enter meeting id where you want Connect`
-            );
-            if (meetingId) {
-              try {
-                await connectTo({
-                  meetingId,
-                  payload: "This is Testing Payload",
-                });
-              } catch (e) {
-                console.log("Connect to Error", e);
-              }
-            } else {
-              alert("Empty meetingId!");
-            }
-          }}
-        >
-          Make Connections
-        </button> */}
-      </div>
-      <h1>Meeting id is : {meetingId}</h1>
+      {/* <h1>Meeting id is : {meetingId}</h1> */}
       <div style={{ display: "flex", flex: 1 }}>
         <div
           style={{
@@ -923,23 +724,33 @@ function MeetingView({ onNewMeetingIdToken, onMeetingLeave }) {
             position: "relative",
             flex: 1,
             overflowY: "scroll",
-            height: `calc(100vh - ${tollbarHeight}px)`,
+            height: "100vh",
           }}
         >
-          <ParticipantsView />
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <div style={{ display: "flex", alignSelf: "start", margin: "10px 20px" }}>
             <Link className="b-link" href="/">
-              <Button className={"button red"}>Leave Meeting</Button>
+              <Button className="b-button mui">Leave Meeting</Button>
             </Link>
-            <Button className={"button blue"} onClick={toggleMic}>
+            <Button className="b-button mui" onClick={toggleMic}>
               Toggle Mic
             </Button>
-            <Button className={"button blue"} onClick={toggleWebcam}>
+            <Button className="b-button mui" onClick={toggleWebcam}>
               Toggle Webcam
             </Button>
           </div>
+          <ParticipantsView />
         </div>
-        <MeetingChat tollbarHeight={tollbarHeight} />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            height: "100vh",
+            width: 400,
+          }}
+        >
+          <GameView />
+          <MeetingChat tollbarHeight={tollbarHeight} />
+        </div>
       </div>
     </div>
   );

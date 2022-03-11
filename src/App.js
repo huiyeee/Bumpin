@@ -21,7 +21,7 @@ import MatchingPanel from "./components/MatchingPanel";
 import RoomSelected from "./components/RoomSelected";
 
 const App = () => {
-  const [headerText, setHeaderText] = useState("Welcome to Bump'n");
+  const [mainText, setMainText] = useState("Welcome to Bumpin");
   const [users, loading, error] = useData(`/users`);
   // const { meetingId } = useParams();
   const [user] = useUserState();
@@ -37,18 +37,16 @@ const App = () => {
       return;
     }
     if (users[user.uid].status === Initial) {
-      setHeaderText("Welcome to Bump'n");
+      setMainText("Welcome to Bumpin");
     } else if (users[user.uid].status === Profile) {
-      setHeaderText("Change my profile");
+      setMainText("Change my profile");
     } else if (users[user.uid].status === Matching) {
-      
-    } else if (users[user.uid].status === PreMatch){
-      setHeaderText("Hallway");
-    }
-      else if (users[user.uid].status === Redirect) {
-      setHeaderText("Redirecting, please wait");
+    } else if (users[user.uid].status === PreMatch) {
+      setMainText("Hallway");
+    } else if (users[user.uid].status === Redirect) {
+      setMainText("Redirecting, please wait");
     } else if (users[user.uid].status === Matched) {
-      setHeaderText("You've Bump'd into someone!!");
+      setMainText("You've Bump'd into someone!!");
     }
   }, [users]);
 
@@ -107,7 +105,7 @@ const App = () => {
         <MatchingPanel
           uid={user.uid}
           users={users}
-          setHeaderText={setHeaderText}
+          setHeaderText={setMainText}
         />
       );
     } else if (users[user.uid].status === Redirect) {
@@ -118,7 +116,8 @@ const App = () => {
           uid={user.uid}
           other={users[users[user.uid].partner]}
           shared_zoom_link={users[user.uid].shared_zoom_link}
-          room = {users[user.uid].roomPreference}
+          room={users[user.uid].roomPreference}
+          displayName={users[user.uid].displayName}
         />
       );
     } else if (users[user.uid].status === PreMatch) {
@@ -149,7 +148,8 @@ const App = () => {
         users[user.uid].status === PreMatch)
     ) {
       url =
-        "https://firebasestorage.googleapis.com/v0/b/bumpin-7d62f.appspot.com/o/hallway.png?alt=media&token=e15531cc-f54a-4d3f-8ad4-c33837ba8d60";}
+        "https://firebasestorage.googleapis.com/v0/b/bumpin-7d62f.appspot.com/o/hallway.png?alt=media&token=e15531cc-f54a-4d3f-8ad4-c33837ba8d60";
+    }
     // } else {
     //   url =
     //     "https://firebasestorage.googleapis.com/v0/b/bumpin-7d62f.appspot.com/o/background.png?alt=media&token=b35f2139-c32b-45ac-a713-1a194bae351e";
@@ -157,7 +157,7 @@ const App = () => {
     return {
       backgroundImage: "url(" + url + ")",
       backgroundPosition: "center",
-      backgroundSize: "100%",
+      backgroundSize: "auto 100%",
       backgroundRepeat: "no-repeat",
     };
   };
@@ -166,12 +166,17 @@ const App = () => {
       <CssBaseline />
       <div className="App" style={background(user, users)}>
         <header className="App-header" data-cy="welcome-header">
-          <img className="App-logo" src="https://firebasestorage.googleapis.com/v0/b/bumpin-7d62f.appspot.com/o/bumpin%20logo%203png%20(1).png?alt=media&token=bc14dedb-634b-494b-823c-67069b19c469"></img>
+          <div className="header-left">
+            <img
+              className="App-logo"
+              src="https://firebasestorage.googleapis.com/v0/b/bumpin-7d62f.appspot.com/o/bumpin%20logo%203png%20(1).png?alt=media&token=bc14dedb-634b-494b-823c-67069b19c469"
+            ></img>
+          </div>
         </header>
-        <div className="header-text">
-          {headerText}
-        </div>
-        <main className="App-main">{RenderPage()}</main>
+        <main className="App-main">
+          <div className="main-text">{mainText}</div>
+          {RenderPage()}
+        </main>
       </div>
     </ThemeProvider>
   );
