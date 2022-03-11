@@ -192,11 +192,7 @@ const MeetingChat = ({ tollbarHeight }) => {
         height: "100%",
       }}
     >
-      <div
-        style={{ position: "absolute", backgroundColor: "grey", width: "100%" }}
-      >
-        Chat
-      </div>
+      <div style={{ position: "absolute", backgroundColor: "grey" }}>Chat</div>
       <div style={{ marginTop: "30px" }}>
         <MessageList messages={messages} />
       </div>
