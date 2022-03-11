@@ -9,6 +9,7 @@ import {
   IconButton,
   Tooltip,
   Typography,
+  Link,
 } from "@material-ui/core";
 import React, { useEffect, useRef, useState } from "react";
 import {
@@ -168,13 +169,15 @@ export function JoiningScreen({
             left: theme.spacing(2),
           }}
         >
-          <IconButton
-            onClick={() => {
-              setReadyToJoin(false);
-            }}
-          >
-            <ArrowBack />
-          </IconButton>
+          <Link className="b-link" href="/">
+            <IconButton
+              onClick={() => {
+                setReadyToJoin(false);
+              }}
+            >
+              <ArrowBack />
+            </IconButton>
+          </Link>
         </Box>
       ) : null}
       <Grid
