@@ -157,7 +157,7 @@ const App = () => {
     return {
       backgroundImage: "url(" + url + ")",
       backgroundPosition: "center",
-      backgroundSize: "100%",
+      backgroundSize: "auto 100%",
       backgroundRepeat: "no-repeat",
     };
   };
