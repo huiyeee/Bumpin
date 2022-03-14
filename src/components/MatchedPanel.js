@@ -29,6 +29,7 @@ const MatchedPanel = ({ uid, other, shared_zoom_link, room, displayName }) => {
         onClick={() => {
           setData(`/users/${uid}/status`, Initial);
         }}
+        data-cy="leave-room-button"
       >
         <ExitToAppIcon />
         Leave the hallway

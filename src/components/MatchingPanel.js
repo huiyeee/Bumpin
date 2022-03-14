@@ -63,6 +63,7 @@ const MatchingPanel = ({ uid, users, setHeaderText }) => {
           onClick={() => {
             setData(`/users/${uid}/status`, PreMatch);
           }}
+          data-cy="leave-room-button"
         >
           <ExitToAppIcon />
           Leave the hallway

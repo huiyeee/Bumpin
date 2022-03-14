@@ -10,7 +10,7 @@ const LogOnPanel = () => {
     }}>
       <p className="login-warning">Please login to start first.</p>
       <p></p>
-      <Button className="b-button mui" onClick={() => signInWithGoogle()}>
+      <Button className="b-button mui" onClick={() => signInWithGoogle()} data-cy="sign-in-button">
         Sign In
       </Button>
     </div>

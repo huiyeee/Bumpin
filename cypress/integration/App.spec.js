@@ -4,14 +4,13 @@ describe ('Test App', () => {
       cy.visit ('/');
     });
 
-    it ('welcome header', () => {
-        cy.visit ('/test');
-        cy.get('[data-cy=welcome-header]').should('contain', `Welcome to Bump'n`);
+    it ('welcome text', () => {
+        cy.visit ('/');
+        cy.get('[data-cy=main-text]').should('contain', `Welcome to Bumpin`);
     });
 
     it ('login', () => {
-        cy.visit ('/test');
+        cy.visit ('/');
         cy.login();
-        cy.get('[data-cy=enter-button]').should('contain', `hallway`);
     });
 });

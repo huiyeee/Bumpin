@@ -17,6 +17,7 @@ const RoomSelected = ({ uid }) => {
           setData(`/users/${uid}/status`, Matching);
           setData(`/users/${uid}/roomPreference`, "game");
         }}
+        data-cy="game-room-button"
       >
         <SportsEsportsIcon />
         Enter the game room
@@ -26,6 +27,7 @@ const RoomSelected = ({ uid }) => {
         onClick={() => {
           setData(`/users/${uid}/status`, Initial);
         }}
+        data-cy="leave-hallway-button"
       >
         <ExitToAppIcon />
         Leave the hallway
@@ -36,6 +38,7 @@ const RoomSelected = ({ uid }) => {
           setData(`/users/${uid}/status`, Matching);
           setData(`/users/${uid}/roomPreference`, "coffee");
         }}
+        data-cy="coffee-room-button"
       >
          <EmojiFoodBeverageIcon />
         Enter the coffee room
