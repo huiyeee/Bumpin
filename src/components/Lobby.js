@@ -25,6 +25,7 @@ const LobbyPanel = ({ uid }) => {
           // setData(`/users/${user.uid}/team`, null)
           setData(`/users/${uid}/status`, Profile)
         }
+        data-cy="profile-button"
       >
         <PersonIcon />
         Change My Profile

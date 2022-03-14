@@ -105,7 +105,7 @@ const ChangeProfilePanel = ({ displayName, teamName, photoURL, uid }) => {
               </>
             ) : (
               <>
-                <div className="profile-name-input">{name}</div>
+                <div className="profile-name-input" data-cy="name-label">{name}</div>
                 <IconButton
                   onClick={() => {
                     setEditName(true);
@@ -125,6 +125,7 @@ const ChangeProfilePanel = ({ displayName, teamName, photoURL, uid }) => {
                   className="profile-name-input"
                   variant="standard"
                   value={team}
+                  data-cy="team-input"
                   onInput={(e) => setTeam(e.target.value)}
                   sx={{ input: { color: "white" } }}
                   InputProps={{
@@ -143,11 +144,12 @@ const ChangeProfilePanel = ({ displayName, teamName, photoURL, uid }) => {
               </>
             ) : (
               <>
-                <div className="profile-name-input">{team}</div>
+                <div className="profile-name-input" data-cy="team-label">{team}</div>
                 <IconButton
                   onClick={() => {
                     setEditTeam(true);
                   }}
+                  data-cy="team-input-button"
                 >
                   <EditIcon />
                 </IconButton>
@@ -179,6 +181,7 @@ const ChangeProfilePanel = ({ displayName, teamName, photoURL, uid }) => {
               className="b-button mui"
               type="submit"
               onClick={handleSubmit}
+              data-cy="profile-submit-button"
             >
               <CheckIcon />
               Submit
@@ -188,6 +191,7 @@ const ChangeProfilePanel = ({ displayName, teamName, photoURL, uid }) => {
               className="b-button mui"
               type="submit"
               onClick={handleGoBack}
+              data-cy="profile-back-button"
             >
               <ArrowBackIcon />
               Go Back
