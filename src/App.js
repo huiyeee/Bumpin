@@ -174,7 +174,7 @@ const App = () => {
           </div>
         </header>
         <main className="App-main">
-          <div className="main-text">{mainText}</div>
+          <div className="main-text" data-cy="main-text">{mainText}</div>
           {RenderPage()}
         </main>
       </div>
