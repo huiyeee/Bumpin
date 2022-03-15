@@ -11,7 +11,7 @@ import RoomSelected from "./RoomSelected";
 const LobbyPanel = ({ uid }) => {
   const LogOutButton = () => {
     return (
-      <Button className="b-button mui" onClick={() => signOut()}>
+      <Button className="b-button mui" onClick={() => signOut()} data-cy="signout-button">
         <PowerSettingsNewIcon />
         Sign Out
       </Button>
