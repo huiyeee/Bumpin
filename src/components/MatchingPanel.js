@@ -54,6 +54,7 @@ const MatchingPanel = ({ uid, users, setHeaderText }) => {
               matchIndex + 2 >= matches.length ? 0 : matchIndex + 2
             );
           }}
+          data-cy="keep-walking-button"
         >
           <DirectionsWalkIcon />
           Keep walking

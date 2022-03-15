@@ -31,7 +31,9 @@
     "lint:fix": "eslint --fix",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
     "deploy": "react-scripts build && firebase deploy",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "em:start": "firebase emulators:start --import=./saved-data --export-on-exit",
+    "em:run": "firebase emulators:exec --import=./saved-data 'npm start'"
   },
   "eslintConfig": {
     "extends": [
