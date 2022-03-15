@@ -2,7 +2,7 @@ import {useState, useEffect} from "react";
 // Import the functions you need from the SDKs you need
 import {initializeApp} from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
-import {getDatabase, onValue, ref, set} from "firebase/database";
+import {getDatabase, onValue, ref, set, connectDatabaseEmulator} from "firebase/database";
 
 import {
   getAuth,
@@ -10,6 +10,8 @@ import {
   onIdTokenChanged,
   signInWithPopup,
   signOut,
+  connectAuthEmulator,
+  signInWithCredential
 } from "firebase/auth";
 // https://firebase.google.com/docs/web/setup#available-libraries
 import {wait} from "@testing-library/user-event/dist/utils";
@@ -45,11 +47,22 @@ export const useUserState = () => {
 // Initialize Firebase
 const firebase = initializeApp(firebaseConfig);
 
+const auth = getAuth(firebase);
+
 export const env = window.location.host.indexOf("bumpin-7d62f") === -1 ? "development" : "production"
 
 export const database = getDatabase(firebase);
 
 export const setData = (path, value) => set(ref(database, env + path), value);
+
+if (window.Cypress) {
+  connectAuthEmulator(auth, "http://127.0.0.1:9099");
+  connectDatabaseEmulator(database, "127.0.0.1", 9000);
+
+  signInWithCredential(auth, GoogleAuthProvider.credential(
+    '{"sub": "qEvli4msW0eDz5mSVO6j3W7i8w1k", "email": "tester@gmail.com", "displayName":"Test User", "email_verified": true}'
+  ));
+}
 
 export const useData = (path, transform) => {
   const [data, setData] = useState();
