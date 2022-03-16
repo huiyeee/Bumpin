@@ -16,7 +16,9 @@ describe ('Authentcation', () => {
     });
     it ('signin', () => {
         cy.visit ('/');
+        cy.get('[data-cy=signout-button]').click();
         cy.get('[data-cy=sign-in-button]').should('contain', `Sign In`);
+        cy.get('[data-cy=sign-in-button]').click();
     });
     it ('Can enter hallway', () => {
         cy.login();
